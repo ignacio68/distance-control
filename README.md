@@ -1,6 +1,6 @@
-# com.controldistance.app
+# Covid 1 Distance Control
 
-> A native application built with NativeScript-Vue
+> This application serves to control the distance travel by the user from his home
 
 ## Usage
 
