@@ -1,0 +1,12 @@
+# JetBrains project files
+.idea
+
+# NPM
+node_modules
+
+# NativeScript application
+hooks
+platforms
+app/setup
+
+# app/App_resources/Android/google-services.json
