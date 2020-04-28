@@ -11,7 +11,7 @@ import Vue from 'nativescript-vue'
 
 import { device, isAndroid, isIOS } from 'tns-core-modules/platform'
 
-import App from './views/App.vue'
+import AppNavigator from './views/AppNavigator.vue'
 import VueDevtools from 'nativescript-vue-devtools'
 
 // Add NativeScript Font Icon plugin
@@ -44,10 +44,14 @@ v.filter('fonticon', fonticon)
 // Prints Vue logs when --env.production is *NOT* set while building
 v.config.silent = (TNS_ENV === 'production')
 
+// Add Side Drawer
 v.registerElement(
   'RadSideDrawer',
   () => require('nativescript-ui-sidedrawer').RadSideDrawer
 )
+
+// Add Mapbox component
+v.registerElement('Mapbox', () => require('nativescript-mapbox').MapboxView)
 
 new v({
   store,
@@ -68,5 +72,5 @@ new v({
       console.log("No se encuentra el idioma del navegador")
     }
   },
-  render: h => h('frame', [h(App)])
+  render: h => h('frame', [h(AppNavigator)])
 }).$start()

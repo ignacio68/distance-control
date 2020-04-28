@@ -3,7 +3,8 @@
     <ActionBar>
       <GridLayout
         width="100%"
-        columns="auto, *">
+        columns="auto, *"
+      >
         <Label
           text="MENU"
           col="0"
@@ -12,49 +13,53 @@
         <Label
           class="title"
           text="COVID 19 DISTANCE CONTROL"
-          col="1" />
+          col="1"
+        />
       </GridLayout>
     </ActionBar>
 
     <RadSideDrawer ref="drawer">
       <StackLayout
         ~drawerContent
-        backgroundColor="#ffffff">
+        backgroundColor="#ffffff"
+      >
         <Label
           class="drawer-header"
-          text="Drawer" />
+          text="Drawer"
+        />
 
         <Label
           class="drawer-item"
-          text="Item 1" />
+          text="Item 1"
+        />
         <Label
           class="drawer-item"
-          text="Item 2" />
+          text="Item 2"
+        />
         <Label
           class="drawer-item"
-          text="Item 3" />
+          text="Item 3"
+        />
       </StackLayout>
 
-      <GridLayout
+      <StackLayout
         ~mainContent
-        columns="*"
-        rows="*">
-        <Label
-          class="message"
-          :text="msg"
-          col="0" 
-          row="0" 
-        />
-      </GridLayout>
+      >
+        <Map />
+      </StackLayout>
     </RadSideDrawer>
   </Page>
 </template>
 
 <script lang="ts">
+import Map from './Main/Map.vue'
 export default {
+  name: 'AppNavigator',
+  components: {
+    Map
+  },
   data() {
     return {
-      msg: 'Hello World!',
     }
   },
 }
