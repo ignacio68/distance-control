@@ -1,27 +1,50 @@
 <template>
   <Page>
     <ActionBar>
-      <GridLayout width="100%" columns="auto, *">
+      <GridLayout
+        width="100%"
+        columns="auto, *">
         <Label
           text="MENU"
-          @tap="$refs.drawer.nativeView.showDrawer()"
           col="0"
+          @tap="$refs.drawer.nativeView.showDrawer()"
         />
-        <Label class="title" text="Welcome to NativeScript-Vue!" col="1" />
+        <Label
+          class="title"
+          text="COVID 19 DISTANCE CONTROL"
+          col="1" />
       </GridLayout>
     </ActionBar>
 
     <RadSideDrawer ref="drawer">
-      <StackLayout ~drawerContent backgroundColor="#ffffff">
-        <Label class="drawer-header" text="Drawer" />
+      <StackLayout
+        ~drawerContent
+        backgroundColor="#ffffff">
+        <Label
+          class="drawer-header"
+          text="Drawer" />
 
-        <Label class="drawer-item" text="Item 1" />
-        <Label class="drawer-item" text="Item 2" />
-        <Label class="drawer-item" text="Item 3" />
+        <Label
+          class="drawer-item"
+          text="Item 1" />
+        <Label
+          class="drawer-item"
+          text="Item 2" />
+        <Label
+          class="drawer-item"
+          text="Item 3" />
       </StackLayout>
 
-      <GridLayout ~mainContent columns="*" rows="*">
-        <Label class="message" :text="msg" col="0" row="0" />
+      <GridLayout
+        ~mainContent
+        columns="*"
+        rows="*">
+        <Label
+          class="message"
+          :text="msg"
+          col="0" 
+          row="0" 
+        />
       </GridLayout>
     </RadSideDrawer>
   </Page>
@@ -37,7 +60,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 ActionBar {
   background-color: #53ba82;
   color: #ffffff;
