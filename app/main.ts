@@ -62,7 +62,7 @@ new v({
     console.log(`Running on Android? ${isAndroid}`)
     console.log(`Running on iOS? ${isIOS}`)
 
-    // // Set app language
+    // Set app language
     const val = device.language
     const lang = val.slice(0, 2)
     if (lang) {
