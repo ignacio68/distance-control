@@ -45,7 +45,9 @@
       <StackLayout
         ~mainContent
       >
-        <Map />
+        <Frame>
+          <Map />
+        </Frame>
       </StackLayout>
     </RadSideDrawer>
   </Page>
