@@ -17,9 +17,6 @@ import VueDevtools from 'nativescript-vue-devtools'
 // Add NativeScript Font Icon plugin
 import { TNSFontIcon, fonticon } from 'nativescript-fonticon'
 
-// VUEX
-import store from './store'
-
 // Import languages
 import i18n from "./setup/i18n"
 
@@ -54,7 +51,6 @@ v.registerElement(
 v.registerElement('Mapbox', () => require('nativescript-mapbox').MapboxView)
 
 new v({
-  store,
   beforeCreate() {
     // Set the platform OS global variable
     v.prototype.IS_ANDROID = isAndroid
