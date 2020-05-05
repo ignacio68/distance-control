@@ -8,5 +8,7 @@ node_modules
 hooks
 platforms
 app/setup
+report
+sourceMap
 
 # app/App_resources/Android/google-services.json
