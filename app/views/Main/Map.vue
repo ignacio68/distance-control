@@ -3,7 +3,7 @@
     <StackLayout>
       <MapComponent
         :accessToken="accessToken"
-        :zoomLevel="13"
+        :zoomLevel="15"
         :userLatitude="userLocation.latitude"
         :userLongitude="userLocation.longitude"
         @onMapReady="showMarkers($event)"
@@ -25,7 +25,9 @@
 </template>
 <script lang="ts">
 import { mapboxToken } from '@/setup/Mapbox'
-import { getUserCurrentLocation, isLocationServicesEnabled } from '@/services/geolocation'
+import { getUserCurrentLocation } from '@/services/geolocation'
+import { state } from '@/store/geolocation'
+import { UserLocation } from '@/store/types'
 // import { setUserHomeMarker } from '@/services/map'
 import MapComponent from '@/components/Main/MapComponent.vue'
 
@@ -37,52 +39,35 @@ export default {
   data() {
     return {
       accessToken: mapboxToken,
-      // userLocation: {
-      //   latitude: '40.4165001',
-      //   longitude: '-3.7025599'
-      // },
-      // userLatitude: null,
-      // userLongitude: null,
       markers: null,
     }
   },
   computed: {
-    getMarkers() {
-    // return this.userHomeMarker()
-      return console.log('getMarkers()')
-    },
-    userLocation() {
-      console.log('userLocation()')
-      return this.getUserLocation()
+    // getMarkers() {
+    // // return this.userHomeMarker()
+    //   return console.log('getMarkers()')
+    // },
+    userLocation(): UserLocation {
+      console.log(`userLocation latitude: ${state.userLocation.latitude}`)
+      return state.userLocation
     }
   },
   created() {
-    console.log('created()')
     // isLocationServicesEnabled()
-    // this.getUserLocation()
-    return this.userLocation
-    // console.log(`user latitude: ${this.userLocation.latitude}`)
-    // console.log(`use longitude: ${this.userLocation.longitude}`)
+    getUserCurrentLocation()
   },
   methods: {
-    // setUserMarker() {
-    //   const markerCoordinates = setUserHomeMarker()
-    // },
+    setUserMarker() {
+      const markerCoordinates = {
+        lat: this.userLocation.latitude,
+        lng: this.userLocation.longitude
+      }
+      return markerCoordinates
+    },
     showMarkers(args) {
-      // args.map.addMarkers(this.getMarkers)
-      console.log(`Este es el Home marker: ${this.getMarkers}`)
+      args.map.addMarkers(this.setUserMarker)
+      console.log(`Este es el Home marker: ${JSON.stringify(this.setUserMarker)}`)
     },
-    getUserLocation() {
-      console.log('getUserLocation()')
-      const userCurrentLocation = getUserCurrentLocation()
-      console.log(`userCurrentLocation: ${userCurrentLocation}`)
-      return userCurrentLocation
-    },
-    // userHomeMarker() {
-    //   const userHomeMarkerCoordinates = setUserHomeMarker()
-    //   return userHomeMarkerCoordinates
-    // }
-    
   },
 }
 </script>
