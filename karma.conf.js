@@ -4,7 +4,8 @@ module.exports = function (config) {
     // base path that will be used to resolve all patterns (eg. files, exclude)
     basePath: '',
 
-
+    // plugins: ['karma-qunit'],
+    
     // frameworks to use
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
     frameworks: ['qunit'],
@@ -51,6 +52,11 @@ module.exports = function (config) {
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
     browsers: [],
+
+    captureTimeout: 60000, // it was already there
+    browserDisconnectTimeout : 10000,
+    browserDisconnectTolerance : 1,
+    browserNoActivityTimeout : 60000,//by default 10000
 
     customLaunchers: {
       android: {
