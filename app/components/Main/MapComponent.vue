@@ -4,14 +4,15 @@
       left="0"
       top="0"
       width="100%"
-      height="100%"
+      height="80%"
       :accessToken="accessToken"
-      mapStyle="traffic_night"
+      mapStyle="traffic_day"
       :latitude="userLatitude"
       :longitude="userLongitude"
       :zoomLevel="zoomLevel"
       :hideCompass="true"
       :disableRotation="true"
+      :showUserLocation="true"
       @mapReady="onMapReady"
     />
   </AbsoluteLayout>
@@ -27,7 +28,7 @@ export default {
     },
     zoomLevel: {
       type: Number,
-      default: 5
+      default: 12
     },
     userLatitude: {
       type: String,
