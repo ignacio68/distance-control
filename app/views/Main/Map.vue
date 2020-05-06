@@ -6,7 +6,7 @@
         :zoomLevel="15"
         :userLatitude="userLocation.latitude"
         :userLongitude="userLocation.longitude"
-        @onMapReady="showMarkers($event)"
+        @onMapReady="onMapReady($event)"
       />
       <Label>
         <FormattedString>
@@ -39,6 +39,14 @@ export default {
   data() {
     return {
       accessToken: mapboxToken,
+      markerCoordinates: [{
+        id: 1,
+        lat: 40.4561397,
+        lng: -3.6806146,
+        title: 'Tu localización',
+        selected: true,  
+        onTap: () => console.log('Buena localización!!')
+      }],
       markers: null,
     }
   },
@@ -54,20 +62,69 @@ export default {
   },
   created() {
     // isLocationServicesEnabled()
-    getUserCurrentLocation()
+    // getUserCurrentLocation()
   },
   methods: {
+    setCenter(args) {
+      args.map.setCenter(
+        {
+          lat: Number(this.userLocation.latitude),
+          lng: Number(this.userLocation.longitude)
+        }
+      )
+    },
     setUserMarker() {
-      const markerCoordinates = {
-        lat: this.userLocation.latitude,
-        lng: this.userLocation.longitude
-      }
+      const coordinates = state.userLocation
+      const markerCoordinates = [{
+        id: 1,
+        lat: 40.4561397,
+        lng: -3.6806146,
+        title: 'Tu localización',
+        selected: true,  
+        onTap: () => console.log('Buena localización!!')
+      }]
       return markerCoordinates
     },
     showMarkers(args) {
-      args.map.addMarkers(this.setUserMarker)
-      console.log(`Este es el Home marker: ${JSON.stringify(this.setUserMarker)}`)
+      args.map.addMarkers(this.setUserMarker())
+      // console.log(`Este es el Home marker: ${JSON.stringify(this.markerCoordinates)}`)
     },
+    onMapReady(args) {
+      this.setCenter(args)
+      this.showMarkers(args)
+    },
+    addCircle(args) {
+      args.map.addLayer({
+        "id": "circle",
+    "type": 'circle',
+    "radius-meters": 500,   // FIXME: radius in meters used for in-circle click detection. 
+    "source": {
+      "type": 'geojson',
+      "data": {
+        "type": "Feature",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [ Number(this.userLocation.longitude), Number(this.userLocation.latitude) ]
+        }
+      }
+    }, 
+    "paint": {
+      "circle-radius": {
+        "stops": [
+          [0, 0],
+          [20, 10000 ]
+        ],
+        "base": 2
+      },
+      'circle-opacity': 0.05,
+      'circle-color': '#ed6498',
+      'circle-stroke-width': 2,
+      'circle-stroke-color': '#ed6498'
+    } 
+      })
+    }
+
+
   },
 }
 </script>
