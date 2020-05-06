@@ -11,7 +11,9 @@
       :longitude="userLongitude"
       :zoomLevel="zoomLevel"
       :hideCompass="true"
-      :disableRotation="true"
+      :disableRotation="false"
+      :disableScroll="false"
+      :disableZoom="false"
       :showUserLocation="true"
       @mapReady="onMapReady"
     />
@@ -32,11 +34,11 @@ export default {
     },
     userLatitude: {
       type: String,
-      default: "45.137451890638886"
+      required: true
     },
     userLongitude: {
       type: String,
-      default: "-68.13734351262877"
+      required: true
     }
   },
   methods: {
