@@ -1,4 +1,4 @@
-export interface RootState {
-  appName: string
-  appVersion: string
+export interface UserLocation {
+  latitude: number
+  longitude: number
 }
