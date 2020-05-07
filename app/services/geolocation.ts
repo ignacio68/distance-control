@@ -1,7 +1,7 @@
 import * as geolocation from 'nativescript-geolocation'
 import { Accuracy } from 'tns-core-modules/ui/enums'
 import { UserLocation } from '@/store/types'
-import { setUserLocation } from '@/store/geolocation'
+import userLocation from '@/store/userLocation'
 
 const enableLocationRequest = (option: boolean) =>
   geolocation.enableLocationRequest(option).then(() => {
@@ -19,27 +19,45 @@ const isLocationServicesEnabled = () =>
   })
 
 const fetchCurrentUserLocation = () =>
-  geolocation.getCurrentLocation({}).then(result => result)
+  geolocation.getCurrentLocation({}).then((result) => result)
 
 const getUserCurrentLocation = async () => {
-  console.log('fakeUserCurrentLocation()')
+  console.log('getUserCurrentLocation()')
   const isEnabled = isLocationServicesEnabled()
   if (!isEnabled) {
     console.log(`It cannot return the user current coordinates`)
     return
   }
-  const fetchUserLocation = await fetchCurrentUserLocation().catch(e => console.log(`getCurrentLocation() error: ${e.message || e}`))
+  const fetchUserLocation = await fetchCurrentUserLocation().catch((e) =>
+    console.log(`getCurrentLocation() error: ${e.message || e}`)
+  )
   if (fetchUserLocation) {
-    console.dir(`fetchUserLocation: ${console.log(fetchUserLocation)}`)
-    const userLocation: UserLocation = {
-      latitude: String(fetchUserLocation.latitude),
-      longitude: String(fetchUserLocation.longitude),
+    const location: UserLocation = {
+      lat: String(fetchUserLocation.latitude),
+      lng: String(fetchUserLocation.longitude)
     }
-    setUserLocation(userLocation)
+    userLocation.setUserLocation(location)
   }
 }
 
-export {
-  getUserCurrentLocation,
-  isLocationServicesEnabled,
+const watchUserLocation = () => { // TODO: revisar sintaxis
+  console.log('watchUserLocation()')
+  geolocation.watchLocation(
+    (position) => {
+      const currentLocation: UserLocation = {
+        lat: String(position.latitude),
+        lng: String(position.longitude)
+      }
+      return currentLocation
+    },
+    (e) => {
+      console.log(`failed to get location: ${e}`)
+    },
+    {
+      desiredAccuracy: Accuracy.high,
+      minimumUpdateTime: 500,
+    }
+  )
 }
+
+export { getUserCurrentLocation, isLocationServicesEnabled, watchUserLocation }
