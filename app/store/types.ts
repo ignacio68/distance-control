@@ -1,4 +1,4 @@
 export interface UserLocation {
-  latitude: number
-  longitude: number
+  lat: string
+  lng: string
 }
