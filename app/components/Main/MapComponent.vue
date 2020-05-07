@@ -11,7 +11,7 @@
       :longitude="userLongitude"
       :zoomLevel="zoomLevel"
       :hideCompass="true"
-      :disableRotation="false"
+      :disableRotation="true"
       :disableScroll="false"
       :disableZoom="false"
       :showUserLocation="true"
