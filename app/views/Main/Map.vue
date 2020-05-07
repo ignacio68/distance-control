@@ -49,11 +49,7 @@ export default {
     }
   },
   computed: {
-    // getMarkers() {
-    // // return this.userHomeMarker()
-    //   return console.log('getMarkers()')
-    // },
-    userLocation(): UserLocation {
+     userLocation(): UserLocation {
       console.log(`userLocation latitude: ${userLocation.getUserLocation().lat}`)
       return userLocation.getUserLocation()
     },
@@ -62,12 +58,11 @@ export default {
     }
   },
   created() {
-    this.setCenter()
+    this.$nextTick(this.setCenter())
   },
   methods: {
     showSecurityArea(args) {
       args.map.addPolygon(circleProps)
-      // mapbox.addLayer(circleProps)
     },
     async setCenter(args) {
       const coordinates = this.userLocation
