@@ -1,7 +1,7 @@
 import Vue from 'Vue'
 import { UserLocation } from './types'
 
-export const state = Vue.observable({
+const state = Vue.observable({
     userLocation: {
         lat: 0,
         lng: 0
@@ -9,8 +9,7 @@ export const state = Vue.observable({
     userCurrentLocation: {
         lat: 0,
         lng: 0
-    },
-    isSecurityArea: false
+    }
 })
 
 export const getOriginLocation = () => { 
@@ -22,7 +21,7 @@ export const getOriginLocation = () => {
 }
 export const getUserLocation = () => state.userLocation
 export const getUserCurrentLocation = () => state.userCurrentLocation
-export const getIsSecurityArea = () => state.isSecurityArea
+
 
 export const setUserLocation = (coordinates: UserLocation) => {
     // Object.assign({state}, coordinates) // TODO: Change coordinates name to userLocation
@@ -30,15 +29,12 @@ export const setUserLocation = (coordinates: UserLocation) => {
     state.userLocation.lng = coordinates.lng
 }
 export const setUserCurrentLocation = (coordinates: UserLocation) => state.userCurrentLocation = coordinates
-export const setIsSecurityArea = !state.isSecurityArea
+
 
 export default {
-    state,
     getOriginLocation,
     getUserLocation,
     getUserCurrentLocation,
-    getIsSecurityArea,
     setUserLocation,
     setUserCurrentLocation,
-    setIsSecurityArea
 }
