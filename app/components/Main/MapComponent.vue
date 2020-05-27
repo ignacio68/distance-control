@@ -1,6 +1,7 @@
 <template>
   <AbsoluteLayout class="map">
     <MapBox
+      ref="map"
       left="0"
       top="0"
       width="100%"
