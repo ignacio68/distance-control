@@ -4,20 +4,20 @@
       <MapComponent
         :accessToken="accessToken"
         :zoomLevel="15"
-        :userLatitude="originLocation.lat"
-        :userLongitude="originLocation.lng"
+        :userLatitude="userCoordinates.lat"
+        :userLongitude="userCoordinates.lng"
         @onMapReady="onMapReady($event)"
       />
       <Label>
         <FormattedString>
           <Span text="Latitude: " />
-          <Span :text="originLocation.lat" />
+          <Span :text="currentUserLocation.lat" />
         </FormattedString>
       </Label>
       <Label>
         <FormattedString>
           <Span text="Longitude: " />
-          <Span :text="originLocation.lng" />
+          <Span :text="currentUserLocation.lng" />
         </FormattedString>
       </Label>
     </StackLayout>
@@ -27,7 +27,7 @@
 <script lang="ts">
 import { mapboxToken } from '@/setup/Mapbox'
 
-import { fetchCurrentUserLocation, getUserCurrentLocation } from '@/services/geolocation'
+import { fetchCurrentUserLocation, getCurrentUserLocation } from '@/services/geolocation'
 import { circleProps, coordinates } from '@/services/map'
 
 import userLocation from '@/store/userLocation'
@@ -38,71 +38,72 @@ import MapComponent from '@/components/Main/MapComponent.vue'
 
 export default {
   name: 'Map',
+
   components: {
     MapComponent,
   },
+
   data() {
     return {
       accessToken: mapboxToken,
-      originLocation: {
+      userCoordinates: {
         lat: '',
         lng: '',
       },
       markers: null,
     }
   },
+
   computed: {
-    // originLocation() {
-    //   console.log('originLocation()')
-    //   return this.setInitialCoordinates()
-    // }, 
-    userLocation(): UserLocation {
-      console.log(
-        `userLocation latitude: ${userLocation.getUserLocation().lat}`
-      )
-      return userLocation.getUserLocation()
-    },
-    currentUserLocation(): UserLocation {
-      return userLocation.getUserCurrentLocation()
+    getUserCurrentLocation(): UserLocation {
+      return userLocation.getCurrentUserLocation()
     },
   },
+
   created() {
     console.log('created()')
-    this.setInitialCoordinates()
+    this.setCurrentUserLocation()
   },
-  // mounted() {
-  //   console.log('mounted()')
-  //   this.$nextTick(this.setCenter())
-  // },
+
   methods: {
+    setCurrentUserLocation(){
+      console.log('setInitialCoordinates()')
+      getCurrentUserLocation().then((coordinates) => {
+        this.userCoordinates.lat = String(coordinates.lat)
+        this.userCoordinates.lng = String(coordinates.lng)
+        })
+    },
     showSecurityArea(args) {
       args.map.addPolygon(circleProps)
       console.log('showSecurityArea() coordinates: ' + JSON.stringify(coordinates))
       // console.dir(circleProps)
     },
-    setInitialCoordinates(){
-      console.log('setInitialCoordinates()')
-      fetchCurrentUserLocation().then(coordinates => {
-        this.originLocation.lat = String(coordinates.lat)
-        this.originLocation.lng = String(coordinates.lng)
-        })
+    setHomeMarker(){
+      const homeCoordinates = this.originLocation
+      const homeMarkerProps = {
+        id: "home",
+        lat: Number(homeCoordinates.lat),
+        lng: Number(homeCoordinates.lng),
+        title: 'Esta es tu localización original',
+        selected: true,
+      }
     },
-    async setCenter(args) {
-      console.log('setCenter()')
-      await getUserCurrentLocation().then(() => {
-        const coordinates = this.userLocation
-        args.map.setCenter({
-          lat: coordinates.lat,
-          lng: coordinates.lng,
-          zoomLevel: 15
-        })
-        console.log('coordinates: ')
-        console.dir(coordinates)
-      })
-    },
+    // setCenter(args) {
+    //   console.log('setCenter()')
+    //   getCurrentUserLocation().then(() => {
+    //     const coordinates = this.getUserLocation
+    //     args.map.setCenter({
+    //       lat: coordinates.lat,
+    //       lng: coordinates.lng,
+    //       zoomLevel: 15
+    //     })
+    //     console.log('coordinates: ')
+    //     console.dir(coordinates)
+    //   })
+    // },
     setUserMarker(args) {
-      const coordinates = this.userLocation
-      const markerCoordinates = [
+      const coordinates = this.currentUserLocation
+      const markerProps = [
         {
           id: 1,
           lat: coordinates.lat,
@@ -112,15 +113,16 @@ export default {
           onTap: () => this.showSecurityArea(args),
         },
       ]
-      return markerCoordinates
+      return markerProps
     },
     showMarkers(args) {
       args.map.addMarkers(this.setUserMarker(args))
     },
     onMapReady(args) {
       console.log('onMapReady()')
-      this.setCenter(args).then(() => this.showMarkers(args))
-    },
-  },
+      // this.setCenter(args).then(() => this.showMarkers(args))
+      this.showMarkers(args)
+    }
+  }
 }
 </script>

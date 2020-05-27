@@ -1,6 +1,6 @@
 import * as geolocation from 'nativescript-geolocation'
 import { Accuracy } from 'tns-core-modules/ui/enums'
-import { UserLocation } from '@/store/types'
+import { Coordinates } from '@/utils/types'
 import userLocation from '@/store/userLocation'
 
 const enableLocationRequest = (option: boolean) =>
@@ -19,8 +19,8 @@ const isLocationServicesEnabled = () =>
   })
 
 const fetchCurrentUserLocation = () =>
-  geolocation.getCurrentLocation({}).then((result): UserLocation => {
-    const location: UserLocation = {
+  geolocation.getCurrentLocation({}).then((result): Coordinates => {
+    const location: Coordinates = {
       lat: result.latitude,
       lng: result.longitude
     }
@@ -35,7 +35,7 @@ const fetchCurrentUserLocation = () =>
 //         return
 //       }
 //       const location = await fetchCurrentUserLocation()
-//       const coordinates: UserLocation = {
+//       const coordinates: Coordinates = {
 //         lat: location.latitude,
 //         lng: location.longitude,
 //       }
@@ -45,20 +45,21 @@ const fetchCurrentUserLocation = () =>
 //     })
 //     .catch((e) =>console.log(`getCurrentLocation() error: ${e.message || e}`))
 // }
-const getUserCurrentLocation = async () => {
+const getCurrentUserLocation = async () => {
   console.log('getUserCurrentLocation()')
   const isEnabled = isLocationServicesEnabled()
   if (!isEnabled) {
     console.log(`It cannot return the user current coordinates`)
     return
   }
-  const fetchUserLocation = await fetchCurrentUserLocation().catch((e) =>
+  const location = await fetchCurrentUserLocation().catch((e) =>
     console.log(`getCurrentLocation() error: ${e.message || e}`)
   )
-  if (fetchUserLocation) {
+  if (location) {
     console.log('fetchCurrentUserLocation()')
-    console.dir(fetchUserLocation)
-    userLocation.setUserLocation(fetchUserLocation)
+    console.dir(location)
+    userLocation.setCurrentUserLocation(location)
+    return location
   }
 }
 
@@ -83,4 +84,4 @@ const watchUserLocation = () => {
   )
 }
 
-export { fetchCurrentUserLocation, getUserCurrentLocation, isLocationServicesEnabled, watchUserLocation }
+export { fetchCurrentUserLocation, getCurrentUserLocation, isLocationServicesEnabled, watchUserLocation }

@@ -3,7 +3,7 @@ import { getCircleCoordinates } from '@/utils/circle'
 import { Coordinates } from '@/utils/types'
 import userLocation from '@/store/userLocation'
 
-export const coordinates: Coordinates = userLocation.getUserLocation()
+export const coordinates: Coordinates = userLocation.getCurrentUserLocation()
 
 const origin: Coordinates = {
   lat: coordinates.lat,
