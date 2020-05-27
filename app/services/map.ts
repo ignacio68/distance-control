@@ -3,22 +3,22 @@ import { getCircleCoordinates } from '@/utils/circle'
 import { Coordinates } from '@/utils/types'
 import userLocation from '@/store/userLocation'
 
-const coordinates = userLocation.getUserCurrentLocation()
+export const coordinates: Coordinates = userLocation.getUserLocation()
 
 const origin: Coordinates = {
-  lat: Number(coordinates.lat),
-  lng: Number(coordinates.lng)
+  lat: coordinates.lat,
+  lng: coordinates.lng
 }
 
 const circlePoints: Coordinates[] = getCircleCoordinates({
   center: origin,
   radius: 1000,
-  numberOfPoints: 18,
+  numberOfPoints: 64,
 })
 
 export const circleProps = {
   id: 'circle',
-  fillColor: new Color('red'),
+  fillColor: new Color('green'),
   fillOpacity: 0.7,
   points: circlePoints,
 }
