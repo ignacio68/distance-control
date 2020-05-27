@@ -19,8 +19,32 @@ const isLocationServicesEnabled = () =>
   })
 
 const fetchCurrentUserLocation = () =>
-  geolocation.getCurrentLocation({}).then((result) => result)
+  geolocation.getCurrentLocation({}).then((result): UserLocation => {
+    const location: UserLocation = {
+      lat: result.latitude,
+      lng: result.longitude
+    }
+    return location
+  })
 
+// const getUserCurrentLocation = async () => {
+//   console.log('getUserCurrentLocation()')
+//   isLocationServicesEnabled()
+//     .then(async (isEnabled) => {
+//       if (!isEnabled) {
+//         return
+//       }
+//       const location = await fetchCurrentUserLocation()
+//       const coordinates: UserLocation = {
+//         lat: location.latitude,
+//         lng: location.longitude,
+//       }
+//       console.log('fetchCurrentUserLocation()')
+//       console.dir(coordinates)
+//       userLocation.setUserLocation(coordinates)
+//     })
+//     .catch((e) =>console.log(`getCurrentLocation() error: ${e.message || e}`))
+// }
 const getUserCurrentLocation = async () => {
   console.log('getUserCurrentLocation()')
   const isEnabled = isLocationServicesEnabled()
@@ -32,21 +56,20 @@ const getUserCurrentLocation = async () => {
     console.log(`getCurrentLocation() error: ${e.message || e}`)
   )
   if (fetchUserLocation) {
-    const location: UserLocation = {
-      lat: String(fetchUserLocation.latitude),
-      lng: String(fetchUserLocation.longitude)
-    }
-    userLocation.setUserLocation(location)
+    console.log('fetchCurrentUserLocation()')
+    console.dir(fetchUserLocation)
+    userLocation.setUserLocation(fetchUserLocation)
   }
 }
 
-const watchUserLocation = () => { // TODO: revisar sintaxis
+const watchUserLocation = () => {
+  // TODO: revisar sintaxis
   console.log('watchUserLocation()')
   geolocation.watchLocation(
-    (position) => {
+    position => {
       const currentLocation: UserLocation = {
-        lat: String(position.latitude),
-        lng: String(position.longitude)
+        lat: position.latitude,
+        lng: position.longitude,
       }
       return currentLocation
     },
@@ -60,4 +83,4 @@ const watchUserLocation = () => { // TODO: revisar sintaxis
   )
 }
 
-export { getUserCurrentLocation, isLocationServicesEnabled, watchUserLocation }
+export { fetchCurrentUserLocation, getUserCurrentLocation, isLocationServicesEnabled, watchUserLocation }
