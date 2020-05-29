@@ -7,15 +7,28 @@
           @tap="removeMarker('user')"
         /> -->
         <Button
-          text="Seguridad"
-          @tap="setSecurityArea('user')"
+          class="-primary -rounded-sm m-x-0"
+          text="Nuevo"
+          @tap="newSecurityArea('user')"
         />
         <Button
-          text="Borrar Area"
-          @tap="removePolygon('user')"
+          class="-primary -rounded-sm m-x-0"
+          text="Ocultar"
+          @tap="showSecurityArea('user', false)"
         />
         <Button
-          text="Center"
+          class="-primary -rounded-sm m-x-0"
+          text="Mostrar"
+          @tap="showSecurityArea('user', true)"
+        />
+        <Button
+          class="-primary -rounded-sm m-x-0"
+          text="Borrar"
+          @tap="removeSecurityArea('user')"
+        />
+        <Button
+          class="-primary -rounded-sm m-x-0"
+          text="Centrar"
           @tap="setCenter()"
         />
       </StackLayout>
@@ -63,15 +76,16 @@
 </template>
 
 <script lang="ts">
-import { Color } from 'tns-core-modules'
-import { MapboxMarker, LatLng, AddPolygonOptions } from 'nativescript-mapbox'
-import { mapboxToken } from '@/setup/Mapbox'
+import { mapToken } from '@/setup/map'
 
-import { setCenter } from '@/api/map'
+import { Color } from 'tns-core-modules/color/color'
+import * as map from '@/api/map'
 import { getCurrentUserLocation } from '@/services/geolocation'
-import { getSecurityAreaPoints } from '@/services/map'
+
+import { Coordinates, Marker } from '@/utils/types'
 
 import userLocation from '@/store/userLocation'
+import securityArea from '@/store/securityArea'
 
 import MapComponent from '@/components/Main/MapComponent.vue'
 
@@ -84,23 +98,22 @@ export default {
 
   data() {
     return {
-      accessToken: mapboxToken,
+      accessToken: mapToken,
       centerMap: {
         lat: '',
         lng: '',
       },
-      markers: [],
-      map: null,
+      map: void 0,
       radius: 10,
       fillColor: 'green',
       fillOpacity: 0.5,
-      isSecurityAreaList:[],
-      isSecurityArea: false
+
+      activeUser: void 0
     }
   },
 
   computed: {
-    currentUserLocation(): LatLng {
+    currentUserLocation(): Coordinates {
       return userLocation.getCurrentUserLocation()
     },
   },
@@ -115,6 +128,9 @@ export default {
       console.log(`value: ${value}`)
       this.radius = value
     },
+
+    /***** MAP *****/
+
     setInitialUserLocation() {
       console.log('setInitialCoordinates()')
       getCurrentUserLocation().then((coordinates) => {
@@ -123,89 +139,70 @@ export default {
       })
     },
 
-    setSecurityArea(name) {
-      console.log('setSecurityArea()')
-        if (this.isSecurityArea) return
-        getSecurityAreaPoints(this.radius).then( points => {
-        console.log(`setSecurityArea point[15]: ${points[15]}`)
-        const circleProps: AddPolygonOptions ={
-        id: name,
-        points: points,
-        fillColor: new Color(this.fillColor),
-        fillOpacity: this.fillOpacity
-      }  
-        this.map.addPolygon(circleProps).then(() => this.isSecurityArea = true)
-        
-        })
-    },
-
-    removePolygon(name) {
-      if (!this.isSecurityArea) return
-      console.log(`remove polygon: ${name}`)
-      this.map.removePolygons(name).then(() => this.isSecurityArea = false)
-      
-    },
-    setHomeMarker() {
-      const homeCoordinates = this.originLocation
-      const homeMarkerProps = {
-        id: 'home',
-        lat: Number(homeCoordinates.lat),
-        lng: Number(homeCoordinates.lng),
-        title: 'Esta es tu localización original',
-        selected: true,
-      }
-      return homeMarkerProps
-    },
-    setCenter() {
-      console.log('setCenter()')
-      getCurrentUserLocation().then((coordinates) => {
-        this.map.setCenter({
-          lat: coordinates.lat,
-          lng: coordinates.lng,
-          animate: true,
-        })
-        this.map.setZoomLevel({
-          level: 15
-        })
-        console.log('coordinates: ')
-        console.dir(coordinates)
-      })
-      // setCenter(this.map)
-    },
-    setUserMarker() {
-      const coordinates = this.currentUserLocation
-      const userMarker: MapboxMarker = {
-        id: 'user',
-        lat: coordinates.lat,
-        lng: coordinates.lng,
-        title: 'Tu localización',
-        selected: true,
-        onTap: () => this.setSecurityArea('user'),
-      }
-      // return markerProps
-      this.markers.push(userMarker)
-    },
-    addMarker(args, marker) {
-      args.map.addMarkers(marker)
-    },
-    updateMarker(args, marker) {
-      args.map.updateMarker(marker)
-    },
-    removeMarker(markerId) {
-      this.map.removeMarkers(markerId)
-    },
-    showMarkers() {
-      this.setUserMarker()
-      console.log('showMarkers')
-      console.dir(JSON.stringify(this.markers))
-      this.map.addMarkers(this.markers)
-    },
     onMapReady(args) {
       console.log('onMapReady()')
       this.map = args.map
-      console.log(`map: ${this.map}`)
       this.showMarkers()
     },
-  },
+
+    setCenter() {
+      console.log('setCenter()')
+      map.setCenter(this.map)
+    },
+
+    /***** SECURITY AREA ******/
+
+    newSecurityArea(id: string) {
+      if (securityArea.getSecurityArea(id)) {
+        console.log(`${id} exist, choose another name`)
+        return
+      }
+      const polygonOptions = {
+        id: id,
+        radius: this.radius,
+        fillColor: new Color(this.fillColor),
+        fillOpacity: this.fillOpacity
+      } 
+      map.setSecurityArea(this.map, polygonOptions) 
+    },
+
+    showSecurityArea(id: string, value:boolean) {
+      map.showSecurityArea(id, value)  
+    },
+
+    removeSecurityArea(id: string) {
+      console.log(`remove polygon: ${id}`)
+      map.removeSecurityArea(this.map, id)
+    },
+
+    /***** markers *****/
+    addMarker(id: string) {
+      const coordinates = this.currentUserLocation
+      const marker: Marker = {
+        id: id,
+        lat: coordinates.lat,
+        lng: coordinates.lng,
+        title: id,
+        selected: true,
+        onTap: () => this.newSecurityArea(id),
+      }
+      
+      map.addMarker(this.map, marker)
+    },
+    updateMarker(id) {
+      map.updateMarker(this.map, id)
+    },
+    removeMarker(id) {
+      this.map.removeMarkers(this.map, id)
+    },
+    showMarkers() {
+      this.activeUser = 'user'
+      this.addMarker(this.activeUser)
+      console.log('showMarkers')
+      console.dir(JSON.stringify(this.markers))
+    }
+  }
 }
 </script>
+<style lang="scss">
+</style>
