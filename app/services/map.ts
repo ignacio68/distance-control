@@ -2,14 +2,15 @@ import { Color } from 'tns-core-modules'
 
 import { getCurrentUserLocation } from '@/services/geolocation'
 import { getCirclePointsCoordinates } from '@/utils/circle'
+import { setSecurityArea } from '@/api/map'
 
-import { MapboxMarker, LatLng } from 'nativescript-mapbox'
-import { Circle } from '@/utils/types'
+import { Coordinates, Circle, Marker } from '@/utils/types'
 
 import userLocation from '@/store/userLocation'
+import marker from '@/store/markers'
 
 
-export const coordinates: LatLng = userLocation.getCurrentUserLocation()
+export const coordinates: Coordinates = userLocation.getCurrentUserLocation()
 
 export const getSecurityAreaPoints = (radius) => {
   console.log('etSecurityAreaPoints')
