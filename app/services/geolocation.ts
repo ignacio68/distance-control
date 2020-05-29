@@ -1,6 +1,6 @@
 import * as geolocation from 'nativescript-geolocation'
+import { Coordinates} from '@/utils/types'
 import { Accuracy } from 'tns-core-modules/ui/enums'
-import { Coordinates } from '@/utils/types'
 import userLocation from '@/store/userLocation'
 
 const enableLocationRequest = (option: boolean) =>
@@ -19,41 +19,43 @@ const isLocationServicesEnabled = () =>
   })
 
 const fetchCurrentUserLocation = () =>
-  geolocation.getCurrentLocation({}).then((result): Coordinates => {
-    const location: Coordinates = {
-      lat: result.latitude,
-      lng: result.longitude
+  geolocation.getCurrentLocation({}).then(
+    result => {
+      const location: Coordinates = {
+        lat: result.latitude,
+        lng: result.longitude,
+      }
+      return location
     }
-    return location
-  })
+  )
 
-// const getUserCurrentLocation = async () => {
+// const getCurrentUserLocation = async () => {
 //   console.log('getUserCurrentLocation()')
 //   isLocationServicesEnabled()
 //     .then(async (isEnabled) => {
 //       if (!isEnabled) {
 //         return
 //       }
-//       const location = await fetchCurrentUserLocation()
-//       const coordinates: Coordinates = {
-//         lat: location.latitude,
-//         lng: location.longitude,
-//       }
-//       console.log('fetchCurrentUserLocation()')
-//       console.dir(coordinates)
-//       userLocation.setUserLocation(coordinates)
 //     })
-//     .catch((e) =>console.log(`getCurrentLocation() error: ${e.message || e}`))
+//     .then( async () => {
+//       const location = await fetchCurrentUserLocation()
+//       console.log('fetchCurrentUserLocation()')
+//       console.dir(location)
+//       userLocation.setCurrentUserLocation(location)
+//       return location
+//     })
+//     .catch((e) => console.log(`getCurrentLocation() error: ${e.message || e}`))
 // }
-const getCurrentUserLocation = async () => {
+
+const getCurrentUserLocation = async() => {
   console.log('getUserCurrentLocation()')
   const isEnabled = isLocationServicesEnabled()
   if (!isEnabled) {
     console.log(`It cannot return the user current coordinates`)
     return
   }
-  const location = await fetchCurrentUserLocation().catch((e) =>
-    console.log(`getCurrentLocation() error: ${e.message || e}`)
+  const location = await fetchCurrentUserLocation().catch(error =>
+    console.log(`getCurrentLocation() error: ${error.message || error}`)
   )
   if (location) {
     console.log('fetchCurrentUserLocation()')
@@ -68,14 +70,14 @@ const watchUserLocation = () => {
   console.log('watchUserLocation()')
   geolocation.watchLocation(
     position => {
-      const currentLocation: UserLocation = {
+      const currentLocation: Coordinates = {
         lat: position.latitude,
         lng: position.longitude,
       }
       return currentLocation
     },
-    (e) => {
-      console.log(`failed to get location: ${e}`)
+    (error) => {
+      console.log(`failed to get location: ${error}`)
     },
     {
       desiredAccuracy: Accuracy.high,
@@ -84,4 +86,4 @@ const watchUserLocation = () => {
   )
 }
 
-export { fetchCurrentUserLocation, getCurrentUserLocation, isLocationServicesEnabled, watchUserLocation }
+export { getCurrentUserLocation, watchUserLocation }
