@@ -1,24 +1,26 @@
 import { Color } from 'tns-core-modules'
-import { getCircleCoordinates } from '@/utils/circle'
-import { Coordinates } from '@/utils/types'
+
+import { getCurrentUserLocation } from '@/services/geolocation'
+import { getCirclePointsCoordinates } from '@/utils/circle'
+
+import { MapboxMarker, LatLng } from 'nativescript-mapbox'
+import { Circle } from '@/utils/types'
+
 import userLocation from '@/store/userLocation'
 
-export const coordinates: Coordinates = userLocation.getCurrentUserLocation()
 
-const origin: Coordinates = {
-  lat: coordinates.lat,
-  lng: coordinates.lng
-}
+export const coordinates: LatLng = userLocation.getCurrentUserLocation()
 
-const circlePoints: Coordinates[] = getCircleCoordinates({
-  center: origin,
-  radius: 1000,
-  numberOfPoints: 64,
-})
-
-export const circleProps = {
-  id: 'circle',
-  fillColor: new Color('green'),
-  fillOpacity: 0.7,
-  points: circlePoints,
+export const getSecurityAreaPoints = (radius) => {
+  console.log('etSecurityAreaPoints')
+  
+  const points = getCurrentUserLocation().then( center =>{
+    const circlePolygonProps: Circle = {
+    center: center,
+    radius: radius,
+    numberOfPoints: 64,
+  }
+    return getCirclePointsCoordinates(circlePolygonProps)
+  })
+  return points 
 }
