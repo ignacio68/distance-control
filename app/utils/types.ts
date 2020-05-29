@@ -1,4 +1,4 @@
-import { Color } from "tns-core-modules/color/color";
+import { Color } from "tns-core-modules/color/color"
 
 export interface InitialCoordinates {
   lat: string
@@ -22,13 +22,27 @@ export interface PointsCoordinates {
   center: Coordinates
 }
 
-export interface PolygonOptions {
-id?: any
+export interface Marker extends Coordinates {
+  id: string;
+  title?: string;
+  subtitle?: string;
+  icon?: string;
+  iconPath?: string;
+  onTap?: Function;
+  onCalloutTap?: Function;
+  selected?: boolean;
+  update?: (newSettings: Marker) => void;
+  ios?: any;
+  android?: any;
+}
+
+export interface AddPolygonOptions {
+id: any
 points: Coordinates[]
 fillColor?: string | Color
 fillOpacity?: number
 strokeColor?: string | Color
 strokeWidth?: number
 strokeOpacity?: number
-isVisible: boolean
+isVisible?: boolean
 }
