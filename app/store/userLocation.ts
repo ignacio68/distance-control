@@ -1,5 +1,5 @@
 import Vue from 'Vue'
-import { Coordinates } from '@/utils/types'
+import { InitialCoordinates, Coordinates} from '@/utils/types'
 
 const state = Vue.observable({
     currentUserLocation: {
@@ -9,7 +9,7 @@ const state = Vue.observable({
 })
 
 export const getOriginLocation = () => { 
-    const originLocation = {
+    const originLocation: InitialCoordinates = {
         lat: String(state.currentUserLocation.lat),
         lng: String(state.currentUserLocation.lng)
     }
@@ -17,14 +17,11 @@ export const getOriginLocation = () => {
 }
 export const getCurrentUserLocation = () => state.currentUserLocation
 
-
-// export const setUserLocation = (coordinates: UserLocation) => {
-//     // Object.assign({state}, coordinates) // TODO: Change coordinates name to userLocation
-//     state.userLocation.lat = coordinates.lat
-//     state.userLocation.lng = coordinates.lng
-// }
-export const setCurrentUserLocation = (coordinates: Coordinates) => state.currentUserLocation = coordinates
-
+export const setCurrentUserLocation = (coordinates: Coordinates) => {
+    // state.currentUserLocation = coordinates
+    state.currentUserLocation.lat = coordinates.lat
+    state.currentUserLocation.lng = coordinates.lng
+}
 
 export default {
     getOriginLocation,

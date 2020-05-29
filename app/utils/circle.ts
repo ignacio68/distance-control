@@ -1,35 +1,40 @@
-import { PI, range, degreesToRadians as radians } from './core'
+import {
+  range,
+  degreesToRadians as radians,
+  radiansToDegrees as degrees
+} from './core'
 
-import { Coordinates, Circle, GetCoordinates } from './types'
+import { Coordinates, Circle, PointsCoordinates } from './types'
 
+const PI = Math.PI
 const EARTH_RADIUS = 6378 // km
 
-const getCoordinates = (options: GetCoordinates) => {
-  const { theta, radius, lat, lng } = options
+const getPointCoordinates = (options: PointsCoordinates) => {
+  const { theta, radius, center } = options
+  console.log('getPointCoordinates()')
 
   const dy = Math.sin(radians(theta)) * radius
   const dx = Math.cos(radians(theta)) * radius
-  const newLatitude = lat + (dy / EARTH_RADIUS) * (180 / PI)
-  console.log(`getCoordinates().newLatitude: ${newLatitude}`)
+  const newLatitude = center.lat + degrees(dy / EARTH_RADIUS) 
   const newLongitude =
-    lng + ((dx / EARTH_RADIUS) * (180 / PI)) / Math.cos(radians((lat * PI) / 180))
+    center.lng + (degrees(dx / EARTH_RADIUS)) / Math.cos(radians((center.lat * PI) / 180))
+  
   const coordinates: Coordinates = { lat: newLatitude, lng: newLongitude }
+
   return coordinates
 }
 
-const getCircleCoordinates = (options: Circle) => {
+const getCirclePointsCoordinates = (options: Circle) => {
   const { center, radius, numberOfPoints } = options
+  console.log('getCirclePointsCoordinates()')
 
-  const lat = center.lat
-  const lng = center.lng
-  console.log(`getCircleCoordinates lat: ${lat}`)
+  const thetasList = range(0, 360, 360 / numberOfPoints)
 
-  const thetaList = range(0, 360, 360 / numberOfPoints)
-  const circleCoordinates: Coordinates[] = thetaList.map((theta) => {
-    const circleCoordinates = getCoordinates({ theta, radius, lat, lng })
-    return circleCoordinates
+  const allPointsCoordinates: Coordinates[] = thetasList.map((theta) => {
+    return getPointCoordinates({ theta, radius, center })
   })
-  return circleCoordinates
+
+  return allPointsCoordinates  
 }
 
-export { getCircleCoordinates }
+export { getCirclePointsCoordinates }

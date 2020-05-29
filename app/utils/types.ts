@@ -1,5 +1,10 @@
-type Coordinates = {
-  lat: number,
+interface InitialCoordinates {
+  lat: string
+  lng: string
+ }
+
+interface Coordinates {
+  lat: number
   lng: number
 }
 
@@ -9,11 +14,10 @@ interface Circle {
   numberOfPoints: number
 }
 
-interface GetCoordinates {
+interface PointsCoordinates {
   theta: number
   radius: number
-  lat: number
-  lng: number
+  center: Coordinates
 }
 
-export { Coordinates, Circle, GetCoordinates }
+export { InitialCoordinates, Coordinates, Circle, PointsCoordinates }
