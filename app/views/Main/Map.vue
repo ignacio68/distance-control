@@ -39,25 +39,25 @@
         :userLongitude="centerMap.lng"
         @onMapReady="onMapReady($event)"
       />
-      <!-- <StackLayout>
+      <StackLayout>
         <Slider
           class="radiusSlider"
           minValue="0"
-          maxValue="10"      
+          maxValue="100"      
           :value="radius"
           @valueChange="onRadiusValueSliderChange" 
         />
-        <StackLayout orientation="horizontal">
+        <!-- <StackLayout orientation="horizontal">
           <Label 
             text="0" 
             textWrap="true" 
           />
           <Label 
-            text="1" 
+            text="100" 
             textWrap="true"
           />
-        </StackLayout>
-      </StackLayout> -->
+        </StackLayout> -->
+      </StackLayout>
       <StackLayout>
         <Slider
           class="opacitySlider"
@@ -66,7 +66,7 @@
           :value="fillOpacity"
           @valueChange="onOpacityValueSliderChange" 
         />
-        <StackLayout orientation="horizontal">
+        <!-- <StackLayout orientation="horizontal">
           <Label 
             text="0" 
             textWrap="true" 
@@ -75,7 +75,7 @@
             text="1" 
             textWrap="true"
           />
-        </StackLayout>
+        </StackLayout> -->
       </StackLayout>
       
 
@@ -137,13 +137,13 @@ export default {
       return userLocation.getCurrentUserLocation()
     },
     getRadius: {
-      get: () => this.radius,
-      set: (value: number) => {
+      get: function() { return this.radius },
+      set: function (value: number) {
         this.radius = value
       }
     },
     getFillOpacity: {
-      get: () => this.fillOpacity,
+      get: function () {return this.fillOpacity},
       set: function (value: number) {
         this.fillOpacity = value
       }
