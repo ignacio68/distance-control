@@ -5,7 +5,7 @@
       left="0"
       top="0"
       width="100%"
-      height="80%"
+      height="70%"
       :accessToken="accessToken"
       mapStyle="traffic_day"
       :latitude="userLatitude"
