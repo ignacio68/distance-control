@@ -1,27 +1,36 @@
 import Vue from 'Vue'
 
+import { PolygonOptions } from '@/utils/types'
+
 const state = Vue.observable({
     securityArea: []
 })
 
-const find = (id: string) => state.securityArea.find( securityArea => securityArea.id = id)
-const findIndex = (id: string) => state.securityArea.findIndex( securityArea => securityArea.id = id)
+const find = (id: string): PolygonOptions => state.securityArea.find( securityArea => securityArea.id = id)
+const findIndex = (id: string): number => state.securityArea.findIndex( securityArea => securityArea.id = id)
 
-export const getIsVisible = (id: string) => find(id).isVisible
-export const getSecurityArea = (id: string) => {
+export const getIsVisible = (id: string): boolean => {
+    const index = findIndex(id)
+    const isVisible: boolean = state.securityArea[index].isVisible
+    return isVisible
+}
+export const getSecurityArea = (id: string): PolygonOptions => {
     const securityArea = find(id)
-    console.log(`security area: ${securityArea}`)
     return securityArea
 }
 
-export const setNewSecurityArea = (securityArea) => state.securityArea.push(securityArea)
-export const isVisible = (id: string, value: boolean) => {
+export const setNewSecurityArea = (securityArea: PolygonOptions) => state.securityArea.push(securityArea)
+export const isVisible = (id: string, value: boolean): boolean => {
     const index = findIndex(id)
-    state.securityArea[index].isVisible= value
-    console.log(`Is visible ${id}? ${state.securityArea[index].isVisible}`)
+    const isVisible: boolean = state.securityArea[index].isVisible
+    if (isVisible === value) {
+        console.log("The visibility is the same")
+        return
+    }
+    return isVisible
 }
-export const removeSecurityArea = (id: string) => {
-    const index = findIndex(id)
+export const removeSecurityArea = (id: string): void => {
+    const index: number = findIndex(id)
     state.securityArea.splice(index, 1)
     console.log("removed element!!")
 }

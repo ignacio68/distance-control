@@ -39,12 +39,13 @@
         :userLongitude="centerMap.lng"
         @onMapReady="onMapReady($event)"
       />
-      <StackLayout>
+      <!-- <StackLayout>
         <Slider
+          class="radiusSlider"
           minValue="0"
-          maxValue="100"      
+          maxValue="10"      
           :value="radius"
-          @valueChange="onValueSliderChange" 
+          @valueChange="onRadiusValueSliderChange" 
         />
         <StackLayout orientation="horizontal">
           <Label 
@@ -52,7 +53,26 @@
             textWrap="true" 
           />
           <Label 
-            text="100km" 
+            text="1" 
+            textWrap="true"
+          />
+        </StackLayout>
+      </StackLayout> -->
+      <StackLayout>
+        <Slider
+          class="opacitySlider"
+          minValue="0"
+          maxValue="10"      
+          :value="fillOpacity"
+          @valueChange="onOpacityValueSliderChange" 
+        />
+        <StackLayout orientation="horizontal">
+          <Label 
+            text="0" 
+            textWrap="true" 
+          />
+          <Label 
+            text="1" 
             textWrap="true"
           />
         </StackLayout>
@@ -82,7 +102,7 @@ import { Color } from 'tns-core-modules/color/color'
 import * as map from '@/api/map'
 import { getCurrentUserLocation } from '@/services/geolocation'
 
-import { Coordinates, Marker } from '@/utils/types'
+import { Coordinates, Marker, PolygonOptions } from '@/utils/types'
 
 import userLocation from '@/store/userLocation'
 import securityArea from '@/store/securityArea'
@@ -106,7 +126,7 @@ export default {
       map: void 0,
       radius: 10,
       fillColor: 'green',
-      fillOpacity: 0.5,
+      fillOpacity: 5,
 
       activeUser: void 0
     }
@@ -116,6 +136,18 @@ export default {
     currentUserLocation(): Coordinates {
       return userLocation.getCurrentUserLocation()
     },
+    getRadius: {
+      get: () => this.radius,
+      set: (value: number) => {
+        this.radius = value
+      }
+    },
+    getFillOpacity: {
+      get: () => this.fillOpacity,
+      set: function (value: number) {
+        this.fillOpacity = value
+      }
+    }
   },
 
   created() {
@@ -124,9 +156,14 @@ export default {
   },
 
   methods: {
-    onValueSliderChange({value}) {
+    onRadiusValueSliderChange({value}) {
+      this.getRadius = value
       console.log(`value: ${value}`)
-      this.radius = value
+    },
+
+    onOpacityValueSliderChange({value}) {
+      this.getFillOpacity = value
+      console.log(`opacity: ${this.fillOpacity}`)
     },
 
     /***** MAP *****/
@@ -157,17 +194,18 @@ export default {
         console.log(`${id} exist, choose another name`)
         return
       }
-      const polygonOptions = {
+      const polygonOptions: PolygonOptions = {
         id: id,
         radius: this.radius,
         fillColor: new Color(this.fillColor),
-        fillOpacity: this.fillOpacity
+        fillOpacity: this.fillOpacity / 10,
+        isVisible: true
       } 
       map.setSecurityArea(this.map, polygonOptions) 
     },
 
     showSecurityArea(id: string, value:boolean) {
-      map.showSecurityArea(id, value)  
+      map.showSecurityArea(this.map, id, value)  
     },
 
     removeSecurityArea(id: string) {
@@ -189,10 +227,10 @@ export default {
       
       map.addMarker(this.map, marker)
     },
-    updateMarker(id) {
+    updateMarker(id: string) {
       map.updateMarker(this.map, id)
     },
-    removeMarker(id) {
+    removeMarker(id: string) {
       this.map.removeMarkers(this.map, id)
     },
     showMarkers() {

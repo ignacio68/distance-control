@@ -1,13 +1,12 @@
-import { Color } from 'tns-core-modules/color/color'
 import { getCurrentUserLocation } from '@/services/geolocation'
 import { getSecurityAreaPoints } from '@/services/map'
 
 import securityArea from '@/store/securityArea'
 import markers from '@/store/markers'
 
-import { AddPolygonOptions, Marker } from '@/utils/types'
+import { PolygonOptions, Marker } from '@/utils/types'
 
-export const setCenter = (map) => {
+export const setCenter = (map: any) => {
   getCurrentUserLocation().then((coordinates) => {
     map.setCenter({
       lat: coordinates.lat,
@@ -24,49 +23,81 @@ export const setCenter = (map) => {
 
 /****** SECURITY AREA ******/
 
-export const setSecurityArea = (map, polygonOptions) => {
+export const setSecurityArea = (map: any, polygonOptions: PolygonOptions) => {
+  console.log("setSecurityArea()")
   getSecurityAreaPoints(polygonOptions.radius).then((points) => {
     polygonOptions.points = points
-    polygonOptions.isVisible = true
-
+    
     map.addPolygon(polygonOptions).then(() => {
-      polygonOptions.isVisible = true
       securityArea.setNewSecurityArea(polygonOptions)
     })
   })
 }
 
-export const showSecurityArea = (id: string, value: boolean) => {
-    const isSecurityArea = securityArea.getSecurityArea(id)
-    if (!isSecurityArea) {
-        console.log("The security area not exist")
-        return
-    }
-    const isVisible = securityArea.getIsVisible(id)
-    console.log(isVisible)
-    isVisible ? securityArea.isVisible(id, value) :  securityArea.isVisible(id, value)
+export const showSecurityArea = (map: any, id: string, value: boolean) => {
+  console.log("showSecurityArea()")
+  const currentSecurityArea = securityArea.getSecurityArea(id)
+  if (!currentSecurityArea) {
+    console.log('The security area not exist')
+    return
+  }
+  if (currentSecurityArea.isVisible === value) {
+    console.log('The security visibility is the same!')
+    return
+  }
+  
+  changeSecurityAreaVisibility(map, currentSecurityArea, value)
 }
 
-export const updateSecurityArea = (id: string) => {
-  const updatedSecurityArea = securityArea.getSecurityArea(id)
+const changeSecurityAreaVisibility = (map: any, securityArea: PolygonOptions, value: boolean): void => {
+  console.log("changeSecurityAreaVisibility()")
+  securityArea.isVisible = value
+  console.log(`visibility value: ${value}`)
+  console.log(`${securityArea.id} is visible?  ${securityArea.isVisible}`)
+
+  if (value) {
+    securityArea.fillOpacity = securityArea.oldFillOpacity
+    console.log(`Opacity ${ securityArea.id}? ${ securityArea.fillOpacity}`)
+  } else {
+    securityArea.oldFillOpacity = securityArea.fillOpacity
+    securityArea.fillOpacity = 0
+    
+    console.log(`Opacity ${ securityArea.id}? ${ securityArea.fillOpacity}`)
+  }
+  updateSecurityArea(map, securityArea)
+ 
 }
 
-export const removeSecurityArea = (map, id: string) => {
-    map.removePolygons(id).then(() => securityArea.removeSecurityArea(id))
-}  
+export const updateSecurityArea = (map: any, securityArea: PolygonOptions) => {
+  console.log("updateSecurityArea()")
+  removeSecurityArea(map, securityArea.id).then(() => {
+    setSecurityArea(map, securityArea)
+    console.log("Security area is updated!")
+  })
+}
+
+export const removeSecurityArea = async (map: any, id: string) => {
+  console.log("removeSecurityArea()")
+  const isSecurityArea = securityArea.getSecurityArea(id)
+  if (!isSecurityArea) {
+    console.log('SecurityArea not exist')
+    return
+  }
+  map.removePolygons(id).then(() => securityArea.removeSecurityArea(id))
+}
 
 /****** MARKERS ******/
 
 export const showMarkers = () => {}
 
-export const addMarker = (map, marker: Marker) => {
-    const newMarkers = []
-    newMarkers.push(marker)
+export const addMarker = (map: any, marker: Marker) => {
+  const newMarkers = []
+  newMarkers.push(marker)
   map.addMarkers(newMarkers).then(() => markers.setNewMarker(markers))
 }
 
-export const updateMarker = (map, id) => {
+export const updateMarker = (map: any, id) => {
   map.updateMarker(id)
 }
 
-export const removeMarker = (map, id) => map.removeMarkers(id)
+export const removeMarker = (map: any, id) => map.removeMarkers(id)
