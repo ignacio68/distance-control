@@ -12,7 +12,7 @@
         />
         <Label
           class="title"
-          text="COVID 19 DISTANCE CONTROL"
+          text="AREAS DE CONTROL"
           col="1"
         />
       </GridLayout>
