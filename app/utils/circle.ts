@@ -4,15 +4,14 @@ import {
   radiansToDegrees as degrees
 } from './core'
 
-import { Coordinates, Circle, PointsCoordinates } from './types'
+import { Coordinates, Circle, Azimuth } from './types'
 
 const PI = Math.PI
 const EARTH_RADIUS = 6378 // km
 
-const getPointCoordinates = (options: PointsCoordinates) => {
+const getPointCoordinates = (options: Azimuth) => {
   const { theta, radius, center } = options
-  console.log('getPointCoordinates()')
-
+  
   const dy = Math.sin(radians(theta)) * radius
   const dx = Math.cos(radians(theta)) * radius
   const newLatitude = center.lat + degrees(dy / EARTH_RADIUS) 
