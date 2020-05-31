@@ -15,7 +15,7 @@ import AppNavigator from './views/AppNavigator.vue'
 import VueDevtools from 'nativescript-vue-devtools'
 
 // Add NativeScript Font Icon plugin
-// import { TNSFontIcon, fonticon } from 'nativescript-fonticon'
+import { TNSFontIcon, fonticon } from 'nativescript-fonticon'
 
 // Import languages
 import i18n from "./setup/i18n"
@@ -28,15 +28,15 @@ if(TNS_ENV !== 'production') {
 }
 
 // Load TNSFonticon
-// TNSFontIcon.debug = true
-// TNSFontIcon.paths = {
-//   fa: './assets/css/fontawesome.css',
-//   far: './assets/css/regular.css',
-//   fas: './assets/css/solid.css',
-//   fab: './assets/css/brand.css'
-// }
-// TNSFontIcon.loadCss()
-// v.filter('fonticon', fonticon)
+TNSFontIcon.debug = true
+TNSFontIcon.paths = {
+  fa: './assets/css/fontawesome.css',
+  far: './assets/css/regular.css',
+  fas: './assets/css/solid.css',
+  // fab: './assets/css/brand.css'
+}
+TNSFontIcon.loadCss()
+v.filter('fonticon', fonticon)
 
 // Prints Vue logs when --env.production is *NOT* set while building
 v.config.silent = (TNS_ENV === 'production')
