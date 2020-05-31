@@ -13,16 +13,6 @@
         />
         <Button
           class="-primary -rounded-sm m-x-0"
-          text="Ocultar"
-          @tap="showSecurityArea('user', false)"
-        />
-        <Button
-          class="-primary -rounded-sm m-x-0"
-          text="Mostrar"
-          @tap="showSecurityArea('user', true)"
-        />
-        <Button
-          class="-primary -rounded-sm m-x-0"
           text="Borrar"
           @tap="removeSecurityArea('user')"
         />
@@ -116,6 +106,13 @@ export default {
     MapComponent,
   },
 
+  props:{
+    isVisible: {
+      type: Boolean,
+      default: true
+    }
+  },
+
   data() {
     return {
       accessToken: mapToken,
@@ -147,6 +144,13 @@ export default {
       set: function (value: number) {
         this.fillOpacity = value
       }
+    }
+  },
+
+  watch: {
+    isVisible: function(newValue) {
+      console.log(`is visible: ${this.isVisible}`)
+      this.showSecurityArea('user', newValue)
     }
   },
 
