@@ -4,7 +4,6 @@
       class="drawer-header" 
       text="USUARIO" 
     />
-
     <Label 
       class="drawer-item" 
       text="Item 1" 
