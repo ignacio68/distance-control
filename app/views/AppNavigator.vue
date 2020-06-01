@@ -1,70 +1,65 @@
 <template>
   <Page actionBarHidden="false">
-    <ActionBar>
-      <!-- TODO: cambiar titulos por iconos -->
+    <ActionBarArea
+      @tapDrawerMenu="$refs.drawer.nativeView.showDrawer()"
+      @tapVisibility="onTapVisibility()"
+      @tapSearch="onTapSearch()"
+      @tapOverflowMenu="onTapOverflowMenu()"
+    />
+    <!-- <ActionBar>
       <GridLayout
         width="100%"
         columns="auto, *, auto, auto, auto"
       >
-        <!-- TODO: icono hamburguesa -->
-        <Label
-          class="actionBar_drawerMenu-button"
-          text="MENU"
+        <FontIcon
+          class="fonticon"
+          type="fas"
+          name="fa-bars"
+          color="white"
+          :fontSize="16"
           col="0"
           @tap="$refs.drawer.nativeView.showDrawer()"
         />
+
         <Label
           class="actionBar_title"
           text="AREAS DE CONTROL"
           col="1"
         />
-        <!-- TODO: visibilidad de las areas de control -->
-        <!-- TODO: icono ojo - cambia según selección -->
-        <Label
-          class="actionBar_visibility-button"
-          text="VIS"
+
+        
+          <FontIcon
+          class="fonticon actionBar_visibility-button"
+          type="fas"
+          name="fa-eye"
           col="2"
           @tap="onTapVisibility()"
         />
-        <!-- TODO: icono lupa -->
-        <Label
-          class="actionBar_search-button"
-          text="SEARCH"
+
+        <FontIcon
+          class="fonticon actionBar_search-button"
+          type="fas"
+          name="fa-search"
           col="3"
           @tap="onTapSearch()"
         />
-        <!-- TODO: icono tres puntos -->
-        <!-- <Label
-          class="actionBar_overflowMenu-button"
-          text="OVERFLOW MENU"
+
+        <FontIcon
+          class="fonticon actionBar_overflowMenu-button"
+          type="far"
+          name="fa-ellipsis-v"
           col="4"
-          @tap="onTapOverflowMnu()"
-        /> -->
+          @tap="onTapOverflowMenu()"
+        />
       </GridLayout>
-    </ActionBar>
+    </ActionBar> --> -->
 
     <RadSideDrawer ref="drawer">
       <StackLayout
         ~drawerContent
         backgroundColor="#ffffff"
       >
-        <Label
-          class="drawer-header"
-          text="USUARIO"
-        />
-
-        <Label
-          class="drawer-item"
-          text="Item 1"
-        />
-        <Label
-          class="drawer-item"
-          text="Item 2"
-        />
-        <Label
-          class="drawer-item"
-          text="Item 3"
-        />
+        <DrawerMenu />
       </StackLayout>
 
       <StackLayout
@@ -75,67 +70,27 @@
             :isVisible="isVisible"
           />
         </Frame>
-        <!-- <BottomNavigation selectedIndex="0">
-          <TabStrip>
-            <TabStripItem>
-              <Label text="Map" />
-              <Image
-                src="font://&#xf015;"
-                class="fas"
-              />
-            </TabStripItem>
-
-            <TabStripItem class="special">
-              <Label text="Settings" />
-              <Image
-                src="font://&#xf007;"
-                class="fas"
-              />
-            </TabStripItem>
-
-
-            <TabStripItem class="messages">
-              <Label text="Messages" />
-              <Image
-                src="font://&#xf00e;"
-                class="fas"
-              />
-            </TabStripItem>
-          </TabStrip>
-
-          <TabContentItem>
-            <Frame>
-              <Map />
-            </Frame>
-          </TabContentItem>
-          <TabContentItem>
-            <GridLayout>
-              <Label
-                text="Settings Page"
-                class="h2 text-center"
-              />
-            </GridLayout>
-          </TabContentItem>
-          <TabContentItem>
-            <GridLayout>
-              <Label
-                text="Messages Page"
-                class="h2 text-center"
-              />
-            </GridLayout>
-          </TabContentItem>
-        </BottomNavigation> -->
+        <BottomAppBar />
       </StackLayout>
     </RadSideDrawer>
   </Page>
 </template>
 
 <script lang="ts">
+// import FontIcon from '@/components/UI/FontIcon.vue'
+import ActionBarArea from '@/components/UI/ActionBarArea.vue'
+import DrawerMenu from '@/components/UI/DrawerMenu.vue'
+import BottomAppBar from '@/components/UI/BottomAppBar.vue'
 import Map from './Main/Map.vue'
+
 export default {
   name: 'AppNavigator',
   components: {
-    Map
+    ActionBarArea,
+    DrawerMenu,
+    Map,
+    // FontIcon,
+    BottomAppBar
   },
   data() {
     return {
@@ -151,11 +106,14 @@ export default {
     onTapSearch() {
       console.log("Tap search action!")
     },
+    onTapOverflowMenu() {
+      console.log("Tap on extended menu")
+    }
   }
 }
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
 ActionBar {
   background-color: #53ba82;
   color: #ffffff;
@@ -185,5 +143,9 @@ ActionBar {
   padding: 8 16;
   color: #333333;
   font-size: 16;
+}
+
+.fonticon {
+  border: 1, solid, red;
 }
 </style>
