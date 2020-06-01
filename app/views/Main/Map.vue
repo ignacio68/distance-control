@@ -1,27 +1,11 @@
 <template>
-  <Page actionBarHidden="true">
-    <StackLayout>
-      <StackLayout orientation="horizontal">
-        <!-- <Button 
-          text="Remove Marker"
-          @tap="removeMarker('user')"
-        /> -->
-        <Button
-          class="-primary -rounded-sm m-x-0"
-          text="Nuevo"
-          @tap="newSecurityArea('user')"
-        />
-        <Button
-          class="-primary -rounded-sm m-x-0"
-          text="Borrar"
-          @tap="removeSecurityArea('user')"
-        />
-        <Button
-          class="-primary -rounded-sm m-x-0"
-          text="Centrar"
-          @tap="setCenter()"
-        />
-      </StackLayout>
+  <Page 
+    actionBarHidden="true"
+  >
+    <StackLayout
+      orientation="vertical"
+      class="map"
+    >
       <MapComponent
         :accessToken="accessToken"
         :zoomLevel="15"
@@ -29,47 +13,22 @@
         :userLongitude="centerMap.lng"
         @onMapReady="onMapReady($event)"
       />
-      <StackLayout>
-        <Slider
-          class="radiusSlider"
-          minValue="0"
-          maxValue="100"      
-          :value="radius"
-          @valueChange="onRadiusValueSliderChange" 
-        />
-        <!-- <StackLayout orientation="horizontal">
-          <Label 
-            text="0" 
-            textWrap="true" 
-          />
-          <Label 
-            text="100" 
-            textWrap="true"
-          />
-        </StackLayout> -->
-      </StackLayout>
-      <StackLayout>
-        <Slider
-          class="opacitySlider"
-          minValue="0"
-          maxValue="10"      
-          :value="fillOpacity"
-          @valueChange="onOpacityValueSliderChange" 
-        />
-        <!-- <StackLayout orientation="horizontal">
-          <Label 
-            text="0" 
-            textWrap="true" 
-          />
-          <Label 
-            text="1" 
-            textWrap="true"
-          />
-        </StackLayout> -->
-      </StackLayout>
-      
+      <Slider
+        class="radiusSlider"
+        minValue="0"
+        maxValue="100"      
+        :value="radius"
+        @valueChange="onRadiusValueSliderChange" 
+      />
 
-      <Label>
+      <Slider
+        class="opacitySlider"
+        minValue="0"
+        maxValue="10"      
+        :value="fillOpacity"
+        @valueChange="onOpacityValueSliderChange" 
+      />
+      <!-- <Label>
         <FormattedString>
           <Span text="Latitude: " />
           <Span :text="currentUserLocation.lat" />
@@ -80,7 +39,7 @@
           <Span text="Longitude: " />
           <Span :text="currentUserLocation.lng" />
         </FormattedString>
-      </Label>
+      </Label> -->
     </StackLayout>
   </Page>
 </template>
@@ -103,13 +62,17 @@ export default {
   name: 'Map',
 
   components: {
-    MapComponent,
+    MapComponent
   },
 
   props:{
     isVisible: {
       type: Boolean,
       default: true
+    },
+    isCreated: {
+      type: Boolean,
+      default: false
     }
   },
 
@@ -157,6 +120,12 @@ export default {
   created() {
     console.log('created()')
     this.setInitialUserLocation()
+  },
+
+  mounted() {
+    this.$root.$on('newSecurityArea', value =>  this.newSecurityArea(value.name))
+    this.$root.$on('removeSecurityArea', value => this.removeSecurityArea(value.name))
+    this.$root.$on('setCenter', () => this.setCenter())
   },
 
   methods: {
@@ -247,4 +216,7 @@ export default {
 }
 </script>
 <style lang="scss">
+  .map {
+    border: 2, solid, red
+  }
 </style>
