@@ -9,9 +9,13 @@
 
 import Vue from 'nativescript-vue'
 
+// Load themes
+import './assets/scss/global.scss'
+
 import { device, isAndroid, isIOS } from 'tns-core-modules/platform'
 
 import AppNavigator from './views/AppNavigator.vue'
+
 import VueDevtools from 'nativescript-vue-devtools'
 
 // Add NativeScript Font Icon plugin
