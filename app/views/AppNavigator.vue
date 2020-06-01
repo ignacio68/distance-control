@@ -1,84 +1,40 @@
 <template>
   <Page actionBarHidden="false">
-    <ActionBarArea
-      @tapDrawerMenu="$refs.drawer.nativeView.showDrawer()"
-      @tapVisibility="onTapVisibility()"
-      @tapSearch="onTapSearch()"
-      @tapOverflowMenu="onTapOverflowMenu()"
-    />
-    <!-- <ActionBar>
-      <GridLayout
-        width="100%"
-        columns="auto, *, auto, auto, auto"
-      >
-        <FontIcon
-          class="fonticon"
-          type="fas"
-          name="fa-bars"
-          color="white"
-          :fontSize="16"
-          col="0"
-          @tap="$refs.drawer.nativeView.showDrawer()"
-        />
-
-        <Label
-          class="actionBar_title"
-          text="AREAS DE CONTROL"
-          col="1"
-        />
-
-        
-          <FontIcon
-          class="fonticon actionBar_visibility-button"
-          type="fas"
-          name="fa-eye"
-          col="2"
-          @tap="onTapVisibility()"
-        />
-
-        <FontIcon
-          class="fonticon actionBar_search-button"
-          type="fas"
-          name="fa-search"
-          col="3"
-          @tap="onTapSearch()"
-        />
-
-        <FontIcon
-          class="fonticon actionBar_overflowMenu-button"
-          type="far"
-          name="fa-ellipsis-v"
-          col="4"
-          @tap="onTapOverflowMenu()"
-        />
-      </GridLayout>
-    </ActionBar> --> -->
-
+    <ActionBar
+      id="actionBar" 
+      flat="true"
+      :height="56"
+    >
+      <ActionBarContent 
+        :isVisible="isVisible"
+        @tapDrawerMenu="$refs.drawer.nativeView.showDrawer()"
+        @tapVisibility="onTapVisibility()"
+        @tapSearch="onTapSearch()"
+        @tapOverflowMenu="onTapOverflowMenu()"
+      />
+    </ActionBar>
     <RadSideDrawer ref="drawer">
-      <StackLayout
-        ~drawerContent
-        backgroundColor="#ffffff"
-      >
-        <DrawerMenu />
-      </StackLayout>
-
-      <StackLayout
+      <DrawerMenu ~drawerContent />
+      <GridLAyout
         ~mainContent
+        class="drawerContent"
+        rows="*, auto"
       >
-        <Frame>
-          <Map 
+        <Frame row="0">
+          <Map            
             :isVisible="isVisible"
           />
         </Frame>
-        <BottomAppBar />
-      </StackLayout>
+        <BottomAppBar
+          row="1"
+        />
+      </GridLayout>
     </RadSideDrawer>
   </Page>
 </template>
 
 <script lang="ts">
-// import FontIcon from '@/components/UI/FontIcon.vue'
-import ActionBarArea from '@/components/UI/ActionBarArea.vue'
+import ActionBarContent from '@/components/UI/ActionBarContent.vue'
 import DrawerMenu from '@/components/UI/DrawerMenu.vue'
 import BottomAppBar from '@/components/UI/BottomAppBar.vue'
 import Map from './Main/Map.vue'
@@ -86,10 +42,9 @@ import Map from './Main/Map.vue'
 export default {
   name: 'AppNavigator',
   components: {
-    ActionBarArea,
+    ActionBarContent,
     DrawerMenu,
     Map,
-    // FontIcon,
     BottomAppBar
   },
   data() {
@@ -97,6 +52,7 @@ export default {
       isVisible: true
     }
   },
+
   methods: {
     onTapVisibility() {
       console.log("Change control areas visibility")
@@ -119,16 +75,8 @@ ActionBar {
   color: #ffffff;
 }
 
-.title {
-  text-align: left;
-  padding-left: 16;
-}
-
-.message {
-  vertical-align: center;
-  text-align: center;
-  font-size: 20;
-  color: #333333;
+.drawerContent {
+  background-color: peru;
 }
 
 .drawer-header {
@@ -146,6 +94,6 @@ ActionBar {
 }
 
 .fonticon {
-  border: 1, solid, red;
+  border: 2px solid red;
 }
 </style>
