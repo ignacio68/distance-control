@@ -69,10 +69,6 @@ export default {
     isVisible: {
       type: Boolean,
       default: true
-    },
-    isCreated: {
-      type: Boolean,
-      default: false
     }
   },
 
@@ -119,10 +115,12 @@ export default {
 
   created() {
     console.log('created()')
-    this.setInitialUserLocation()
+    // this.setInitialUserLocation()
   },
 
   mounted() {
+    console.log('mounted()')
+    this.setInitialUserLocation()
     this.$root.$on('newSecurityArea', value =>  this.newSecurityArea(value.name))
     this.$root.$on('removeSecurityArea', value => this.removeSecurityArea(value.name))
     this.$root.$on('setCenter', () => this.setCenter())
