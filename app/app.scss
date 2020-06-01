@@ -4,6 +4,7 @@
 @import '~@nativescript/theme/blue';
 
 // Override variables here
+@import '~@nativescript/theme/index';
 
-// Global SCSS styling
-// @see https://docs.nativescript.org/ui/styling
+// Load variables and mixins
+@import '~@nativescript/theme/scss/variables';
