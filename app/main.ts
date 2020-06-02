@@ -28,16 +28,16 @@ const v = <any>Vue
 declare const TNS_ENV: any
 
 if(TNS_ENV !== 'production') {
-  v.use(VueDevtools)
+  v.use(VueDevtools, { host: '192.168.1.101'}) //movil
 }
 
 // Load TNSFonticon
-TNSFontIcon.debug = true
+TNSFontIcon.debug = false
 TNSFontIcon.paths = {
   fa: './assets/css/fontawesome.css',
   far: './assets/css/regular.css',
   fas: './assets/css/solid.css',
-  // fab: './assets/css/brand.css'
+  // fab: './assets/css/brands.css'
 }
 TNSFontIcon.loadCss()
 v.filter('fonticon', fonticon)
