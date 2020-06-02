@@ -1,5 +1,5 @@
 <template>
-  <StackLayout>
+  <StackLayout ~drawerContent>
     <Label 
       class="drawer-header" 
       text="USUARIO" 

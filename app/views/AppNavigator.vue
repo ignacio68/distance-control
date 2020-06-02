@@ -14,23 +14,23 @@
       />
     </ActionBar>
     <RadSideDrawer ref="drawer">
-      <DrawerMenu ~drawerContent />
-      <MainContent ~mainContent />
+      <DrawerContent />
+      <MainContent />
     </RadSideDrawer>
   </Page>
 </template>
 
 <script lang="ts">
-import ActionBarContent from '@/components/UI/ActionBarContent.vue'
 import MainContent from './drawer/MainContent.vue'
-import DrawerMenu from './drawer/DrawerMenu.vue'
+import ActionBarContent from '@/components/UI/ActionBarContent.vue'
+import DrawerContent from './drawer/DrawerContent.vue'
 
 export default {
   name: 'AppNavigator',
   components: {
     MainContent,
     ActionBarContent,
-    DrawerMenu,
+    DrawerContent,
   },
   data() {
     return {
