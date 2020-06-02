@@ -15,37 +15,22 @@
     </ActionBar>
     <RadSideDrawer ref="drawer">
       <DrawerMenu ~drawerContent />
-      <GridLAyout
-        ~mainContent
-        class="drawerContent"
-        rows="*, auto"
-      >
-        <Frame row="0">
-          <Map            
-            :isVisible="isVisible"
-          />
-        </Frame>
-        <BottomAppBar
-          row="1"
-        />
-      </GridLayout>
+      <MainContent ~mainContent />
     </RadSideDrawer>
   </Page>
 </template>
 
 <script lang="ts">
 import ActionBarContent from '@/components/UI/ActionBarContent.vue'
-import DrawerMenu from '@/components/UI/DrawerMenu.vue'
-import BottomAppBar from '@/components/UI/BottomAppBar.vue'
-import Map from './Main/Map.vue'
+import MainContent from './drawer/MainContent.vue'
+import DrawerMenu from './drawer/DrawerMenu.vue'
 
 export default {
   name: 'AppNavigator',
   components: {
+    MainContent,
     ActionBarContent,
     DrawerMenu,
-    Map,
-    BottomAppBar
   },
   data() {
     return {
@@ -70,30 +55,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-ActionBar {
-  background-color: #53ba82;
-  color: #ffffff;
-}
-
-.drawerContent {
-  background-color: peru;
-}
-
-.drawer-header {
-  padding: 50 16 16 16;
-  margin-bottom: 16;
-  background-color: #53ba82;
-  color: #ffffff;
-  font-size: 24;
-}
-
-.drawer-item {
-  padding: 8 16;
-  color: #333333;
-  font-size: 16;
-}
-
-.fonticon {
-  border: 2px solid red;
-}
+  ActionBar {
+    background-color: #53ba82;
+    color: #ffffff;
+  }
 </style>
