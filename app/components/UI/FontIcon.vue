@@ -15,12 +15,11 @@ export default {
   props: {
     type: {
       type: String,
-      required: true,
-      default: 'fa'
+      default: 'far'
     },
     color: {
       type: String,
-      default: 'black'
+      default: 'white'
     },
     fontSize: {
       type: [String, Number],
