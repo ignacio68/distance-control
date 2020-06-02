@@ -8,7 +8,7 @@
       type="far"
       name="fa-bars"
       color="white"
-      :fontSize="24"
+      :fontSize="16"
       col="0"
       @tap="$emit('tapDrawerMenu')"
     />
@@ -26,7 +26,7 @@
       type="far"
       :name="isVisibleIcon"
       color="white"
-      :fontSize="24"
+      :fontSize="16"
       col="2"
       @tap="$emit('tapVisibility')"
     />
@@ -36,7 +36,7 @@
       type="far"
       name="fa-search"
       color="white"
-      :fontSize="24"
+      :fontSize="16"
       col="3"
       @tap="$emit('tapSearch')"
     />
@@ -44,7 +44,7 @@
     <FontIcon
       class="fonticon actionBar_overflowMenu-button"
       color="white"
-      :fontSize="24"
+      :fontSize="16"
       type="far"
       name="fa-ellipsis-v"
       col="4"
