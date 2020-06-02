@@ -10,7 +10,7 @@
 import Vue from 'nativescript-vue'
 
 // Load themes
-import './assets/scss/global.scss'
+import './styles/scss/global.scss'
 
 import { device, isAndroid, isIOS } from 'tns-core-modules/platform'
 
@@ -34,10 +34,10 @@ if(TNS_ENV !== 'production') {
 // Load TNSFonticon
 TNSFontIcon.debug = false
 TNSFontIcon.paths = {
-  fa: './assets/css/fontawesome.css',
-  far: './assets/css/regular.css',
-  fas: './assets/css/solid.css',
-  // fab: './assets/css/brands.css'
+  fa: './assets/styles/css/fontawesome.css',
+  far: './assets/styles/css/regular.css',
+  fas: './assets/styles/css/solid.css',
+  fab: './assets/styles/css/brands.css'
 }
 TNSFontIcon.loadCss()
 v.filter('fonticon', fonticon)
