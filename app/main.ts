@@ -28,7 +28,7 @@ const v = <any>Vue
 declare const TNS_ENV: any
 
 if(TNS_ENV !== 'production') {
-  v.use(VueDevtools, { host: '192.168.1.101'}) //movil
+  v.use(VueDevtools, { host: '192.168.1.101'}) //mobile
 }
 
 // Load TNSFonticon
