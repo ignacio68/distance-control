@@ -1,5 +1,5 @@
 <template>
-  <StackLayout ~drawerContent>
+  <StackLayout class="drawer">
     <Label 
       class="drawer-header" 
       text="USUARIO" 
@@ -21,22 +21,26 @@
 
 <script>
 export default {
-  name: 'DrawerMenu'
+  name: 'DrawerContent'
 }
 </script>
 
 <style lang="scss" scoped>
+.drawer{
+  background-color: white;
+}
 .drawer-header {
   padding: 50 16 16 16;
   margin-bottom: 16;
-  background-color: #53ba82;
+  background-color:#007a70;
   color: #ffffff;
   font-size: 24;
 }
 
 .drawer-item {
   padding: 8 16;
-  color: #333333;
+  color: #334240;
+  background-color: white;
   font-size: 16;
 }
 </style>
