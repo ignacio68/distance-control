@@ -1,35 +1,27 @@
 <template>
-  <Page actionBarHidden="false">
-    <ActionBar
-      id="actionBar" 
-      flat="true"
-      :height="56"
-    >
-      <ActionBarContent 
-        :isVisible="isVisible"
-        @tapDrawerMenu="$refs.drawer.nativeView.showDrawer()"
-        @tapVisibility="onTapVisibility()"
-        @tapSearch="onTapSearch()"
-        @tapOverflowMenu="onTapOverflowMenu()"
-      />
-    </ActionBar>
+  <Page actionBarHidden="true">
     <RadSideDrawer ref="drawer">
-      <DrawerContent />
-      <MainContent />
+      <DrawerContent ~drawerContent />
+      <StackLayout ~mainContent>
+        <Frame>
+          <MainContent 
+            @onTapDrawerMenu="$refs.drawer.nativeView.showDrawer()"
+          />
+        </Frame>
+      </StackLayout>
     </RadSideDrawer>
   </Page>
 </template>
 
 <script lang="ts">
 import MainContent from './drawer/MainContent.vue'
-import ActionBarContent from '@/components/UI/ActionBarContent.vue'
+
 import DrawerContent from './drawer/DrawerContent.vue'
 
 export default {
   name: 'AppNavigator',
   components: {
     MainContent,
-    ActionBarContent,
     DrawerContent,
   },
   data() {
