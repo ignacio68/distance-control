@@ -32,10 +32,10 @@ if(TNS_ENV !== 'production') {
 // Load TNSFonticon
 TNSFontIcon.debug = false
 TNSFontIcon.paths = {
-  fa: './assets/styles/css/font-awesome/fontawesome.css',
-  far: './assets/styles/css/font-awesome/regular.css',
-  fas: './assets/styles/css/font-awesome/solid.css',
-  fab: './assets/styles/css/font-awesome/brands.css'
+  fa: './assets/styles/css/font-awesome/fontawesome.min.css',
+  far: './assets/styles/css/font-awesome/regular.min.css',
+  fas: './assets/styles/css/font-awesome/solid.min.css',
+  fab: './assets/styles/css/font-awesome/brands.min.css'
 }
 TNSFontIcon.loadCss()
 v.filter('fonticon', fonticon)
