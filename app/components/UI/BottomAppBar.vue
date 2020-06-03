@@ -11,6 +11,14 @@
       horizontalAlignment="center"
       @tap="tapNewSecurityArea()"
     />
+    <!-- <FontIcon  
+      col="0"
+      type="fas"
+      name="fa-user-plus"
+      color="white"
+      :size="16"
+      @tap="tapNewSecurityArea()"
+    /> -->
     <Label
       col="1"
       text="Borrar"
@@ -27,8 +35,12 @@
 </template>
 
 <script lang="ts">
+import FontIcon from './FontIcon.vue'
 export default {
   name: 'BottomAppBar',
+  components: {
+    FontIcon
+  },
   methods: {
     tapNewSecurityArea() {
       this.$root.$emit('newSecurityArea', { name: 'user' })
@@ -53,6 +65,6 @@ export default {
     }
   }
   .bottomAppBar {
-    background-color: purple;
+    background-color:#004842;
   }
 </style>
