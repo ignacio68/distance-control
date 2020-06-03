@@ -7,7 +7,7 @@
       width="100%"
       height="70%"
       :accessToken="accessToken"
-      mapStyle="traffic_day"
+      :mapStyle="mapStyle"
       :latitude="userLatitude"
       :longitude="userLongitude"
       :zoomLevel="zoomLevel"
@@ -21,7 +21,10 @@
   </AbsoluteLayout>
 </template>
 
+
 <script lang="ts">
+// mapStyle="mapbox://styles/ignacio68/ckay3bxbr11qt1hquzxx1ohot"
+
 export default {
   name: 'MapComponent',
   props: {
@@ -40,6 +43,13 @@ export default {
     userLongitude: {
       type: String,
       required: true
+    }
+  },
+  data() {
+    return {
+      // mapStyle: '../../assets/maps/styles/dark_green/style.json',
+      mapStyle:'mapbox://styles/ignacio68/ckay3bxbr11qt1hquzxx1ohot',
+      anotherMapStyle: 'traffic_day'
     }
   },
   methods: {
