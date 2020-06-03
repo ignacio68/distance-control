@@ -14,8 +14,6 @@ import './styles/scss/global.scss'
 
 import { device, isAndroid, isIOS } from 'tns-core-modules/platform'
 
-import AppNavigator from './views/AppNavigator.vue'
-
 import VueDevtools from 'nativescript-vue-devtools'
 
 // Add NativeScript Font Icon plugin
@@ -34,10 +32,10 @@ if(TNS_ENV !== 'production') {
 // Load TNSFonticon
 TNSFontIcon.debug = false
 TNSFontIcon.paths = {
-  fa: './assets/styles/css/fontawesome.css',
-  far: './assets/styles/css/regular.css',
-  fas: './assets/styles/css/solid.css',
-  fab: './assets/styles/css/brands.css'
+  fa: './assets/styles/css/font-awesome/fontawesome.css',
+  far: './assets/styles/css/font-awesome/regular.css',
+  fas: './assets/styles/css/font-awesome/solid.css',
+  fab: './assets/styles/css/font-awesome/brands.css'
 }
 TNSFontIcon.loadCss()
 v.filter('fonticon', fonticon)
@@ -50,10 +48,12 @@ v.registerElement(
   'RadSideDrawer',
   () => require('nativescript-ui-sidedrawer').RadSideDrawer
 )
-
+  
 // Add Mapbox component
 v.registerElement('Mapbox', () => require('nativescript-mapbox').MapboxView)
-
+  
+import AppNavigator from './views/AppNavigator.vue'
+  
 new v({
   beforeCreate() {
     // Set the platform OS global variable
