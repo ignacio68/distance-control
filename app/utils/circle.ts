@@ -4,7 +4,7 @@ import {
   radiansToDegrees as degrees
 } from './core'
 
-import { Coordinates, Circle, Azimuth } from './types'
+import { Coordinates, Circle, Azimuth, LocationInCircle } from './types'
 
 const PI = Math.PI
 const EARTH_RADIUS = 6378 // km
@@ -36,4 +36,34 @@ const getCirclePointsCoordinates = (options: Circle) => {
   return allPointsCoordinates  
 }
 
-export { getCirclePointsCoordinates }
+
+
+  /**
+  * Is the current location within the given circle? 
+  *
+  * @param {number} longitude to check
+  * @param {number} latitude to check
+  * @param {number} longitude center of circle
+  * @param {number} latitude center of circle
+  * @param {number} radius of circle in meters
+  *
+  * @return {boolean} true if the point is within the given geofence.
+  *
+  * @link https://stackoverflow.com/questions/24680247/check-if-a-latitude-and-longitude-is-within-a-circle-google-maps
+  */
+// lng: number, lat: number, circleLng: number, circleLat: number, circleRadius: number
+const isLocationInCircle = (options: LocationInCircle ) => {
+  const { lng, lat, circleLng, circleLat, circleRadius } = options 
+  const ky = 111.11111111
+  const kx = Math.cos( Math.PI * circleLat / 180.0 ) * ky
+  const dx = Math.abs( circleLng - lng ) * kx
+  const dy = Math.abs( circleLat - lat ) * ky
+
+  const distance = Math.sqrt(dx * dx + dy * dy) 
+
+  // return (distance < circleRadius / 1000) ? true : false
+  return distance < circleRadius / 1000
+
+}
+
+export { getCirclePointsCoordinates, isLocationInCircle }
