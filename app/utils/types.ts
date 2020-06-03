@@ -51,3 +51,11 @@ export interface PolygonOptions {
   strokeOpacity?: number
   isVisible?: boolean
 }
+
+export interface LocationInCircle {
+  lng: number
+  lat: number
+  circleLng: number
+  circleLat: number
+  circleRadius: number
+}
