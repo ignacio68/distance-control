@@ -2,9 +2,9 @@
   <Label
     :class="type"
     :color="color"
-    :fontSize="fontSize"
+    :fontSize="size"
     :text="name | fonticon"
-    :backgroundColor="backgroundColor"
+    :width="size"
     textAlignment="center"
     @tap="$emit('tap')"
   />
@@ -15,25 +15,21 @@ export default {
   props: {
     type: {
       type: String,
-      default: 'far'
+      default: 'fa'
     },
     color: {
       type: String,
       default: 'white'
     },
-    fontSize: {
+    size: {
       type: [String, Number],
-      default: 24,
+      default: 16,
       validation: s => !isNaN(s)
     },
     name: {
       type: String,
       required: true
     },
-    backgroundColor: {
-      type:String,
-      default: 'transparent'
-    }
   }
 }
 </script>

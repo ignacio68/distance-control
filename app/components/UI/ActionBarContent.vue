@@ -8,7 +8,7 @@
       type="far"
       name="fa-bars"
       color="white"
-      :fontSize="16"
+      :size="16"
       col="0"
       @tap="$emit('tapDrawerMenu')"
     />
@@ -16,17 +16,16 @@
     <Label
       class="actionBar_title"
       text="Areas de Control"
-      :fontSize="20"
+      :fontSize="16"
       col="1"
     />
 
-    <!-- TODO: icono ojo - cambia según selección -->
     <FontIcon
       class="fonticon actionBar_visibility-button"
       type="far"
       :name="isVisibleIcon"
       color="white"
-      :fontSize="16"
+      :size="16"
       col="2"
       @tap="$emit('tapVisibility')"
     />
@@ -36,7 +35,7 @@
       type="far"
       name="fa-search"
       color="white"
-      :fontSize="16"
+      :size="16"
       col="3"
       @tap="$emit('tapSearch')"
     />
@@ -44,7 +43,7 @@
     <FontIcon
       class="fonticon actionBar_overflowMenu-button"
       color="white"
-      :fontSize="16"
+      :size="16"
       type="far"
       name="fa-ellipsis-v"
       col="4"
