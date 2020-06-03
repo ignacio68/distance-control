@@ -56,7 +56,7 @@ import { Coordinates, Marker, PolygonOptions } from '@/utils/types'
 import userLocation from '@/store/userLocation'
 import securityArea from '@/store/securityArea'
 
-import MapComponent from '@/components/Main/MapComponent.vue'
+import MapComponent from '@/components/Map/MapComponent.vue'
 
 export default {
   name: 'Map',
@@ -150,7 +150,7 @@ export default {
     onMapReady(args) {
       console.log('onMapReady()')
       this.map = args.map
-      this.showMarkers()
+      // this.showMarkers()
     },
 
     setCenter() {
