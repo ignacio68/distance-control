@@ -25,12 +25,6 @@
       horizontalAlignment="center"
       @tap="tapRemoveSecurityArea()"
     />
-    <Label
-      col="2"
-      text="Centrar"
-      horizontalAlignment="center"
-      @tap="tapSetCenter()"
-    />
   </GridLayout>
 </template>
 
@@ -48,9 +42,6 @@ export default {
     tapRemoveSecurityArea() {
       this.$root.$emit('removeSecurityArea', { name: 'user' })
     }, 
-    tapSetCenter() {
-      this.$root.$emit('setCenter')
-    }
   }
 }
 </script>
