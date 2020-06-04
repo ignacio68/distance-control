@@ -68,9 +68,12 @@ export default {
   },
 }
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
   .textForm {
-
+    margin: {
+      top: 0;
+      bottom: 0;
+    }
   }
   .textForm_label {
     padding-left: 16;
