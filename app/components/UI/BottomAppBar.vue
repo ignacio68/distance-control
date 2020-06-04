@@ -9,7 +9,7 @@
       col="0"
       text="Nuevo"
       horizontalAlignment="center"
-      @tap="tapNewSecurityArea()"
+      @tap="newMarker()"
     />
     <!-- <FontIcon  
       col="0"
@@ -17,7 +17,7 @@
       name="fa-user-plus"
       color="white"
       :size="16"
-      @tap="tapNewSecurityArea()"
+      @tap="newMarker()"
     /> -->
     <Label
       col="1"
@@ -36,8 +36,8 @@ export default {
     FontIcon
   },
   methods: {
-    tapNewSecurityArea() {
-      this.$root.$emit('newSecurityArea', { name: 'user' })
+    newMarker() {
+      this.$root.$emit('setNewMarker', { name: 'user' })
     },
     tapRemoveSecurityArea() {
       this.$root.$emit('removeSecurityArea', { name: 'user' })
