@@ -1,11 +1,15 @@
 <template>
-  <AbsoluteLayout class="map">
+  <GridLayout 
+    rows="auto, *" 
+    class="map"
+  >
     <MapBox
       ref="map"
+      row="1"
       left="0"
       top="0"
       width="100%"
-      height="70%"
+      height="100%"
       :accessToken="accessToken"
       :mapStyle="mapStyle"
       :latitude="userLatitude"
@@ -18,12 +22,18 @@
       :showUserLocation="true"
       @mapReady="onMapReady"
     />
-  </AbsoluteLayout>
+    <Fab
+      row="1"
+      rippleColor="#f1f1f1"
+      class="center-button"
+      @tap="$emit('setCenter')"
+    />
+  </GridLayout>
 </template>
-
 
 <script lang="ts">
 // mapStyle="mapbox://styles/ignacio68/ckay3bxbr11qt1hquzxx1ohot"
+// icon="res://ic_add_white"
 
 export default {
   name: 'MapComponent',
@@ -60,3 +70,14 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+  .center-button {
+  height: 70;
+  width: 70; 
+  margin: 15;
+  background-color: #ff4081;
+  horizontal-align: right;
+  vertical-align: top;
+}
+</style>

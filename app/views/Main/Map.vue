@@ -7,11 +7,13 @@
       class="map"
     >
       <MapComponent
+        height="70%"
         :accessToken="accessToken"
         :zoomLevel="15"
         :userLatitude="initialLocation.lat"
         :userLongitude="initialLocation.lng"
         @onMapReady="onMapReady($event)"
+        @setCenter="centerCamera()"
       />
       <!-- <Slider
         class="radiusSlider"
@@ -135,7 +137,7 @@ export default {
       console.log('Esto es una prueba de funcionamiento')
       console.log(JSON.stringify(values))
     },
-    
+
     onRadiusValueSliderChange({value}) {
       this.getRadius = value
       console.log(`value: ${value}`)
@@ -225,7 +227,4 @@ export default {
 }
 </script>
 <style lang="scss">
-  .map {
-    border: 2, solid, red
-  }
 </style>
