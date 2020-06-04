@@ -1,54 +1,74 @@
 <template>
   <GridLayout
-    rows="56, 56, *"
-    columns="*"
+    class="newMarker" 
+    rows="auto, *"
+    backgroundColor="white"
+    borderTopLeftRadius="16"
+    borderTopRightRadius="16"
   >
-    <TextForm
-      row="0"
-      class="myTextForm"
-      :labelWidth="80"
-      :textFieldWidth="200"
-      :returnKeyType="next"
-      textFormLabel="nombre:"
-      :value="values.id"
-      @onTextChange="setId(values.id)"
+    <Label
+      row="0" 
+      text="Nuevo Marcador" 
+      textWrap="true"
     />
-    <TextForm
+    <GridLayout
       row="1"
-      class="myTextForm"
-      :labelWidth="80"
-      :textFieldWidth="200"
-      textFormLabel="grupo:"
-      :value="values.group"
-      @onTextChange="setGroup(values.group)"
-    />
-    <StackLayout 
-      orientation="horizontal"
-      row="2"
-    >
-      <Button 
-        text="Cancelar" 
-        @tap="onCancel" 
+      class="newMarkerMenu"
+      rows="32, 32, 32, 64"
+      columns="*"
+    > 
+      <TextForm
+        row="0"
+        class="myTextForm"
+        :labelWidth="80"
+        :textFieldWidth="200"
+        :returnKeyType="next"
+        textFormLabel="nombre:"
+        :value="values.id"
+        @onTextChange="setId(values.id)"
       />
-      <Button 
-        text="Añadir" 
-        @tap="onAdd" 
+      <TextForm
+        row="1"
+        class="myTextForm"
+        :labelWidth="80"
+        :textFieldWidth="200"
+        textFormLabel="grupo:"
+        :value="values.group"
+        @onTextChange="setGroup(values.group)"
       />
-    </StackLayout>
+      <StackLayout 
+        orientation="horizontal"
+        row="2"
+      >
+        <Button 
+          text="Cancelar" 
+          @tap="onCancel" 
+        />
+        <Button 
+          text="Añadir" 
+          @tap="onAdd" 
+        />
+      </StackLayout>
+      <NewArea 
+        row="3"
+      />
+    </GridLayout>
   </GridLayout>
 </template>
 
 <script lang="ts">
 import TextForm from '@/components/UI/TextForm.vue'
+import NewArea from '@/components/Map/NewArea.vue'
 export default {
   name: 'NewMarker',
   components: {
-    TextForm
+    TextForm,
+    NewArea
   },
   data() {
     return {
       values: {
-        id: "pepe",
+        id: "",
         group: ""
       }
     }
@@ -61,7 +81,7 @@ export default {
     setGroup(group) {
       console.log('setgroup()')
       this.values.group = group
-    },
+    },    
     onCancel() {
       console.log('onCancel()')
       this.$emit('onMarkerCancel')
@@ -77,7 +97,11 @@ export default {
 </script>
 
 <style scoped lang="scss">
- .myTextForm {
+  .newMarker {
+    height: 360;
+    vertical-aligment: bottom;
+  }
+  .myTextForm {
   border: 3 solid green;
 }
 </style>
