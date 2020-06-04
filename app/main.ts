@@ -29,7 +29,11 @@ if(TNS_ENV !== 'production') {
   v.use(VueDevtools, { host: '192.168.1.101'}) //mobile
 }
 
-// Load TNSFonticon
+// Prints Vue logs when --env.production is *NOT* set while building
+v.config.silent = (TNS_ENV === 'production')
+
+//----- COMPONENTS -----//
+// Fonticon
 TNSFontIcon.debug = false
 TNSFontIcon.paths = {
   fa: './assets/styles/css/font-awesome/fontawesome.min.css',
@@ -40,18 +44,21 @@ TNSFontIcon.paths = {
 TNSFontIcon.loadCss()
 v.filter('fonticon', fonticon)
 
-// Prints Vue logs when --env.production is *NOT* set while building
-v.config.silent = (TNS_ENV === 'production')
-
-// Add Side Drawer
+// Side Drawer
 v.registerElement(
   'RadSideDrawer',
   () => require('nativescript-ui-sidedrawer').RadSideDrawer
 )
   
-// Add Mapbox component
+// Mapbox component
 v.registerElement('Mapbox', () => require('nativescript-mapbox').MapboxView)
-  
+
+// Floating action button
+v.registerElement(
+  'Fab',
+  () => require('@nstudio/nativescript-floatingactionbutton').Fab
+)
+
 import AppNavigator from './views/AppNavigator.vue'
   
 new v({
