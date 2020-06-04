@@ -42,7 +42,9 @@
           <Span :text="currentUserLocation.lng" />
         </FormattedString>
       </Label> -->
-      <NewMarker 
+      <NewMarker
+        v-if="newMarkerMenu"
+        @onMarkerCancel="newMarkerMenu = ! newMarkerMenu"
         @onMarkerDone="addMarker"
       />
     </StackLayout>
@@ -90,7 +92,8 @@ export default {
       radius: 10,
       fillColor: 'green',
       fillOpacity: 5,
-      activeUser: void 0
+      activeUser: void 0,
+      newMarkerMenu: false
     }
   },
 
@@ -127,9 +130,8 @@ export default {
   mounted() {
     console.log('mounted()')
     this.setInitialUserLocation()
-    this.$root.$on('newSecurityArea', value =>  this.newSecurityArea(value.name))
+    this.$root.$on('setNewMarker', () =>  this.newMarkerMenu = true)
     this.$root.$on('removeSecurityArea', value => this.removeSecurityArea(value.name))
-    this.$root.$on('setCenter', () => this.centerCamera())
   },
 
   methods: {
@@ -137,7 +139,6 @@ export default {
       console.log('Esto es una prueba de funcionamiento')
       console.log(JSON.stringify(values))
     },
-
     onRadiusValueSliderChange({value}) {
       this.getRadius = value
       console.log(`value: ${value}`)
@@ -209,7 +210,8 @@ export default {
         onTap: () => this.newSecurityArea(values.id),
       }
       
-      map.addMarker(this.map, marker)
+      map.addMarker(this.map, marker) // TODO: convert to promise
+      this.newMArker = false
     },
     updateMarker(id: string) {
       map.updateMarker(this.map, id)

@@ -22,11 +22,19 @@
       :value="values.group"
       @onTextChange="setGroup(values.group)"
     />
-    <Button 
+    <StackLayout 
+      orientation="horizontal"
       row="2"
-      text="Añadir" 
-      @tap="onTap" 
-    />
+    >
+      <Button 
+        text="Cancelar" 
+        @tap="onCancel" 
+      />
+      <Button 
+        text="Añadir" 
+        @tap="onAdd" 
+      />
+    </StackLayout>
   </GridLayout>
 </template>
 
@@ -54,8 +62,13 @@ export default {
       console.log('setgroup()')
       this.values.group = group
     },
-    onTap() {
-      console.log('onTap()')
+    onCancel() {
+      console.log('onCancel()')
+      this.$emit('onMarkerCancel')
+      // this.$emit('onMarkerDone')
+    },
+    onAdd() {
+      console.log('onAdd()')
       this.$emit('onMarkerDone', this.values)
       // this.$emit('onMarkerDone')
     }
