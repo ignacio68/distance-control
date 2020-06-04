@@ -7,7 +7,7 @@
     >
       <ActionBarContent 
         :isVisible="isVisible"
-        @tapDrawerMenu="$emit('ontapDraweMenu')"
+        @tapDrawerMenu="$emit('ontapDrawerMenu')"
         @tapVisibility="onTapVisibility()"
         @tapSearch="onTapSearch()"
         @tapOverflowMenu="onTapOverflowMenu()"
