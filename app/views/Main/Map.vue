@@ -9,11 +9,11 @@
       <MapComponent
         :accessToken="accessToken"
         :zoomLevel="15"
-        :userLatitude="centerMap.lat"
-        :userLongitude="centerMap.lng"
+        :userLatitude="initialLocation.lat"
+        :userLongitude="initialLocation.lng"
         @onMapReady="onMapReady($event)"
       />
-      <Slider
+      <!-- <Slider
         class="radiusSlider"
         minValue="0"
         maxValue="100"      
@@ -27,7 +27,7 @@
         maxValue="10"      
         :value="fillOpacity"
         @valueChange="onOpacityValueSliderChange" 
-      />
+      /> -->
       <!-- <Label>
         <FormattedString>
           <Span text="Latitude: " />
@@ -40,6 +40,9 @@
           <Span :text="currentUserLocation.lng" />
         </FormattedString>
       </Label> -->
+      <NewMarker 
+        @onMarkerDone="addMarker"
+      />
     </StackLayout>
   </Page>
 </template>
@@ -57,12 +60,14 @@ import userLocation from '@/store/userLocation'
 import securityArea from '@/store/securityArea'
 
 import MapComponent from '@/components/Map/MapComponent.vue'
+import NewMarker from '@/components/Map/NewMarker.vue'
 
 export default {
   name: 'Map',
 
   components: {
-    MapComponent
+    MapComponent,
+    NewMarker
   },
 
   props:{
@@ -75,7 +80,7 @@ export default {
   data() {
     return {
       accessToken: mapToken,
-      centerMap: {
+      initialLocation: {
         lat: '',
         lng: '',
       },
@@ -83,7 +88,6 @@ export default {
       radius: 10,
       fillColor: 'green',
       fillOpacity: 5,
-
       activeUser: void 0
     }
   },
@@ -123,10 +127,15 @@ export default {
     this.setInitialUserLocation()
     this.$root.$on('newSecurityArea', value =>  this.newSecurityArea(value.name))
     this.$root.$on('removeSecurityArea', value => this.removeSecurityArea(value.name))
-    this.$root.$on('setCenter', () => this.setCenter())
+    this.$root.$on('setCenter', () => this.centerCamera())
   },
 
   methods: {
+    prueba(values) {
+      console.log('Esto es una prueba de funcionamiento')
+      console.log(JSON.stringify(values))
+    },
+    
     onRadiusValueSliderChange({value}) {
       this.getRadius = value
       console.log(`value: ${value}`)
@@ -142,18 +151,19 @@ export default {
     setInitialUserLocation() {
       console.log('setInitialCoordinates()')
       getCurrentUserLocation().then((coordinates) => {
-        this.centerMap.lat = String(coordinates.lat)
-        this.centerMap.lng = String(coordinates.lng)
+        this.initialLocation.lat = String(coordinates.lat)
+        this.initialLocation.lng = String(coordinates.lng)
       })
     },
 
     onMapReady(args) {
       console.log('onMapReady()')
       this.map = args.map
+      map.addSource(this.map, 'main') // TODO: Change source name
       // this.showMarkers()
     },
 
-    setCenter() {
+    centerCamera() {
       console.log('setCenter()')
       map.setCenter(this.map)
     },
@@ -185,15 +195,16 @@ export default {
     },
 
     /***** markers *****/
-    addMarker(id: string) {
+    addMarker(values) {
       const coordinates = this.currentUserLocation
       const marker: Marker = {
-        id: id,
+        id: values.id,
+        group: values.group,
         lat: coordinates.lat,
         lng: coordinates.lng,
-        title: id,
+        title: values.id,
         selected: true,
-        onTap: () => this.newSecurityArea(id),
+        onTap: () => this.newSecurityArea(values.id),
       }
       
       map.addMarker(this.map, marker)
