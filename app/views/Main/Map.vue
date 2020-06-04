@@ -2,12 +2,13 @@
   <Page 
     actionBarHidden="true"
   >
-    <StackLayout
-      orientation="vertical"
-      class="map"
+    <GridLayout
+      class="mapPage"
+      rows="auto,250"
     >
       <MapComponent
-        height="70%"
+        row="0"
+        height="100%"
         :accessToken="accessToken"
         :zoomLevel="15"
         :userLatitude="initialLocation.lat"
@@ -15,22 +16,15 @@
         @onMapReady="onMapReady($event)"
         @setCenter="centerCamera()"
       />
-      <!-- <Slider
-        class="radiusSlider"
-        minValue="0"
-        maxValue="100"      
-        :value="radius"
-        @valueChange="onRadiusValueSliderChange" 
+      <NewMarker
+        ref="backdropMenu"       
+        row="1"
+        @onMarkerCancel="hideBackdropMenu()"
+        @onMarkerDone="addMarker"
+        @onRadiusChange="onRadiusChange"
       />
-
-      <Slider
-        class="opacitySlider"
-        minValue="0"
-        maxValue="10"      
-        :value="fillOpacity"
-        @valueChange="onOpacityValueSliderChange" 
-      /> -->
-      <!-- <Label>
+    </GridLayout>
+    <!-- <Label>
         <FormattedString>
           <Span text="Latitude: " />
           <Span :text="currentUserLocation.lat" />
@@ -42,12 +36,6 @@
           <Span :text="currentUserLocation.lng" />
         </FormattedString>
       </Label> -->
-      <NewMarker
-        v-if="newMarkerMenu"
-        @onMarkerCancel="newMarkerMenu = ! newMarkerMenu"
-        @onMarkerDone="addMarker"
-      />
-    </StackLayout>
   </Page>
 </template>
 
@@ -57,6 +45,7 @@ import { mapToken } from '@/setup/map'
 import { Color } from 'tns-core-modules/color/color'
 import * as map from '@/api/map'
 import { getCurrentUserLocation } from '@/services/geolocation'
+import {AnimationCurve} from "tns-core-modules/ui/enums"
 
 import { Coordinates, Marker, PolygonOptions } from '@/utils/types'
 
@@ -130,23 +119,46 @@ export default {
   mounted() {
     console.log('mounted()')
     this.setInitialUserLocation()
-    this.$root.$on('setNewMarker', () =>  this.newMarkerMenu = true)
+    this.$root.$on('setNewMarker', () =>  this.showBackdropMenu())
     this.$root.$on('removeSecurityArea', value => this.removeSecurityArea(value.name))
   },
 
   methods: {
-    prueba(values) {
-      console.log('Esto es una prueba de funcionamiento')
-      console.log(JSON.stringify(values))
+    showBackdropMenu() {
+      const backdropMenu = this.$refs.backdropMenu.nativeView
+      
+      backdropMenu.animate({
+        translate: { x: 0, y: -240},
+        duration: 500,
+        curve: AnimationCurve.easeIn
+      }).then(() => {})
+        .catch(() => {})
     },
-    onRadiusValueSliderChange({value}) {
-      this.getRadius = value
-      console.log(`value: ${value}`)
+    hideBackdropMenu() {
+      const backdropMenu = this.$refs.backdropMenu.nativeView
+      
+      backdropMenu.animate({
+        translate: { x: 0, y: 240},
+        duration: 500,
+        curve: AnimationCurve.easeOut
+      }).then(() => {})
+        .catch(() => {})
     },
+    onScroll() {
+      const scrollView = this.$refs.scrollView.nativeView
+      const topView = this.$refs.topView.nativeView
 
-    onOpacityValueSliderChange({value}) {
-      this.getFillOpacity = value
-      console.log(`opacity: ${this.fillOpacity}`)
+      if(scrollView > 600) {
+        const offset = scrollView.verticalOffset / 1.65
+        if(scrollView.ios) {
+          topView.animate({ translate: { x: 0, y: offset } }).then(() => {}, () => {})
+        } else {
+          topView.translateY = Math.floor(offset)
+        }
+      }
+    },
+    onRadiusChange(value) {
+       this.getRadius = value
     },
 
     /***** MAP *****/
