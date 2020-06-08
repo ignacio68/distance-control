@@ -59,3 +59,20 @@ export interface LocationInCircle {
   circleLat: number
   circleRadius: number
 }
+
+export interface Layer {
+  id: string,
+  source?: string,
+  sourceLayer?: string,
+  type?: string
+}
+
+export interface CircleLayer extends Layer {
+  circleColor?: string | Color;
+  circleOpacity?: number;
+  circleRadius?: number;
+  circleStrokeColor?: string | Color;
+  circleStrokeWidth?: number;
+  fillColor?: string | Color;
+  fillOpacity?: number;
+}
