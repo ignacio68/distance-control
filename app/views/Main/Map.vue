@@ -17,7 +17,12 @@
         @setCenter="centerCamera()"
       />
       <NewMarker
-        ref="backdropMenu"       
+        ref="backdropMenu"
+        v-shadow="8"
+        class="backdropMenu"     
+        backgroundColor="white"
+        borderTopLeftRadius="16"
+        borderTopRightRadius="16"
         row="1"
         @onMarkerCancel="hideBackdropMenu()"
         @onMarkerDone="addMarker"
@@ -128,7 +133,7 @@ export default {
       const backdropMenu = this.$refs.backdropMenu.nativeView
       
       backdropMenu.animate({
-        translate: { x: 0, y: -240},
+        translate: { x: 0, y: -250},
         duration: 500,
         curve: AnimationCurve.easeIn
       }).then(() => {})
@@ -138,7 +143,7 @@ export default {
       const backdropMenu = this.$refs.backdropMenu.nativeView
       
       backdropMenu.animate({
-        translate: { x: 0, y: 240},
+        translate: { x: 0, y: 250},
         duration: 500,
         curve: AnimationCurve.easeOut
       }).then(() => {})
@@ -240,5 +245,5 @@ export default {
   }
 }
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 </style>
