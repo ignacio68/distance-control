@@ -4,7 +4,7 @@ import { getSecurityAreaPoints } from '@/services/map'
 import securityArea from '@/store/securityArea'
 import markers from '@/store/markers'
 
-import { PolygonOptions, Marker } from '@/utils/types'
+import { PolygonOptions, Marker, CircleLayer } from '@/utils/types'
 
 export const setCenter = (map: any) => {
   getCurrentUserLocation().then((coordinates) => {
@@ -22,6 +22,22 @@ export const setCenter = (map: any) => {
 }
 
 /****** SECURITY AREA ******/
+// TODO: using layers
+export const addSource = (map: any, id: string) => {
+  map.addSource(id)
+}
+
+export const addCircleLayer = (map: any, options: CircleLayer) => {
+  map.addLayer({
+    id: options.id,
+    source: options.source,
+    type: 'circle',
+    circleColor: 'red',
+    circleRadius: 500,
+    circleStrokeColor: 'blue',
+    circleStrokeWidth: 3,
+  })
+}
 
 export const setSecurityArea = (map: any, polygonOptions: PolygonOptions) => {
   console.log("setSecurityArea()")
