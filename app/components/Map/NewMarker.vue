@@ -1,20 +1,19 @@
 <template>
   <GridLayout
     class="newMarker" 
-    rows="auto, *"
-    backgroundColor="white"
-    borderTopLeftRadius="16"
-    borderTopRightRadius="16"
+    rows="32, *"
   >
     <Label
+      class="menu_title"
       row="0" 
       text="Nuevo Marcador" 
-      textWrap="true"
+      effectiveBorderBottomWidth="1"
+      borderBottomColor="black"
     />
     <GridLayout
       row="1"
       class="newMarkerMenu"
-      rows="32, 32, 32, 64"
+      rows="36, 32, 32, 32, 64"
       columns="*"
     > 
       <TextForm
@@ -36,21 +35,27 @@
         :value="values.group"
         @onTextChange="setGroup(values.group)"
       />
-      <StackLayout 
+      <ColorSelector row="2" />
+      <StackLayout
+        class="buttons" 
         orientation="horizontal"
-        row="2"
+        horizontalAlignment="right"
+        row="3"
       >
-        <Button 
-          text="Cancelar" 
+        <Label
+          class="buttons_cancel" 
+          text="Cancelar"
+          verticalAlignment="center"
           @tap="onCancel" 
         />
-        <Button 
+        <Button
+          class="buttons_add"
           text="Añadir" 
           @tap="onAdd" 
         />
       </StackLayout>
       <NewArea 
-        row="3"
+        row="4"
       />
     </GridLayout>
   </GridLayout>
@@ -58,11 +63,13 @@
 
 <script lang="ts">
 import TextForm from '@/components/UI/TextForm.vue'
+import ColorSelector from '@/components/UI/ColorSelector.vue'
 import NewArea from '@/components/Map/NewArea.vue'
 export default {
   name: 'NewMarker',
   components: {
     TextForm,
+    ColorSelector,
     NewArea
   },
   data() {
@@ -100,8 +107,20 @@ export default {
   .newMarker {
     height: 360;
     vertical-aligment: bottom;
+    padding-left: 16;
+    padding-right: 16;
   }
-  .myTextForm {
-  border: 3 solid green;
-}
+  .menu_title {
+    color: black;
+    font-size: 16;
+    font-weight: 700;
+  }
+  .buttons_cancel {
+    font-size: 16;
+    color: #004842;
+  }
+  .buttons_add {
+    font-size: 16;
+    background-color: #004842;
+  }
 </style>
