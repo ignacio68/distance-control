@@ -76,7 +76,6 @@ export default {
     }
   }
   .textForm_label {
-    padding-left: 16;
     font-size: 16;
     color: black;
   }
