@@ -32,6 +32,10 @@ if(TNS_ENV !== 'production') {
 // Prints Vue logs when --env.production is *NOT* set while building
 v.config.silent = (TNS_ENV === 'production')
 
+//----- PLUGINS -----//
+import NSVueShadow from 'nativescript-vue-shadow'
+v.use(NSVueShadow)
+
 //----- COMPONENTS -----//
 // Fonticon
 TNSFontIcon.debug = false
