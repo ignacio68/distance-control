@@ -1,4 +1,4 @@
-# Covid 19 Distance Control
+# Distance Control
 
 > This application serves to control the distance travel by the user from his home
 
