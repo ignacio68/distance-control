@@ -1,11 +1,11 @@
 {
-  "name": "covid19-distance-control",
-  "version": "0.0.1",
+  "name": "distance-control",
+  "version": "0.0.4",
   "description": "A native application built with NativeScript-Vue",
   "author": "Ignacio Lopez-Amor Pinillos <ignaciolopezamor@gmail.com>",
   "license": "MIT",
   "nativescript": {
-    "id": "com.controldistance.app",
+    "id": "com.distancecontrol.app",
     "templateVersion": "v2",
     "tns-ios": {
       "version": "6.5.0"
