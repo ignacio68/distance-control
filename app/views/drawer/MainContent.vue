@@ -13,18 +13,14 @@
         @tapOverflowMenu="onTapOverflowMenu()"
       />
     </ActionBar>
-    <GridLayout
+    <GridLayout 
       class="drawerContent"
       rows="*, auto"
     >
       <Frame row="0">
-        <Map            
-          :isVisible="isVisible"
-        />
+        <Map :isVisible="isVisible" />
       </Frame>
-      <BottomAppBar
-        row="1"
-      />
+      <BottomAppBar row="1" />
     </GridLayout>
   </Page>
 </template>
