@@ -124,12 +124,12 @@ export default {
   mounted() {
     console.log('mounted()')
     this.setInitialUserLocation()
-    this.$root.$on('setNewMarker', () =>  this.showBackdropMenu())
+    this.$root.$on('setNewMarker', () =>  this.showBottomSheet())
     this.$root.$on('removeSecurityArea', value => this.removeSecurityArea(value.name))
   },
 
   methods: {
-    showBackdropMenu() {
+    showBottomSheet() {
       const backdropMenu = this.$refs.backdropMenu.nativeView
       
       backdropMenu.animate({
