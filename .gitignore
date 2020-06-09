@@ -12,4 +12,4 @@ report
 sourceMap
 app/assets/maps/styles
 
-# app/App_resources/Android/google-services.json
+app/App_resources/Android/google-services.json
