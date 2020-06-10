@@ -29,6 +29,7 @@
     "nativescript-mapbox": "^5.0.1",
     "nativescript-material-bottomsheet": "^3.2.8",
     "nativescript-plugin-firebase": "^10.5.2",
+    "nativescript-secure-storage": "^2.6.0",
     "nativescript-socketio": "^3.3.1",
     "nativescript-toasty": "^3.0.0-alpha.2",
     "nativescript-ui-sidedrawer": "^8.0.1",
