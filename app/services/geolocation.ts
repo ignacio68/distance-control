@@ -29,25 +29,7 @@ const fetchCurrentUserLocation = () =>
     }
   )
 
-// const getCurrentUserLocation = async () => {
-//   console.log('getUserCurrentLocation()')
-//   isLocationServicesEnabled()
-//     .then(async (isEnabled) => {
-//       if (!isEnabled) {
-//         return
-//       }
-//     })
-//     .then( async () => {
-//       const location = await fetchCurrentUserLocation()
-//       console.log('fetchCurrentUserLocation()')
-//       console.dir(location)
-//       userLocation.setCurrentUserLocation(location)
-//       return location
-//     })
-//     .catch((e) => console.log(`getCurrentLocation() error: ${e.message || e}`))
-// }
-
-const getCurrentUserLocation = async() => {
+export const getCurrentUserLocation = async() => {
   console.log('getUserCurrentLocation()')
   const isEnabled = isLocationServicesEnabled()
   if (!isEnabled) {
@@ -65,7 +47,7 @@ const getCurrentUserLocation = async() => {
   }
 }
 
-const watchUserLocation = () => {
+export const watchUserLocation = () => {
   // TODO: revisar sintaxis
   console.log('watchUserLocation()')
   geolocation.watchLocation(
@@ -86,4 +68,20 @@ const watchUserLocation = () => {
   )
 }
 
-export { getCurrentUserLocation, watchUserLocation }
+// const getCurrentUserLocation = async () => {
+//   console.log('getUserCurrentLocation()')
+//   isLocationServicesEnabled()
+//     .then(async (isEnabled) => {
+//       if (!isEnabled) {
+//         return
+//       }
+//     })
+//     .then( async () => {
+//       const location = await fetchCurrentUserLocation()
+//       console.log('fetchCurrentUserLocation()')
+//       console.dir(location)
+//       userLocation.setCurrentUserLocation(location)
+//       return location
+//     })
+//     .catch((e) => console.log(`getCurrentLocation() error: ${e.message || e}`))
+// }
