@@ -11,5 +11,6 @@ app/setup
 report
 sourceMap
 app/assets/maps/styles
+psd
 
 app/App_resources/Android/google-services.json
