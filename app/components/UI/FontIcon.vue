@@ -26,7 +26,6 @@ export default Vue.extend({
     size: {
       type: [String, Number],
       default: 16,
-      validation: s => !isNaN(s)
     },
     name: {
       type: String,

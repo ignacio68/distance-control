@@ -62,17 +62,14 @@ export default Vue.extend({
     minValue: {
       type: Number,
       default: 0,
-      validation: (s) => !isNaN(s),
     },
     maxValue: {
       type: Number,
       default: 1,
-      validation: (s) => !isNaN(s),
     },
     value: {
       type: Number,
       default: 0,
-      validation: (s) => !isNaN(s),
     },
   },
 })

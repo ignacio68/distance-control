@@ -94,7 +94,7 @@ export default Vue.extend({
       newMarkerMenu: false,
       hasNewMarkerError: false
     }
-  }),
+  },
 
   computed: {
     currentUserLocation(): Coordinates {
@@ -250,7 +250,7 @@ export default Vue.extend({
       map.removeSecurityArea(this.map, id)
     }
   }
-}
+})
 </script>
 <style lang="scss" scoped>
 .newMarker {
