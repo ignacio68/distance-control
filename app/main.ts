@@ -4,7 +4,7 @@
  * @copyright Ignacio López-Amor Pinillos 2020
  * @author Ignacio López-Amor Pinillos <ignaciolopezamor@gmail.com>
  * @license MIT
- * @version 0.1.0
+ * @version 0.4.0
  */
 
 import Vue from 'nativescript-vue'
@@ -12,15 +12,21 @@ import Vue from 'nativescript-vue'
 // Load themes
 import './styles/scss/global.scss'
 
+// Internationalization
+import i18n from "./setup/i18n"
+
+//----- Plugins -----//
+import './plugins/BottomSheet'
+import './plugins/FloatingActionButton'
+import './plugins/FontIcon'
+import './plugins/Mapbox'
+import './plugins/RadSideDrawer'
+import './plugins/Slider'
+import './plugins/VShadow'
+
 import { device, isAndroid, isIOS } from 'tns-core-modules/platform'
 
 import VueDevtools from 'nativescript-vue-devtools'
-
-// Add NativeScript Font Icon plugin
-import { TNSFontIcon, fonticon } from 'nativescript-fonticon'
-
-// Import languages
-import i18n from "./setup/i18n"
 
 const v = <any>Vue
 declare const TNS_ENV: any
@@ -31,46 +37,6 @@ if(TNS_ENV !== 'production') {
 
 // Prints Vue logs when --env.production is *NOT* set while building
 v.config.silent = (TNS_ENV === 'production')
-
-//----- COMPONENTS -----//
-// Fonticon
-TNSFontIcon.debug = false
-TNSFontIcon.paths = {
-  fa: './assets/styles/css/font-awesome/fontawesome.min.css',
-  far: './assets/styles/css/font-awesome/regular.min.css',
-  fas: './assets/styles/css/font-awesome/solid.min.css',
-  fab: './assets/styles/css/font-awesome/brands.min.css'
-}
-TNSFontIcon.loadCss()
-v.filter('fonticon', fonticon)
-
-// Side Drawer
-v.registerElement(
-  'RadSideDrawer',
-  () => require('nativescript-ui-sidedrawer').RadSideDrawer
-)
-  
-// Mapbox component
-v.registerElement('Mapbox', () => require('nativescript-mapbox').MapboxView)
-
-// Floating action button
-v.registerElement(
-  'Fab',
-  () => require('@nstudio/nativescript-floatingactionbutton').Fab
-)
-
-// // Material Bottom Sheet
-// import BottomSheetPlugin from 'nativescript-material-bottomsheet/vue' 
-// Vue.use(BottomSheetPlugin)
-
-//  Material Slider
-import SliderPlugin from 'nativescript-material-slider/vue'
-
-Vue.use(SliderPlugin)
-
-// v-shadow directive
-import NSVueShadow from 'nativescript-vue-shadow'
-v.use(NSVueShadow)
 
 import AppNavigator from './views/AppNavigator.vue'
   
