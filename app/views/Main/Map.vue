@@ -47,9 +47,10 @@
 <script lang="ts">
 import { mapToken } from '@/setup/map'
 
-import { Color } from 'tns-core-modules/color/color'
 import * as map from '@/api/map'
-import { getCurrentUserLocation } from '@/services/geolocation'
+import { getCurrentUserLocation } from '@/services'
+import { setStorage } from '@/api'
+import { Color } from '@nativescript/core/color'
 import { screen } from '@nativescript/core/platform'
 import { CubicBezierAnimationCurve } from  '@nativescript/core/ui/animation'
 
@@ -175,6 +176,39 @@ export default {
       map.setCenter(this.map)
     },
 
+    /***** markers *****/
+    addMarker(values) {
+      const coordinates = this.currentUserLocation
+      const marker: Marker = {
+        id: values.id,
+        group: values.group,
+        lat: coordinates.lat,
+        lng: coordinates.lng,
+        title: values.id,
+        selected: true,
+        onTap: () => this.newSecurityArea(values.id),
+      }
+      setStorage(marker.id, marker).then(success => {
+        // console.log(`setStorage? ${success))`
+        if(success){
+           map.addMarker(this.map, marker)
+        }
+      })
+     
+    },
+    updateMarker(id: string) {
+      map.updateMarker(this.map, id)
+    },
+    removeMarker(id: string) {
+      this.map.removeMarkers(this.map, id)
+    },
+    showMarkers() {
+      this.activeUser = 'user'
+      this.addMarker(this.activeUser)
+      console.log('showMarkers')
+      console.dir(JSON.stringify(this.markers))
+    },
+
     /***** SECURITY AREA ******/
 
     newSecurityArea(id: string) {
@@ -199,35 +233,6 @@ export default {
     removeSecurityArea(id: string) {
       console.log(`remove polygon: ${id}`)
       map.removeSecurityArea(this.map, id)
-    },
-
-    /***** markers *****/
-    addMarker(values) {
-      const coordinates = this.currentUserLocation
-      const marker: Marker = {
-        id: values.id,
-        group: values.group,
-        lat: coordinates.lat,
-        lng: coordinates.lng,
-        title: values.id,
-        selected: true,
-        onTap: () => this.newSecurityArea(values.id),
-      }
-      
-      map.addMarker(this.map, marker) // TODO: convert to promise
-      this.newMArker = false
-    },
-    updateMarker(id: string) {
-      map.updateMarker(this.map, id)
-    },
-    removeMarker(id: string) {
-      this.map.removeMarkers(this.map, id)
-    },
-    showMarkers() {
-      this.activeUser = 'user'
-      this.addMarker(this.activeUser)
-      console.log('showMarkers')
-      console.dir(JSON.stringify(this.markers))
     }
   }
 }
