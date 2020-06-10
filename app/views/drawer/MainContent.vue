@@ -1,28 +1,33 @@
 <template>
-  <Page>
-    <ActionBar
-      id="actionBar" 
-      flat="true"
-      :height="56"
-    >
-      <ActionBarContent 
-        :isVisible="isVisible"
-        @tapDrawerMenu="$emit('ontapDrawerMenu')"
-        @tapVisibility="onTapVisibility()"
-        @tapSearch="onTapSearch()"
-        @tapOverflowMenu="onTapOverflowMenu()"
-      />
-    </ActionBar>
-    <GridLayout 
-      class="drawerContent"
-      rows="*, auto"
-    >
-      <Frame row="0">
-        <Map :isVisible="isVisible" />
-      </Frame>
-      <BottomAppBar row="1" />
-    </GridLayout>
-  </Page>
+  <Frame>
+    <Page>
+      <ActionBar
+        id="actionBar" 
+        flat="true"
+        :height="56"
+      >
+        <ActionBarContent 
+          :isVisible="isVisible"
+          @tapDrawerMenu="$emit('ontapDrawerMenu')"
+          @tapVisibility="onTapVisibility()"
+          @tapSearch="onTapSearch()"
+          @tapOverflowMenu="onTapOverflowMenu()"
+        />
+      </ActionBar>
+      <GridLayout 
+        class="drawerContent"
+        rows="*, auto"
+      >
+        <!-- <Frame row="0"> -->
+        <Map
+          row="0"
+          :isVisible="isVisible" 
+        />
+        <!-- </Frame> -->
+        <BottomAppBar row="1" />
+      </GridLayout>
+    </Page>
+  </Frame>
 </template>
 
 <script lang="ts">
