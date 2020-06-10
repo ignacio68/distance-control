@@ -1,24 +1,22 @@
 <template>
-  <GridLayout columns="auto,auto">
+  <StackLayout orientation="horizontal">
     <Label
       class="color_title"
-      text="Select the icon color"
+      text="select the icon color"
       textWrap="true"
     />
-    <StackLayout alignment="horizontal">
+    <StackLayout orientation="horizontal">
       <Label
         v-for="color in colors"
         :key="color.name"
         class="color_list-item"
-        :backgroundColor="color.color" 
-        color="black"
-        width="24"
-        height="24"
-        paddingleft="4"
-        @Tap="onTap"
+        :backgroundColor="color.color"
+        borderColor="black"
+        borderWidth="1"
+        @Tap="onTap(color)"
       />
     </StackLayout>
-  </GridLayout>
+  </StackLayout>
 </template>
 
 <script>
@@ -49,8 +47,11 @@ export default {
 <style lang="scss" scoped>
   .color_title {
     color: black;
+    font-size: 16;
   }
   .color_list-item {
-    color: black;
+    margin-left: 8;
+    width: 24;
+    height: 24;
   }
 </style>>
