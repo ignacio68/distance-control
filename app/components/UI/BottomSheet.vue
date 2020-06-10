@@ -11,10 +11,12 @@
 </template>
 
 <script lang="ts">
+import Vue from 'vue'
+
 import { screen } from '@nativescript/core/platform'
 import { CubicBezierAnimationCurve } from  '@nativescript/core/ui/animation'
 
-export default {
+export default Vue.extend({
   name:"BottomSheet",
   mounted() {
     this.bottomSheetLoaded()
@@ -49,7 +51,7 @@ export default {
       })
     }
   }
-}
+})
 </script>
 
 <style lang="scss" scoped>

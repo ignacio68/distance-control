@@ -20,9 +20,11 @@
 </template>
 
 <script>
-export default {
+import Vue from 'vue'
+
+export default Vue.extend({
   name: 'DrawerContent'
-}
+})
 </script>
 
 <style lang="scss" scoped>

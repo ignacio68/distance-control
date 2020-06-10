@@ -9,7 +9,9 @@
 </template>
 
 <script lang="ts">
-export default {
+import Vue from 'vue'
+
+export default Vue.extend({
   name:'FakeComponent',
   props: {
     msg:{
@@ -17,8 +19,7 @@ export default {
       default: 'FAKE COMPONENT'
     }
   }
-
-}
+})
 </script>
 
 <style lang="scss" scoped>

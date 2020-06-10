@@ -50,7 +50,9 @@
 </template>
 
 <script lang="ts">
-export default {
+import Vue from 'vue'
+
+export default Vue.extend({
   name: 'CustomSlider',
   props: {
     sliderName: {
@@ -73,7 +75,7 @@ export default {
       validation: (s) => !isNaN(s),
     },
   },
-}
+})
 </script>
 
 <style lang="scss" scoped>

@@ -34,10 +34,12 @@
 </template>
 
 <script lang="ts">
+import Vue from 'vue'
+
 // mapStyle="mapbox://styles/ignacio68/ckay3bxbr11qt1hquzxx1ohot"
 // icon="res://ic_add_white"
 
-export default {
+export default Vue.extend({
   name: 'MapComponent',
   props: {
     accessToken: {
@@ -70,7 +72,7 @@ export default {
       this.$emit('onMapReady', e)
     }
   }
-}
+})
 </script>
 
 <style lang="scss" scoped>

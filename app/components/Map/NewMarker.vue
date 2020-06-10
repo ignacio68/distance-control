@@ -65,11 +65,13 @@
 </template>
 
 <script lang="ts">
+import Vue from 'vue'
+
 import TextForm from '@/components/UI/TextForm.vue'
 import ColorSelector from '@/components/UI/ColorSelector.vue'
 import NewArea from '@/components/Map/NewArea.vue'
 
-export default {
+export default Vue.extend({
   name: 'NewMarker',
   components: {
     TextForm,
@@ -124,7 +126,7 @@ export default {
       this.$emit('onMarkerDone', this.marker)
     },
   },
-}
+})
 </script>
 
 <style scoped lang="scss">

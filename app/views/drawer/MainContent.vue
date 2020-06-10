@@ -31,10 +31,13 @@
 </template>
 
 <script lang="ts">
+import Vue from 'vue'
+
 import ActionBarContent from '@/components/UI/ActionBarContent.vue'
 import Map from '../main/Map.vue'
 import BottomAppBar from '@/components/UI/BottomAppBar.vue'
-export default {
+
+export default Vue.extend({
   name: "MainContent",
   components: {
     Map,
@@ -60,7 +63,7 @@ export default {
       console.log("Tap on extended menu")
     }
   }
-}
+})
 </script>
 
 <style lang="scss" scoped>

@@ -52,9 +52,12 @@
   </GridLayout>
 </template>
 
-<script>
+<script lang="ts">
+import Vue from 'vue'
+
 import FontIcon from '@/components/UI/FontIcon.vue'
-export default {
+
+export default Vue.extend({
   name: 'ActionBarContent',
   components: {
     FontIcon
@@ -74,7 +77,7 @@ export default {
       return this.isVisible ? 'fa-eye-slash' : 'fa-eye'
     }
   }
-}
+})
 </script>
 
 <style>

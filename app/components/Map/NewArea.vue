@@ -22,8 +22,11 @@
 </template>
 
 <script lang="ts">
+import Vue from 'vue'
+
 import CustomSlider from '@/components/UI/CustomSlider.vue'
-export default {
+
+export default Vue.extend({
   name: 'NewArea',
   components: {
     CustomSlider
@@ -42,7 +45,7 @@ export default {
       this.$emit('inOpacityChange', value)
     }
   }
-}
+})
 </script>
 
 <style lang="scss" scoped>

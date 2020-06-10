@@ -46,6 +46,8 @@
 </template>
 
 <script lang="ts">
+import Vue from 'vue'
+
 import { mapToken } from '@/setup/map'
 
 import * as map from '@/api/map'
@@ -63,7 +65,7 @@ import securityArea from '@/store/securityArea'
 import MapComponent from '@/components/Map/MapComponent.vue'
 import NewMarker from '@/components/Map/NewMarker.vue'
 
-export default {
+export default Vue.extend({
   name: 'Map',
 
   components: {
@@ -92,7 +94,7 @@ export default {
       newMarkerMenu: false,
       hasNewMarkerError: false
     }
-  },
+  }),
 
   computed: {
     currentUserLocation(): Coordinates {

@@ -11,10 +11,11 @@
 </template>
 
 <script lang="ts">
+import Vue from 'vue'
 import MainContent from './drawer/MainContent.vue'
 import DrawerContent from './drawer/DrawerContent.vue'
 
-export default {
+export default Vue.extend({
   name: 'AppNavigator',
   components: {
     MainContent,
@@ -39,7 +40,7 @@ export default {
       console.log("Tap on extended menu")
     }
   }
-}
+})
 </script>
 
 <style lang="scss" scoped>

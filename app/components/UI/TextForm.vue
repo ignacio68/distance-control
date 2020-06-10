@@ -28,7 +28,9 @@
   </GridLayout>
 </template>
 <script lang="ts">
-export default {
+import Vue from 'vue'
+
+export default Vue.extend({
   name: "TextForm",
   props: {
     labelWidth: {
@@ -71,7 +73,7 @@ export default {
       required: true
     },
   },
-}
+})
 </script>
 <style lang="scss" scoped>
   .textForm {

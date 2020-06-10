@@ -29,8 +29,11 @@
 </template>
 
 <script lang="ts">
+import Vue from 'vue'
+
 import FontIcon from './FontIcon.vue'
-export default {
+
+export default Vue.extend({
   name: 'BottomAppBar',
   components: {
     FontIcon
@@ -43,7 +46,7 @@ export default {
       this.$root.$emit('removeSecurityArea', { name: 'user' })
     }, 
   }
-}
+})
 </script>
 
 <style lang="scss" scoped>
