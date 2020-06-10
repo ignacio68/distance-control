@@ -1,34 +1,36 @@
 <template>
-  <GridLayout 
-    rows="auto, *" 
-    class="map"
-  >
-    <MapBox
-      ref="map"
-      row="1"
-      left="0"
-      top="0"
-      width="100%"
-      height="100%"
-      :accessToken="accessToken"
-      :mapStyle="mapStyle"
-      :latitude="userLatitude"
-      :longitude="userLongitude"
-      :zoomLevel="zoomLevel"
-      :hideCompass="true"
-      :disableRotation="true"
-      :disableScroll="false"
-      :disableZoom="false"
-      :showUserLocation="true"
-      @mapReady="onMapReady"
-    />
-    <Fab
-      row="1"
-      rippleColor="#f1f1f1"
-      class="center-button"
-      @tap="$emit('setCenter')"
-    />
-  </GridLayout>
+  <Page actionBarHidden="true">
+    <GridLayout 
+      rows="auto, *" 
+      class="map"
+    >
+      <MapBox
+        ref="map"
+        row="1"
+        left="0"
+        top="0"
+        width="100%"
+        height="100%"
+        :accessToken="accessToken"
+        :mapStyle="mapStyle"
+        :latitude="userLatitude"
+        :longitude="userLongitude"
+        :zoomLevel="zoomLevel"
+        :hideCompass="true"
+        :disableRotation="true"
+        :disableScroll="false"
+        :disableZoom="false"
+        :showUserLocation="true"
+        @mapReady="onMapReady"
+      />
+      <Fab
+        row="1"
+        rippleColor="#f1f1f1"
+        class="center-button"
+        @tap="$emit('setCenter')"
+      />
+    </GridLayout>
+  </Page>
 </template>
 
 <script lang="ts">
