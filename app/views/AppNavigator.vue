@@ -2,20 +2,16 @@
   <Page actionBarHidden="true">
     <RadSideDrawer ref="drawer">
       <DrawerContent ~drawerContent />
-      <StackLayout ~mainContent>
-        <Frame>
-          <MainContent 
-            @onTapDrawerMenu="$refs.drawer.nativeView.showDrawer()"
-          />
-        </Frame>
-      </StackLayout>
+      <MainContent
+        ~mainContent 
+        @onTapDrawerMenu="$refs.drawer.nativeView.showDrawer()"
+      />
     </RadSideDrawer>
   </Page>
 </template>
 
 <script lang="ts">
 import MainContent from './drawer/MainContent.vue'
-
 import DrawerContent from './drawer/DrawerContent.vue'
 
 export default {
