@@ -2,48 +2,44 @@ import { SecureStorage } from 'nativescript-secure-storage'
 
 let storage = new SecureStorage()
 
-export const setStorage = (key: string, value: any): any => {
-  storage
+export const setStorage = (key: string, value: object) => {
+  const set = storage
     .set({
       key: key,
-      value: value,
+      value: JSON.stringify(value),
     })
     .then((success) => {
       console.log(`Successfully set a value? + ${success}`)
       return success
-    }), (error) => {
-      console.log(`setStorage error: ${error}`);
-    }
+    })
+  return set
 }
 
 export const getStorage = (key: string): any => {
-  storage
+  const get = storage
     .get({
       key: key,
     })
-    .then((value) => value), (error) => {
-      console.log(`getStorage error: ${error}`);
-    }
+    .then((value) => JSON.parse(value))
+  return get
 }
 
 export const removeStorage = (key: string): any => {
-  storage
+  const remove = storage
     .remove({
       key: key,
     })
     .then((success) => {
       console.log(`Successfully removed a value? + ${success}`)
       return success
-    }), (error) => {
-      console.log(`removeStorage error: ${error}`);
-    }
+    })
+  return remove
 }
 
-export const removeAll = (): any => {
-  storage.removeAll().then((success) => {
+export const removeAllStorage = (): any => {
+  const removeAll = storage.removeAll().then((success) => {
     console.log(`Successfully removed a values? + ${success}`)
     return success
-  }), (error) => {
-    console.log(`removeAllStorage error: ${error}`);
-  }
+  })
+  return removeAll
 }
