@@ -1,7 +1,2 @@
-import { getCurrentUserLocation } from '@/services/serviceGeolocation'
-
-const userCurrentLocation = () => getCurrentUserLocation()
-
-export {
-    userCurrentLocation
-}
+export * from './map'
+export * from './storage'
