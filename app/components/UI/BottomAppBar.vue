@@ -9,7 +9,7 @@
       col="0"
       text="Nuevo"
       horizontalAlignment="center"
-      @tap="newMarker()"
+      @tap="newMarker"
     />
     <!-- <FontIcon  
       col="0"
@@ -23,7 +23,7 @@
       col="1"
       text="Borrar"
       horizontalAlignment="center"
-      @tap="tapRemoveSecurityArea()"
+      @tap="tapRemoveSecurityArea"
     />
   </GridLayout>
 </template>
