@@ -62,7 +62,8 @@ export default {
       default: "Pepe"
     },
     value: {
-      type: [String, Number],
+      // type: [String, Number],
+      validator: prop => typeof prop === 'string' || prop === 'number' || prop === null,
       required: true
     },
   },
