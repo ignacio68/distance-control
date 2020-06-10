@@ -27,6 +27,7 @@
     "nativescript-fonticon": "^2.0.0",
     "nativescript-geolocation": "^5.1.0",
     "nativescript-mapbox": "^5.0.1",
+    "nativescript-material-bottomsheet": "^3.2.8",
     "nativescript-plugin-firebase": "^10.5.2",
     "nativescript-socketio": "^3.3.1",
     "nativescript-toasty": "^3.0.0-alpha.2",
