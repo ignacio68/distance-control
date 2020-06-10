@@ -1,8 +1,6 @@
 <template>
   <Page actionBarHidden="true">
-    <StackLayout
-      orientation="vertical"
-    >
+    <StackLayout orientation="vertical">
       <Label
         class="menu_title"
         text="Nuevo Marcador"
@@ -12,53 +10,57 @@
       />
       <GridLayout
         class="newMarkerMenu"
-        rows="36, 32, 32, 64, 32"
+        rows="36, auto, 32, 32, 64, 32"
         columns="*"
-      > 
+      >
         <TextForm
           row="0"
           class="name"
-          :labelWidth="80"
+          :labelWidth="60"
           :textFieldWidth="200"
-          :returnKeyType="next"
+          :maxLenght="24"
+          returnKeyType="next"
           textFormLabel="nombre:"
-          :value="values.id"
-          @onTextChange="setId(values.id)"
+          :value="marker.id"
+          @onTextChange="setId(marker.id)"
         />
-        <ColorSelector row="1" />
+        <Label 
+          v-if="hasError"
+          row="1"
+          class="error"
+          text="Faltan el nombre y/o las coordenadas"
+        />
+        <ColorSelector row="2" />
         <TextForm
-          row="2"
+          row="3"
           class="group"
           :labelWidth="80"
           :textFieldWidth="200"
           textFormLabel="grupo:"
-          :value="values.group"
-          @onTextChange="setGroup(values.group)"
+          :value="marker.group"
+          @onTextChange="setGroup(marker.group)"
         />
-        <NewArea 
-          row="3"
-        />
+        <NewArea row="4" />
         <StackLayout
-          class="buttons" 
+          row="5"
+          class="buttons"
           orientation="horizontal"
           horizontalAlignment="right"
-          row="4"
         >
           <Label
-            class="buttons_cancel" 
+            class="buttons_cancel"
             text="Cancelar"
             verticalAlignment="center"
-            @tap="onCancel" 
+            @tap="onCancel"
           />
           <Button
             class="buttons_add"
-            text="Añadir" 
-            @tap="onAdd" 
+            text="Añadir"
+            @tap="onAdd"
           />
         </StackLayout>
       </GridLayout>
-      </GridLayout>
-    </stacklayout>
+    </StackLayout>
   </Page>
 </template>
 
@@ -66,62 +68,87 @@
 import TextForm from '@/components/UI/TextForm.vue'
 import ColorSelector from '@/components/UI/ColorSelector.vue'
 import NewArea from '@/components/Map/NewArea.vue'
+
 export default {
   name: 'NewMarker',
   components: {
     TextForm,
     ColorSelector,
-    NewArea
+    NewArea,
+  },
+  props: {
+    hasError: {
+      type: Boolean,
+      default: false
+    }
   },
   data() {
     return {
-      values: {
-        id: "",
-        group: ""
+      marker: {
+        id: '',
+        coordinates: {
+          lat: '',
+          lng: '',
+        },
+        group: '',
+        color: '',
+      },
+      area: {
+        id: '',
+        center: {
+          lat: '',
+          lng: '',
+        },
+        radius: 1,
+        color: '',
+        opacity: .5,
+        group: '',
       }
     }
   },
   methods: {
     setId(id) {
       console.log('setId()')
-      this.values.id = id
+      this.marker.id = id
     },
     setGroup(group) {
       console.log('setgroup()')
-      this.values.group = group
-    },    
+      this.marker.group = group
+    },
     onCancel() {
       console.log('onCancel()')
       this.$emit('onMarkerCancel')
-      // this.$emit('onMarkerDone')
     },
     onAdd() {
       console.log('onAdd()')
-      this.$emit('onMarkerDone', this.values)
-      // this.$emit('onMarkerDone')
-    }
-  }
+      this.$emit('onMarkerDone', this.marker)
+    },
+  },
 }
 </script>
 
 <style scoped lang="scss">
-  .newMarker {
-    height: 360;
-    vertical-aligment: bottom;
-    padding-left: 16;
-    padding-right: 16;
-  }
-  .menu_title {
-    color: black;
-    font-size: 16;
-    font-weight: 700;
-  }
-  .buttons_cancel {
-    font-size: 16;
-    color: #004842;
-  }
-  .buttons_add {
-    font-size: 16;
-    background-color: #004842;
-  }
+.newMarker {
+  height: 360;
+  vertical-aligment: bottom;
+  padding-left: 16;
+  padding-right: 16;
+}
+.menu_title {
+  color: black;
+  font-size: 16;
+  font-weight: 700;
+}
+.error {
+  color: red;
+  font-size: 16;
+}
+.buttons_cancel {
+  font-size: 16;
+  color: #004842;
+}
+.buttons_add {
+  font-size: 16;
+  background-color: #004842;
+}
 </style>

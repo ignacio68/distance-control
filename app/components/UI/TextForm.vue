@@ -19,7 +19,7 @@
       color="black"
       isEnabled="true"
       editable="true"
-      :maxLength="16"
+      :maxLength="maxLength"
       keyboardType="keyboardType"
       :returnKeyType="returnKeyType"
       :text="value"
@@ -60,6 +60,10 @@ export default {
     textFormLabel: {
       type: String,
       default: "Pepe"
+    },
+    maxLength: {
+      type: Number,
+      default: 16
     },
     value: {
       // type: [String, Number],
