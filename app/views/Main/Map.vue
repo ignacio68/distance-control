@@ -1,11 +1,6 @@
 <template>
-  <Page 
-    actionBarHidden="true"
-  >
-    <GridLayout
-      class="mapPage"
-      rows="auto,250"
-    >
+  <GridLayout>
+    <Frame id="map-page">
       <MapComponent
         row="0"
         height="100%"
@@ -16,20 +11,26 @@
         @onMapReady="onMapReady($event)"
         @setCenter="centerCamera()"
       />
+    </Frame>
+    <Frame
+      id="bottomSheet-page"
+      ref="bottomSheet"
+      borderTopLeftRadius="16"
+      borderTopRightRadius="16"
+      backgroundColor="white"
+      verticalAlignment="top"
+      @loaded="loadBottomSheet"
+    >
       <NewMarker
-        ref="backdropMenu"
-        v-shadow="8"
-        class="backdropMenu"     
+        class="newMarker"
         backgroundColor="white"
-        borderTopLeftRadius="16"
-        borderTopRightRadius="16"
-        row="1"
-        @onMarkerCancel="hideBackdropMenu()"
+        @onMarkerCancel="hideBottomSheet()"
         @onMarkerDone="addMarker"
         @onRadiusChange="onRadiusChange"
       />
-    </GridLayout>
-    <!-- <Label>
+    </Frame>
+  </GridLayout>
+  <!-- <Label>
         <FormattedString>
           <Span text="Latitude: " />
           <Span :text="currentUserLocation.lat" />
@@ -41,7 +42,6 @@
           <Span :text="currentUserLocation.lng" />
         </FormattedString>
       </Label> -->
-  </Page>
 </template>
 
 <script lang="ts">
@@ -50,7 +50,8 @@ import { mapToken } from '@/setup/map'
 import { Color } from 'tns-core-modules/color/color'
 import * as map from '@/api/map'
 import { getCurrentUserLocation } from '@/services/geolocation'
-import {AnimationCurve} from "tns-core-modules/ui/enums"
+import { screen } from '@nativescript/core/platform'
+import { CubicBezierAnimationCurve } from  '@nativescript/core/ui/animation'
 
 import { Coordinates, Marker, PolygonOptions } from '@/utils/types'
 
@@ -67,7 +68,6 @@ export default {
     MapComponent,
     NewMarker
   },
-
   props:{
     isVisible: {
       type: Boolean,
@@ -79,8 +79,8 @@ export default {
     return {
       accessToken: mapToken,
       initialLocation: {
-        lat: '',
-        lng: '',
+        lat: '0',
+        lng: '0',
       },
       map: void 0,
       radius: 10,
@@ -116,51 +116,38 @@ export default {
     }
   },
 
-  created() {
-    console.log('created()')
-    // this.setInitialUserLocation()
-  },
-
   mounted() {
     console.log('mounted()')
-    this.setInitialUserLocation()
+    // this.setInitialUserLocation()
     this.$root.$on('setNewMarker', () =>  this.showBottomSheet())
     this.$root.$on('removeSecurityArea', value => this.removeSecurityArea(value.name))
   },
 
   methods: {
+    loadBottomSheet() {
+      console.log('loadBottomSheet()')
+      const bottomSheet = this.$refs.bottomSheet.nativeView
+      bottomSheet.translateY = screen.mainScreen.heightDIPs
+    },
     showBottomSheet() {
-      const backdropMenu = this.$refs.backdropMenu.nativeView
-      
-      backdropMenu.animate({
-        translate: { x: 0, y: -250},
-        duration: 500,
-        curve: AnimationCurve.easeIn
-      }).then(() => {})
-        .catch(() => {})
-    },
-    hideBackdropMenu() {
-      const backdropMenu = this.$refs.backdropMenu.nativeView
-      
-      backdropMenu.animate({
-        translate: { x: 0, y: 250},
-        duration: 500,
-        curve: AnimationCurve.easeOut
-      }).then(() => {})
-        .catch(() => {})
-    },
-    onScroll() {
-      const scrollView = this.$refs.scrollView.nativeView
-      const topView = this.$refs.topView.nativeView
+      console.log('showBottomSheet()')
+      const bottomSheet = this.$refs.bottomSheet.nativeView
 
-      if(scrollView > 600) {
-        const offset = scrollView.verticalOffset / 1.65
-        if(scrollView.ios) {
-          topView.animate({ translate: { x: 0, y: offset } }).then(() => {}, () => {})
-        } else {
-          topView.translateY = Math.floor(offset)
-        }
-      }
+      bottomSheet.animate({
+        duration: 1000,
+        translate: { x: 0, y: screen.mainScreen.heightDIPs - 500 },
+        curve: new CubicBezierAnimationCurve(.44, .63, 0, 1)
+      })
+      console.log(`BottomSheet.y: ${this.$refs.bottomSheet.nativeView}`)
+    },
+    hideBottomSheet() {
+      const bottomSheet = this.$refs.bottomSheet.nativeView
+
+      bottomSheet.animate({
+        duration: 1000,
+        translate: { x: 0, y: screen.mainScreen.heightDIPs },
+        curve: new CubicBezierAnimationCurve(.44, .63, 0, 1)
+      })
     },
     onRadiusChange(value) {
        this.getRadius = value
@@ -246,4 +233,11 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+.newMarker {
+  margin-top: 16;
+  padding{
+    left: 16;
+    right: 16;
+  }
+}
 </style>
