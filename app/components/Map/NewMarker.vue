@@ -1,64 +1,65 @@
 <template>
-  <GridLayout
-    class="newMarker" 
-    rows="32, *"
-  >
-    <Label
-      class="menu_title"
-      row="0" 
-      text="Nuevo Marcador" 
-      effectiveBorderBottomWidth="1"
-      borderBottomColor="black"
-    />
-    <GridLayout
-      row="1"
-      class="newMarkerMenu"
-      rows="36, 32, 32, 32, 64"
-      columns="*"
-    > 
-      <TextForm
-        row="0"
-        class="myTextForm"
-        :labelWidth="80"
-        :textFieldWidth="200"
-        :returnKeyType="next"
-        textFormLabel="nombre:"
-        :value="values.id"
-        @onTextChange="setId(values.id)"
+  <Page actionBarHidden="true">
+    <StackLayout
+      orientation="vertical"
+    >
+      <Label
+        class="menu_title"
+        text="Nuevo Marcador"
+        height="36"
+        effectiveBorderBottomWidth="1"
+        borderBottomColor="black"
       />
-      <TextForm
-        row="1"
-        class="myTextForm"
-        :labelWidth="80"
-        :textFieldWidth="200"
-        textFormLabel="grupo:"
-        :value="values.group"
-        @onTextChange="setGroup(values.group)"
-      />
-      <ColorSelector row="2" />
-      <StackLayout
-        class="buttons" 
-        orientation="horizontal"
-        horizontalAlignment="right"
-        row="3"
-      >
-        <Label
-          class="buttons_cancel" 
-          text="Cancelar"
-          verticalAlignment="center"
-          @tap="onCancel" 
+      <GridLayout
+        class="newMarkerMenu"
+        rows="36, 32, 32, 64, 32"
+        columns="*"
+      > 
+        <TextForm
+          row="0"
+          class="name"
+          :labelWidth="80"
+          :textFieldWidth="200"
+          :returnKeyType="next"
+          textFormLabel="nombre:"
+          :value="values.id"
+          @onTextChange="setId(values.id)"
         />
-        <Button
-          class="buttons_add"
-          text="Añadir" 
-          @tap="onAdd" 
+        <ColorSelector row="1" />
+        <TextForm
+          row="2"
+          class="group"
+          :labelWidth="80"
+          :textFieldWidth="200"
+          textFormLabel="grupo:"
+          :value="values.group"
+          @onTextChange="setGroup(values.group)"
         />
-      </StackLayout>
-      <NewArea 
-        row="4"
-      />
-    </GridLayout>
-  </GridLayout>
+        <NewArea 
+          row="3"
+        />
+        <StackLayout
+          class="buttons" 
+          orientation="horizontal"
+          horizontalAlignment="right"
+          row="4"
+        >
+          <Label
+            class="buttons_cancel" 
+            text="Cancelar"
+            verticalAlignment="center"
+            @tap="onCancel" 
+          />
+          <Button
+            class="buttons_add"
+            text="Añadir" 
+            @tap="onAdd" 
+          />
+        </StackLayout>
+      </GridLayout>
+      </GridLayout>
+    </stacklayout>
+  </Page>
 </template>
 
 <script lang="ts">
