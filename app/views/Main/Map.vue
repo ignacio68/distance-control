@@ -24,6 +24,7 @@
       <NewMarker
         class="newMarker"
         backgroundColor="white"
+        :hasError="hasNewMarkerError"
         @onMarkerCancel="hideBottomSheet()"
         @onMarkerDone="addMarker"
         @onRadiusChange="onRadiusChange"
@@ -88,7 +89,8 @@ export default {
       fillColor: 'green',
       fillOpacity: 5,
       activeUser: void 0,
-      newMarkerMenu: false
+      newMarkerMenu: false,
+      hasNewMarkerError: false
     }
   },
 
@@ -128,21 +130,24 @@ export default {
     loadBottomSheet() {
       console.log('loadBottomSheet()')
       const bottomSheet = this.$refs.bottomSheet.nativeView
+      this.hasNewMarkerError = false
       bottomSheet.translateY = screen.mainScreen.heightDIPs
     },
     showBottomSheet() {
       console.log('showBottomSheet()')
       const bottomSheet = this.$refs.bottomSheet.nativeView
+      // this.hasNewMarkerError = false
 
       bottomSheet.animate({
         duration: 1000,
         translate: { x: 0, y: screen.mainScreen.heightDIPs - 500 },
         curve: new CubicBezierAnimationCurve(.44, .63, 0, 1)
       })
-      console.log(`BottomSheet.y: ${this.$refs.bottomSheet.nativeView}`)
     },
     hideBottomSheet() {
+      console.log('hideBottomSheet()')
       const bottomSheet = this.$refs.bottomSheet.nativeView
+      this.hasNewMarkerError = false
 
       bottomSheet.animate({
         duration: 1000,
@@ -178,6 +183,11 @@ export default {
 
     /***** markers *****/
     addMarker(values) {
+      console.log(`addMarker()`)
+      if(!values.id || !values.coordinates) {
+        this.hasNewMarkerError = true
+        return
+      }
       const coordinates = this.currentUserLocation
       const marker: Marker = {
         id: values.id,
@@ -188,8 +198,9 @@ export default {
         selected: true,
         onTap: () => this.newSecurityArea(values.id),
       }
+      this.hideBottomSheet()
       setStorage(marker.id, marker).then(success => {
-        // console.log(`setStorage? ${success))`
+        console.log(`setStorage? ${success}`)
         if(success){
            map.addMarker(this.map, marker)
         }
