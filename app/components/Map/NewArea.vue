@@ -1,15 +1,24 @@
 <template>
-  <GridLayout 
-    rows="*"
+  <StackLayout 
+    orientation="vertical"
   >
-    <CustomSlider
-      sliderName="radius"
+    <!-- <CustomSlider
+      class="radiusSlider"
+      sliderName="Radio"
       :minValue="0"
       :maxValue="100"
       :value="radius"
-      @onIndexChanged="onIdexChanged()"
+      @onIndexChanged="onRadiusChanged"
+    /> -->
+    <CustomSlider
+      class="opacitySlider"
+      sliderName="Opacidad"
+      :minValue="0"
+      :maxValue="100"
+      :value="opacity"
+      @onIndexChanged="onOpacityChanged"
     />
-  </GridLayout>
+  </Stacklayout>
 </template>
 
 <script lang="ts">
@@ -21,12 +30,16 @@ export default {
   },
   data(){
     return {
-      radius: 0
+      radius: 0,
+      opacity: 0
     }
   },
   methods: {
-    onIndexChanged(value) {
+    onRadiusChanged(value) {
       this.$emit('inRadiusChange', value)
+    },
+    onOpacityChanged(value) {
+      this.$emit('inOpacityChange', value)
     }
   }
 }
