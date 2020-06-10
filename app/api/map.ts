@@ -1,5 +1,5 @@
-import { getCurrentUserLocation } from '@/services/geolocation'
-import { getSecurityAreaPoints } from '@/services/map'
+import { getCurrentUserLocation } from '@/services/serviceGeolocation'
+import { getSecurityAreaPoints } from '@/services/serviceMap'
 
 import securityArea from '@/store/securityArea'
 import markers from '@/store/markers'

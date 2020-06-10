@@ -1,4 +1,4 @@
-import { getCurrentUserLocation } from '@/services/geolocation'
+import { getCurrentUserLocation } from '@/services/serviceGeolocation'
 
 const userCurrentLocation = () => getCurrentUserLocation()
 

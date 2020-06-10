@@ -1,4 +1,4 @@
-import { getCurrentUserLocation } from '@/services/geolocation'
+import { getCurrentUserLocation } from '@/services/serviceGeolocation'
 import { getCirclePointsCoordinates } from '@/utils/circle'
 
 import { Coordinates, Circle } from '@/utils/types'
