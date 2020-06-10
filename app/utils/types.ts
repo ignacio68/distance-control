@@ -73,6 +73,4 @@ export interface CircleLayer extends Layer {
   circleRadius?: number;
   circleStrokeColor?: string | Color;
   circleStrokeWidth?: number;
-  fillColor?: string | Color;
-  fillOpacity?: number;
 }
