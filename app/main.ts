@@ -63,6 +63,11 @@ v.registerElement(
 // import BottomSheetPlugin from 'nativescript-material-bottomsheet/vue' 
 // Vue.use(BottomSheetPlugin)
 
+//  Material Slider
+import SliderPlugin from 'nativescript-material-slider/vue'
+
+Vue.use(SliderPlugin)
+
 // v-shadow directive
 import NSVueShadow from 'nativescript-vue-shadow'
 v.use(NSVueShadow)

@@ -3,7 +3,6 @@
     class="customSlider"
     columns="100,*"
     color="black"
-
   >
     <Label
       col="0"
@@ -15,7 +14,8 @@
       rows="24, 24"
       columns="100, *, 100"
     >
-      <Slider
+      <MDSlider 
+        v-model="value"
         col="0"
         row="0"
         colSpan="3"
