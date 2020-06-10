@@ -1,9 +1,9 @@
-import * as storage from '@/services/serviceStorage'
+import * as storage from '@/services'
 
-export const setStorage = (key: string, value: any) => storage.setStorage(key, value)
+export const setStorage = (id: string, values: object) => storage.setStorage(id, values).then(success => success)
 
-export const getStorage = (key: string) => storage.getStorage(key)
+export const getStorage = (id: string) => storage.getStorage(id) 
 
-export const removeStorage = (key: string) => storage.removeStorage(key)
+export const removeStorage = (id: string) => storage.removeStorage(id)
 
-export const removeAllStorage = () => storage.removeAll()
+export const removeAllStorage = () => storage.removeAllStorage()
