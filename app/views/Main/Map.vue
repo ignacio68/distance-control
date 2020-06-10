@@ -127,6 +127,11 @@ export default {
   },
 
   methods: {
+      onRadiusChange(value) {
+       this.getRadius = value
+    },
+
+    /***** BOTTOM SHEET *****/
     loadBottomSheet() {
       console.log('loadBottomSheet()')
       const bottomSheet = this.$refs.bottomSheet.nativeView
@@ -136,7 +141,7 @@ export default {
     showBottomSheet() {
       console.log('showBottomSheet()')
       const bottomSheet = this.$refs.bottomSheet.nativeView
-      // this.hasNewMarkerError = false
+      this.hasNewMarkerError = false
 
       bottomSheet.animate({
         duration: 1000,
@@ -155,10 +160,7 @@ export default {
         curve: new CubicBezierAnimationCurve(.44, .63, 0, 1)
       })
     },
-    onRadiusChange(value) {
-       this.getRadius = value
-    },
-
+   
     /***** MAP *****/
 
     setInitialUserLocation() {
