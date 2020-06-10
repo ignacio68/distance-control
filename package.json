@@ -4,6 +4,10 @@
   "description": "A native application built with NativeScript-Vue",
   "author": "Ignacio Lopez-Amor Pinillos <ignaciolopezamor@gmail.com>",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ignacio68/distance-control.git"
+  },
   "nativescript": {
     "id": "com.distancecontrol.app",
     "templateVersion": "v2",
