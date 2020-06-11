@@ -41,6 +41,7 @@ if(TNS_ENV !== 'production') {
 v.config.silent = (TNS_ENV === 'production')
 
 import AppNavigator from './views/AppNavigator.vue'
+import Welcome from './views/Welcome/Welcome.vue'
   
 new v({
   i18n,
@@ -53,5 +54,5 @@ new v({
 
     setLanguage()
   },
-  render: h => h('frame', [h(AppNavigator)])
+  render: h => h('frame', [h(Welcome)])
 }).$start()
