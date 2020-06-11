@@ -14,3 +14,4 @@ app/assets/maps/styles
 psd
 
 app/App_resources/Android/google-services.json
+app/App_resources/iOS/GoogleService-info.plist
