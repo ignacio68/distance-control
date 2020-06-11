@@ -2,7 +2,7 @@ import {
   range,
   degreesToRadians as radians,
   radiansToDegrees as degrees
-} from './core'
+} from './maths'
 
 import { Coordinates, Circle, Azimuth, LocationInCircle } from './types'
 
