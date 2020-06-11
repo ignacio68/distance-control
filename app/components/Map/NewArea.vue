@@ -4,7 +4,7 @@
   >
     <!-- <CustomSlider
       class="radiusSlider"
-      sliderName="Radio"
+      sliderName="$t('lang.components.newArea.distance')"
       :minValue="0"
       :maxValue="100"
       :value="radius"
@@ -12,7 +12,7 @@
     /> -->
     <CustomSlider
       class="opacitySlider"
-      sliderName="Opacidad"
+      :sliderName="$t('lang.components.newArea.opacity')"
       :minValue="0"
       :maxValue="100"
       :value="opacity"

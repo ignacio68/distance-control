@@ -3,7 +3,7 @@
     <StackLayout orientation="vertical">
       <Label
         class="menu_title"
-        text="Nuevo Marcador"
+        :text="$t('lang.components.newMarker.title')"
         height="36"
         effectiveBorderBottomWidth="1"
         borderBottomColor="black"
@@ -20,7 +20,7 @@
           :textFieldWidth="200"
           :maxLenght="24"
           returnKeyType="next"
-          textFormLabel="nombre:"
+          :textFormLabel="$t('lang.components.newMarker.name')"
           :value="marker.id"
           @onTextChange="setId(marker.id)"
         />
@@ -28,7 +28,7 @@
           v-if="hasError"
           row="1"
           class="error"
-          text="Faltan el nombre y/o las coordenadas"
+          :text="$t('lang.components.newMarker.error')"
         />
         <ColorSelector row="2" />
         <TextForm
@@ -36,7 +36,7 @@
           class="group"
           :labelWidth="80"
           :textFieldWidth="200"
-          textFormLabel="grupo:"
+          :textFormLabel="$t('lang.components.newMarker.group')"
           :value="marker.group"
           @onTextChange="setGroup(marker.group)"
         />
@@ -49,13 +49,13 @@
         >
           <Label
             class="buttons_cancel"
-            text="Cancelar"
+            :text="$t('lang.components.newMarker.cancelButton')"
             verticalAlignment="center"
             @tap="onCancel"
           />
           <Button
             class="buttons_add"
-            text="Añadir"
+            :text="$t('lang.components.newMarker.addButton')"
             @tap="onAdd"
           />
         </StackLayout>

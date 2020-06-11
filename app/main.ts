@@ -12,8 +12,9 @@ import Vue from 'nativescript-vue'
 // Load themes
 import './styles/scss/global.scss'
 
-// Internationalization
-import i18n from "./setup/i18n"
+// // Internationalization
+// import i18n from "./setup/i18n"
+import { i18n, setLanguage } from '@/locales'
 
 //----- Plugins -----//
 import './plugins/BottomSheet'
@@ -24,7 +25,7 @@ import './plugins/RadSideDrawer'
 import './plugins/Slider'
 import './plugins/VShadow'
 
-import { device, isAndroid, isIOS } from 'tns-core-modules/platform'
+import { isAndroid, isIOS } from 'tns-core-modules/platform'
 
 import VueDevtools from 'nativescript-vue-devtools'
 
@@ -41,6 +42,7 @@ v.config.silent = (TNS_ENV === 'production')
 import AppNavigator from './views/AppNavigator.vue'
   
 new v({
+  i18n,
   beforeCreate() {
     // Set the platform OS global variable
     v.prototype.IS_ANDROID = isAndroid
@@ -48,15 +50,7 @@ new v({
     console.log(`Running on Android? ${isAndroid}`)
     console.log(`Running on iOS? ${isIOS}`)
 
-    // Set app language
-    const val = device.language
-    const lang = val.slice(0, 2)
-    if (lang) {
-      i18n.locale = lang
-      console.log("El idioma del navegador es: " + val)
-    } else {
-      console.log("No se encuentra el idioma del navegador")
-    }
+    setLanguage()
   },
   render: h => h('frame', [h(AppNavigator)])
 }).$start()

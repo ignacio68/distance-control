@@ -2,7 +2,7 @@
   <StackLayout orientation="horizontal">
     <Label
       class="color_title"
-      text="select the icon color"
+      :text="$t('lang.components.colorSelector.text')"
       textWrap="true"
     />
     <StackLayout orientation="horizontal">

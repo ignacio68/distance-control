@@ -1,5 +1,3 @@
-import { DateTimeFormats } from 'vue-i18n'
-
 export const dateTimeFormats = {
   enUS: {
     short: {

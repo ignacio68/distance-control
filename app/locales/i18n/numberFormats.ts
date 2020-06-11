@@ -1,5 +1,3 @@
-// import { NumberFormats } from 'vue-i18n'
-
 export const numberFormats = {
   enUS: {
     currency: {
@@ -13,7 +11,6 @@ export const numberFormats = {
       style: 'currency',
       currency: 'EUR',
       currencyDisplay: 'symbol'
-    },
-    decimal: {}
+    }
   }
 }
