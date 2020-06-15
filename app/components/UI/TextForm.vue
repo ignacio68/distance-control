@@ -11,9 +11,10 @@
       verticalAlignment="center"
       :text="textFormLabel"
     />
-    <TextField
+    <MDTextField
       col="1"
       class="textForm_editable"
+      placeholderColor="gray"
       :width="textFieldWidth"
       verticalAlignment="center"
       color="black"
