@@ -12,8 +12,7 @@ import Vue from 'nativescript-vue'
 // Load themes
 import './styles/scss/global.scss'
 
-// // Internationalization
-// import i18n from "./setup/i18n"
+// Internationalization
 import { i18n, setLanguage } from '@/locales'
 
 //----- Plugins -----//
@@ -22,13 +21,18 @@ import './plugins/FloatingActionButton'
 import './plugins/FontIcon'
 import './plugins/Mapbox'
 import './plugins/MDButton'
-import './plugins/RadSideDrawer'
+import './plugins/MDropdownList'
 import './plugins/MDSlider'
+import './plugins/RadSideDrawer'
 import './plugins/VShadow'
+
+import AppNavigator from './views/AppNavigator.vue'
+import Welcome from './views/Welcome/Welcome.vue'
 
 import { isAndroid, isIOS } from 'tns-core-modules/platform'
 
 import VueDevtools from 'nativescript-vue-devtools'
+
 
 const v = <any>Vue
 declare const TNS_ENV: any
@@ -39,10 +43,7 @@ if(TNS_ENV !== 'production') {
 
 // Prints Vue logs when --env.production is *NOT* set while building
 v.config.silent = (TNS_ENV === 'production')
-
-import AppNavigator from './views/AppNavigator.vue'
-import Welcome from './views/Welcome/Welcome.vue'
-  
+ 
 new v({
   i18n,
   beforeCreate() {
