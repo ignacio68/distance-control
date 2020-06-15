@@ -34,7 +34,7 @@
     "nativescript-material-bottomsheet": "^3.2.8",
     "nativescript-material-button": "^3.2.8",
     "nativescript-material-slider": "^3.2.8",
-    "nativescript-materialdropdownlist": "^1.0.15",
+    "nativescript-material-textfield": "^3.2.8",
     "nativescript-plugin-firebase": "^10.5.2",
     "nativescript-secure-storage": "^2.6.0",
     "nativescript-socketio": "^3.3.1",
