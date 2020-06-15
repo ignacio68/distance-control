@@ -28,6 +28,7 @@
     "@nativescript/theme": "^2.2.1",
     "@nstudio/nativescript-floatingactionbutton": "^2.0.1",
     "@vue/devtools": "^5.3.3",
+    "nativescript-drop-down": "^5.0.5",
     "nativescript-fonticon": "^2.0.0",
     "nativescript-geolocation": "^5.1.0",
     "nativescript-mapbox": "^5.0.1",
