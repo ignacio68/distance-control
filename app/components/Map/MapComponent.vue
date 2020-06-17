@@ -1,5 +1,7 @@
 <template>
-  <Page actionBarHidden="true">
+  <Page 
+    actionBarHidden="true" 
+    backgroundSpanUnderStatusBar="false">
     <GridLayout 
       rows="auto, *" 
       class="map"
