@@ -17,7 +17,6 @@ import { i18n, setLanguage } from '@/locales'
 
 //----- Plugins -----//
 import './plugins/BottomSheet'
-import './plugins/DropDown'
 import './plugins/FloatingActionButton'
 import './plugins/FontIcon'
 import './plugins/Mapbox'
