@@ -45,7 +45,6 @@
     "nativescript-unit-test-runner": "^0.7.0",
     "nativescript-vue": "^2.6.1",
     "nativescript-vue-devtools": "^1.4.0",
-    "nativescript-vue-shadow": "^0.1.0",
     "tns-core-modules": "^6.5.1"
   },
   "devDependencies": {

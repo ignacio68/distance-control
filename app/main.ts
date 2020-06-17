@@ -24,7 +24,6 @@ import './plugins/MDButton'
 import './plugins/MDSlider'
 import './plugins/MDTextField'
 import './plugins/RadSideDrawer'
-import './plugins/VShadow'
 
 import AppNavigator from './views/AppNavigator.vue'
 import Welcome from './views/Welcome/Welcome.vue'
