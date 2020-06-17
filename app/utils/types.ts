@@ -61,16 +61,22 @@ export interface LocationInCircle {
 }
 
 export interface Layer {
-  id: string,
-  source?: string,
-  sourceLayer?: string,
+  id: string
+  source?: string
+  sourceLayer?: string
   type?: string
 }
 
 export interface CircleLayer extends Layer {
-  circleColor?: string | Color;
-  circleOpacity?: number;
-  circleRadius?: number;
-  circleStrokeColor?: string | Color;
-  circleStrokeWidth?: number;
+  circleColor?: string | Color
+  circleOpacity?: number
+  circleRadius?: number
+  circleStrokeColor?: string | Color
+  circleStrokeWidth?: number
+}
+
+export interface User{
+  id: string
+  location?: Coordinates
+  phoneNumber: string
 }
