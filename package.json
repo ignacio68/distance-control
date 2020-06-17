@@ -30,7 +30,6 @@
     "@vue/devtools": "^5.3.3",
     "d3-ease": "^1.0.6",
     "nativescript-bitmap-factory": "^1.8.1",
-    "nativescript-drop-down": "^5.0.5",
     "nativescript-fonticon": "^2.0.0",
     "nativescript-geolocation": "^5.1.0",
     "nativescript-mapbox": "^5.0.1",
