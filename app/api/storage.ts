@@ -1,6 +1,6 @@
 import * as storage from '@/services'
 
-export const setStorage = (id: string, values: object) => storage.setStorage(id, values).then(success => success)
+export const setStorage = (id: string, values?: object) => storage.setStorage(id, values).then(success => success)
 
 export const getStorage = (id: string) => storage.getStorage(id) 
 
