@@ -1,26 +1,33 @@
 const firebase = require("nativescript-plugin-firebase")
 const firebaseWebApi = require("nativescript-plugin-firebase/app")
 
-import { PHONE_NUMBER } from '@/setup/firebase'
+import { User } from 'nativescript-plugin-firebase'
 
-const myAppVerifier = "Introduce el código que te hemos enviado por SMS"
+import { firebaseConst } from '@/setup/firebase'
 
-export const doLogin = async (phoneNumber: string , appVerifier: string = myAppVerifier) => {
-  firebase.login({
+const FAKE_PHONE_NUMBER = "+34786720676"
+const myAppVerifier = "Por favor, introduce el código de verificación que te hemos enviado por SMS"
+
+export const doLogin = async (phoneNumber: string = FAKE_PHONE_NUMBER, appVerifier: string = myAppVerifier) => {
+  console.log(`doLogin service: ${phoneNumber}`)
+  const userData: User = await firebase.login({
     type: firebase.LoginType.PHONE,
     phoneOptions: {
       phoneNumber: phoneNumber,
-      verificationPrompt: appVerifier, // default "Verification code"
+      verificationPrompt: appVerifier, // default: "Enter the received verification code"
       // Optional
       android: {
-          timeout: 30 // The maximum amount of time you are willing to wait for SMS auto-retrieval to be completed by the library
+          timeout: 60 // TODO: Insertar una cuenta atrás en el mensaje
       }
     }
-  }).then(result => console.log(`Phone login OK: ${JSON.stringify(result)}`),
-    errorMessage => {
-      console.log(`firebase.init errorMessage: ${errorMessage}`)
-      return errorMessage
-    })
+  }).then(result => {
+    console.log(`result: ${JSON.stringify(result)}`)
+    const userData = result
+    return userData
+  },
+    errorMessage => console.log(`firebase.doLogin errorMessage: ${errorMessage}`)
+  )
+  return userData
 }
 
 export const doInit = () => {
@@ -84,4 +91,11 @@ export const doLogout = () => {
       console.log(`Error doLogout: ${errorMessage}`)
       return errorMessage
     })
+}
+
+/**
+ * On Error
+ */
+export const onError = () => {
+  console.log('Te has equivocado')
 }
