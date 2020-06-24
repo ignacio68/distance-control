@@ -8,7 +8,7 @@
       :minValue="0"
       :maxValue="100"
       :value="radius"
-      @onIndexChanged="onRadiusChanged"
+      @on-index-changed="onRadiusChanged"
     /> -->
     <CustomSlider
       class="opacitySlider"
@@ -16,7 +16,7 @@
       :minValue="0"
       :maxValue="100"
       :value="opacity"
-      @onIndexChanged="onOpacityChanged"
+      @on-index-changed="onOpacityChanged"
     />
   </Stacklayout>
 </template>
@@ -39,10 +39,10 @@ export default Vue.extend({
   },
   methods: {
     onRadiusChanged(value) {
-      this.$emit('inRadiusChange', value)
+      this.$emit('in-radius-change', value)
     },
     onOpacityChanged(value) {
-      this.$emit('inOpacityChange', value)
+      this.$emit('in-opacity-change', value)
     }
   }
 })
@@ -50,3 +50,4 @@ export default Vue.extend({
 
 <style lang="scss" scoped>
 </style>
+-c

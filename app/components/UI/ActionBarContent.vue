@@ -10,7 +10,7 @@
       color="white"
       :size="16"
       col="0"
-      @tap="$emit('tapDrawerMenu')"
+      @tap="$emit('tap-drawer-menu')"
     />
 
     <Label
@@ -27,7 +27,7 @@
       color="white"
       :size="16"
       col="2"
-      @tap="$emit('tapVisibility')"
+      @tap="$emit('tap-visibility')"
     />
 
     <FontIcon
@@ -37,7 +37,7 @@
       color="white"
       :size="16"
       col="3"
-      @tap="$emit('tapSearch')"
+      @tap="$emit('tap-search')"
     />
 
     <FontIcon
@@ -47,7 +47,7 @@
       type="far"
       name="fa-ellipsis-v"
       col="4"
-      @tap="$emit('tapOverflowMenu')"
+      @tap="$emit('tap-overflow-menu')"
     />
   </GridLayout>
 </template>

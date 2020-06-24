@@ -23,6 +23,7 @@
         stretch="none" 
       />
       <Label
+        v-model="prefix"
         class="flags-list-result__prefix p-r-8 m-y-8 text-right"
         verticalAlignment="center"
         row="0"
@@ -32,6 +33,7 @@
     </GridLayout>
 
     <TextField
+      v-model="phone"
       class="phone-number m-x-0"
       col="1"
       row="0"
@@ -53,7 +55,7 @@
       row="1"
       rowSpan="2"
       :isVisibleList="isVisibleList"
-      @selectedPrefix="onSelectedPrefix"
+      @selected-prefix="onSelectedPrefix"
     />
 
     <MDButton
@@ -72,6 +74,7 @@
 </template>
 <script lang="ts">
 import Vue from 'vue'
+import { ref, reactive, computed, onMounted } from '@vue/composition-api'
 
 import { AnimationRange, JsAnimationDefinition, animate } from '@/utils/animation'
 import * as d3 from 'd3-ease'
@@ -96,79 +99,59 @@ export default Vue.extend({
       default: ''
     }
   },
+  setup(props, {emit}) {
+    // state
+    const phone = ref(null)
+    const prefix = ref(null)
+    const completePhoneNumber = computed(() => prefix.value + phone.value)
+    const flag = ref('')
+    const isVisibleList = ref(false)
+    const flagsList = ref(null)
 
-  data() {
-    return{
-      isVisibleList: false,
-      selectedIndex: 210,
-      flag: '',
-      prefix: '',
-      phone: '',
-    }
-  },
+     // hooks
+    onMounted(() => {
+      console.log('PhoneNumber mounted()')
+      })
 
-  mounted(){
-    console.log('PhoneNumber mounted()')
-  },
-
-  methods: {
-    onTapPrefix() {
-      if(!this.isVisibleList) {
-        this.isVisibleList = true
-        this.expandList()
+    // methods
+    const onTapPrefix = () => {
+      if(!isVisibleList) {
+        isVisibleList.value = true
+        expandList()
       } else {
-       this.contrainList()
+      contrainList()
       }
-    },
-    expandList () {
+    }
+
+    const expandList = () => {
       const range: AnimationRange = {
           from: 0, 
           to: 280
         }
-        this.animationList(range)
-    },
-    contrainList() {
+        animationList(range)
+    }
+
+    const contrainList = () => {
        const range: AnimationRange = {
-          from: 280, 
-          to: 0
+          from: 280,           to: 0
         }
-        this.animationList(range)
-    },
-    onSelectedPrefix(values) {
-      this.prefix = values.prefix
-      this.flag = values.flag
-      this.contrainList()
-    },
-    onTextChange(args) {
-      this.phone = args.value
-      console.log(this.phone)
-    },
-    onDoLogIn() {
-      const completePhoneNumber: string = this.prefix + this.phone
-      console.log(`nº de teléfono: ${completePhoneNumber}`)
-      this.$emit('doLogIn', completePhoneNumber)   
-    },
-    onFocus(){
-      console.log('onFocus()')
-   
-      if(this.isVisibleList) this.contrainList()
-    },
-    onBlur() {},
+        animationList(range)
+    }
 
     /***** ANIMATION *****/
-    animationList(range: AnimationRange) {
-      const flagsList = this.$refs.flagsList.nativeView
+    const animationList = (range: AnimationRange) => {
+      const flagsListView = flagsList.value.nativeView
 
       const def1: JsAnimationDefinition = {
         getRange:  () => {
           return { from: range.from, to: range.to}
         },
         curve: d3.easeCubicInOut,
-        step: v => flagsList.height = v
+        step: v => flagsListView.height = v
           
       }
       animate(500, [def1]).then(() => {
-        if( range.to <= 0) this.isVisibleList = false
+        if( range.to <= 0) isVisibleList.value = false
       })
 
       // // Nativescript animation module
@@ -179,6 +162,31 @@ export default Vue.extend({
       //   curve: AnimationCurve.easeInOut
       // })
     }
+
+    const onSelectedPrefix = (values) => {
+      prefix.value = values.prefix
+      flag.value = values.flag
+      contrainList()
+    }
+
+    const onTextChange = () => {
+      console.log(phone.value)
+    }
+
+    const onDoLogIn = () => {
+      console.log(`nº de teléfono: ${completePhoneNumber.value}`)
+      emit('do-login', completePhoneNumber.value)   
+    }
+
+    const onFocus = () => {
+      console.log('onFocus()')
+   
+      if(isVisibleList) contrainList()
+    } 
+
+    const onBlur = () => {}
+
+    return { phone, flag, prefix, onTapPrefix, onTextChange, onFocus, onBlur, isVisibleList, onSelectedPrefix, onDoLogIn, flagsList }
   }
 })
 </script>

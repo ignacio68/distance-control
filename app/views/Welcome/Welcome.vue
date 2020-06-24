@@ -23,7 +23,7 @@
         class="m-x-32"
         :phoneNumberHint="$t('lang.views.welcome.phoneNumber')"
         :buttonText="$t('lang.views.welcome.button')"
-        @doLogIn="doLogIn"
+        @do-login="doLogIn"
       />
         
       <!-- TERMS OF SERVICE & PRIVACY POLICY -->

@@ -7,7 +7,7 @@
       <DrawerContent ~drawerContent />
       <MainContent
         ~mainContent 
-        @onTapDrawerMenu="$refs.drawer.nativeView.showDrawer()"
+        @on-tap-drawer-menu="$refs.drawer.nativeView.showDrawer()"
       />
     </RadSideDrawer>
   </Page>

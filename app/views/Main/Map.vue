@@ -8,8 +8,8 @@
         :zoomLevel="15"
         :userLatitude="initialLocation.lat"
         :userLongitude="initialLocation.lng"
-        @onMapReady="onMapReady($event)"
-        @setCenter="centerCamera()"
+        @on-map-ready="onMapReady($event)"
+        @set-center="centerCamera()"
       />
     </Frame>
     <Frame
@@ -25,9 +25,9 @@
         class="newMarker"
         backgroundColor="white"
         :hasError="hasNewMarkerError"
-        @onMarkerCancel="hideBottomSheet()"
-        @onMarkerDone="addMarker"
-        @onRadiusChange="onRadiusChange"
+        @on-marker-cancel="hideBottomSheet()"
+        @on-marker-done="addMarker"
+        @on-radius-change="onRadiusChange"
       />
     </Frame>
   </GridLayout>

@@ -39,7 +39,7 @@ export default Vue.extend({
   },
   methods:{
       onTap(color) {
-        this.$emit('onSelectedColor', color.color)
+        this.$emit('on-selected-color', color.color)
         console.log(`color: ${color.name}`)
       }
     }

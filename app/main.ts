@@ -13,12 +13,14 @@ import Vue from 'nativescript-vue'
 import { i18n, setLanguage } from '@/locales'
 
 // //----- Plugins -----// 
-// import './plugins/Composition'
-// import './plugins/Mapbox'
+import './plugins/Composition'
+import './plugins/Mapbox'
 
 // //----- Components -----//
-// import './plugins/Components'
-import './plugins'
+import './plugins/Components'
+
+// composable
+import  useUser  from './composables/useUser'
 
 import AppNavigator from './views/AppNavigator.vue'
 import Welcome from './views/Welcome/Welcome.vue'
@@ -50,4 +52,5 @@ new v({
     setLanguage()
   },
   render: h => h('frame', [h(Welcome)])
+  // render: h => h('frame', [h(useUser ? AppNavigator : Welcome)])
 }).$start()

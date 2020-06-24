@@ -23,7 +23,7 @@
       keyboardType="keyboardType"
       :returnKeyType="returnKeyType"
       :text="value"
-      @textChange="$emit('onTextChange', value)"
+      @textChange="$emit('on-text-change', value)"
     />
   </GridLayout>
 </template>

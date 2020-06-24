@@ -29,7 +29,7 @@
         row="1"
         rippleColor="#f1f1f1"
         class="center-button"
-        @tap="$emit('setCenter')"
+        @tap="$emit('set-center')"
       />
     </GridLayout>
   </Page>
@@ -71,7 +71,7 @@ export default Vue.extend({
   methods: {
     onMapReady(e) {
       console.log('MAP READY!')
-      this.$emit('onMapReady', e)
+      this.$emit('on-map-ready', e)
     }
   }
 })

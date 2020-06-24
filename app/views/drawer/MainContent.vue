@@ -8,10 +8,10 @@
       >
         <ActionBarContent 
           :isVisible="isVisible"
-          @tapDrawerMenu="$emit('ontapDrawerMenu')"
-          @tapVisibility="onTapVisibility()"
-          @tapSearch="onTapSearch()"
-          @tapOverflowMenu="onTapOverflowMenu()"
+          @tap-drawer-menu="$emit('on-tap-drawer-menu')"
+          @tap-visibility="onTapVisibility()"
+          @tap-search="onTapSearch()"
+          @tap-overflow-menu="onTapOverflowMenu()"
         />
       </ActionBar>
       <GridLayout 

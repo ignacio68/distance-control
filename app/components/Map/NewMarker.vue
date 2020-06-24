@@ -22,7 +22,7 @@
           returnKeyType="next"
           :textFormLabel="$t('lang.components.newMarker.name')"
           :value="marker.id"
-          @onTextChange="setId(marker.id)"
+          @on-text-change="setId(marker.id)"
         />
         <Label 
           v-if="hasError"
@@ -38,9 +38,12 @@
           :textFieldWidth="200"
           :textFormLabel="$t('lang.components.newMarker.group')"
           :value="marker.group"
-          @onTextChange="setGroup(marker.group)"
+          @on-text-change="setGroup(marker.group)"
         />
-        <NewArea row="4" />
+        <NewArea 
+          row="4" 
+          @on-radius-change="onRadiusChange"
+        />
         <StackLayout
           row="5"
           class="buttons"
@@ -117,13 +120,17 @@ export default Vue.extend({
       console.log('setgroup()')
       this.marker.group = group
     },
+    onRadiusChange(value) {
+      console.log('onRadiusChange()')
+      this.$emit('on-radius-change', value)
+    },
     onCancel() {
       console.log('onCancel()')
-      this.$emit('onMarkerCancel')
+      this.$emit('on-marker-cancel')
     },
     onAdd() {
       console.log('onAdd()')
-      this.$emit('onMarkerDone', this.marker)
+      this.$emit('on-marker-done', this.marker)
     },
   },
 })

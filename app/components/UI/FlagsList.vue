@@ -68,7 +68,7 @@ export default Vue.extend({
         prefix: this.prefix,
         flag: this.flag
       }
-    this.$nextTick(() => this.$emit('selectedPrefix', values))
+    this.$nextTick(() => this.$emit('selected-prefix', values))
   },
   methods: {
     setCountries() {
@@ -114,7 +114,7 @@ export default Vue.extend({
         prefix: this.prefix,
         flag: this.flag
       }
-      this.$emit('selectedPrefix', values)
+      this.$emit('selected-prefix', values)
     },
     onFocus(){
       },

@@ -23,7 +23,7 @@
         :minValue="minValue"
         :maxValue="maxValue"
         :value="value"
-        @selectedIndexChanged="$emit('onIndexChanged', value)"
+        @selectedIndexChanged="$emit('on-index-changed', value)"
       />
       <Label
         col="0"
