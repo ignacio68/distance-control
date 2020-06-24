@@ -1,46 +1,54 @@
 <template>
-  <Page actionBarHidden="true">
+  <Page 
+    actionBarHidden="true"
+    androidStatusBarBackground="#00251e"
+  >
     <StackLayout class="welcome">
       <Label
-        class="title"
+        class="title m-t-64 font-sz-xxl"
         :text="$t('lang.views.welcome.title')"
       />
       <Label
-        class="subtitle"
+        class="subtitle m-t-16 font-sz-l"
         :text="$t('lang.views.welcome.subtitle')"
       />
       <TextView
-        class="text"
+        class="text body m-x-32 m-t-32 m-b-16"
+        color="black"
+        editable="false"
+        lineHeihgt="0"
         :text="$t('lang.views.welcome.phone')"
       />
       <PhoneNumber
+        class="m-x-32"
         :phoneNumberHint="$t('lang.views.welcome.phoneNumber')"
         :buttonText="$t('lang.views.welcome.button')"
         @doLogIn="doLogIn"
       />
+        
       <!-- TERMS OF SERVICE & PRIVACY POLICY -->
       <FlexboxLayout
         flexWrap="wrap"
-        class="accept"
+        class="accept font-sz-s m-x-32 m-y-16"
       >
         <Label
-          class="accept__text--text"
+          class="accept__text"
           :text="$t('lang.views.welcome.accept')"
           textWrap="true"
         />
         <Label
-          class="accept__text--link"
+          class="accept__link"
           :text="$t('lang.views.welcome.privacy')"
           textWrap="true"
           @tap="toPage(navigation.privacyPolicy)"
         />
         <Label
-          class="accept__text--text"
+          class="accept__text"
           :text="$t('lang.views.welcome.and')"
           textWrap="true"
         />
         <Label
-          class="accept__text--link"
+          class="accept__link"
           :text="$t('lang.views.welcome.service')"
           textWrap="true"
           @tap="toPage(navigation.termsOfService)"
@@ -54,7 +62,7 @@
 import Vue from 'vue'
 
 import { userLogin } from '@/api/auth'
-import { Elevation } from '@/utils/elevations'
+// import { Elevation } from '@/utils/elevations'
 
 import PhoneNumber from '@/components/UI/PhoneNumber.vue'
 
@@ -97,51 +105,25 @@ export default Vue.extend({
 </script>
 
 <style lang="scss" scoped>
-.welcome {
-  margin: {
-    left: 16;
-    right: 16;
-    top: 36;
-  }
-}
+
+@import '../../app-variables';
+
 .title {
-  font-size: 24;
-  font-weight: 700;
+  font-weight: bold;
   text-align: center;
+  color: $primary-variant;
 }
 .subtitle {
-  margin-top: 16;
-  font-size: 16;
-  font-weight: 700;
+  font-weight: bold;
   text-align: center;
+  color: $secondary-variant
 }
 .text {
-  margin-top: 12;
-  font-weight: 400;
-  font-size: 16;
+  background-color: $background;
+  color: $primary;
 }
-TextField {
-  text-align: center;
-  font-size: 16;
-  font-weight: 700;
-}
-TextField.hint {
-  font-size: 14;
-  font-weight: 400;
-}
-.button {
-  background-color: teal;
-}
-.accept {
-  padding: {
-    top: 16;
-    right: 16;
-    left: 24;
-    bottom: 8;
-  }
-}
-.accept__text--link {
-  color: teal;
+.accept__link {
+  color: $accent;
   font-weight: bold;
 }
 

@@ -1,6 +1,6 @@
 <template>
   <GridLayout
-    class="bottomAppBar"
+    class="bottom-app-bar"
     orientation="horizontal"
     height="56"
     columns="auto, *, auto"
@@ -57,8 +57,5 @@ export default Vue.extend({
       right: 16;
       left: 16;
     }
-  }
-  .bottomAppBar {
-    background-color:#004842;
   }
 </style>

@@ -1,5 +1,8 @@
 <template>
-  <Page actionBarHidden="true">
+  <Page 
+    actionBarHidden="true"
+    androidStatusBarBackground="#00251e"
+  >
     <RadSideDrawer ref="drawer">
       <DrawerContent ~drawerContent />
       <MainContent
@@ -44,8 +47,4 @@ export default Vue.extend({
 </script>
 
 <style lang="scss" scoped>
-  ActionBar {
-    background-color: #53ba82;
-    color: #ffffff;
-  }
 </style>

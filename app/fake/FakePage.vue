@@ -1,14 +1,12 @@
 <template>
-  <Frame>
-    <Page>
-      <StackLayout>
-        <Label
-          text="FAKE PAGE"
-          textWrap="true"
-        />
-      </StackLayout>
-    </Page>
-  </Frame>
+  <Page>
+    <StackLayout>
+      <Label
+        text="FAKE PAGE"
+        textWrap="true"
+      />
+    </StackLayout>
+  </Page>
 </template>
 
 <script lang="ts">

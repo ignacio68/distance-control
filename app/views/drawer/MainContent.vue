@@ -67,10 +67,5 @@ export default Vue.extend({
 </script>
 
 <style lang="scss" scoped>
-Page {
-  background-color: white;
-}
-ActionBar {
-  background-color:#004842;
-}
+
 </style>

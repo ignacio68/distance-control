@@ -1,0 +1,84 @@
+@import "~@nativescript/theme/core";
+@import "~@nativescript/theme/blue"; // Or any other color theme (default === blue)
+
+@import "./app-variables";
+
+// classes
+@import "./styles/MDMargins";
+@import "./styles/MDPaddings";
+@import "./styles/MDFonts";
+
+// Place any CSS rules you want to apply on both iOS and Android here.
+// This is where the vast majority of your CSS code goes.
+
+// Font icon class
+.fab {
+  font-family: "Font Awesome 5 Brands", "fa-brands-400";
+  font-weight: 400;
+}
+
+.fas {
+  font-family: "Font Awesome 5 Free", "fa-solid-900";
+  font-weight: 900;
+}
+
+.fa .far {
+  font-family: "Font Awesome 5 Free", "fa-regular-400";
+  font-weight: 400;
+}
+
+/*------ GENERAL ------*/
+Page {
+  background-color: $background;
+  color: $onBackground;
+}
+
+ActionBar {
+  background-color: $primary;
+  color: $onPrimary;
+}
+
+StackLayout {
+  background-color: $background;
+  color: $onBackground;
+}
+
+GridLayout {
+  background-color: $background;
+  color: $onBackground;
+}
+
+Label {
+  background-color: $background;
+  color: $onBackground;
+}
+
+TextView {
+  background-color: $background;
+  color: $onBackground;
+}
+
+TextField {
+  text-align: left;
+  font-weight: bold;
+  background-color: $surface;
+  color: $onSurface;
+}
+
+MDButton {
+  border-radius: 50%;
+  background-color: $primary;
+  color: $onPrimary;
+}
+
+MDTextField {
+  font-weight: bold;
+  text-align: left;
+  background-color: $surface;
+  color: $onSurface;
+}
+
+.bottom-app-bar {
+  background-color: $primary;
+  color: $onPrimary;
+}

@@ -137,20 +137,16 @@ export default Vue.extend({
   padding-right: 16;
 }
 .menu_title {
-  color: black;
-  font-size: 16;
-  font-weight: 700;
+ font-weight: 700;
 }
 .error {
   color: red;
-  font-size: 16;
+
 }
 .buttons_cancel {
-  font-size: 16;
-  color: #004842;
+
 }
 .buttons_add {
-  font-size: 16;
-  background-color: #004842;
+
 }
 </style>

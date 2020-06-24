@@ -17,7 +17,6 @@
       placeholderColor="gray"
       :width="textFieldWidth"
       verticalAlignment="center"
-      color="black"
       isEnabled="true"
       editable="true"
       :maxLength="maxLength"
@@ -84,10 +83,9 @@ export default Vue.extend({
     }
   }
   .textForm_label {
-    font-size: 16;
-    color: black;
+
   }
   .textForm_editable {
-    font-size: 16;
+
   }
 </style>

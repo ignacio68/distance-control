@@ -1,38 +1,44 @@
 <template>
   <GridLayout
-    columns="88, *"
-    rows="auto, 64, 200"
-    backgroundColor="white"
+    class="flag-list-wrapper"
+    columns="120, *"
+    rows="64, 64, 250"
     verticalAlignment="top"
   >
-    <StackLayout
-      id="flagsList_result"
+    <GridLayout
+      class="flags-list-result"
+      columns="*, auto"
+      rows="*"
       col="0" 
       row="0"
       orientation="horizontal"
-      color="black"
       @tap="onTapPrefix"
     >
-      <Image 
+      <Image
+        class="flags-list-result__flag m-l-16"
+        verticalAlignment="center" 
         row="0"
         col="0"
         :src="flag" 
         stretch="none" 
       />
       <Label
-        class="flagsList_result_prefix" 
+        class="flags-list-result__prefix p-r-8 m-y-8 text-right"
+        verticalAlignment="center"
+        row="0"
+        col="1"
         :text="prefix"
       /> -->
-    </StackLayout>
+    </GridLayout>
 
-    <MDTextField
-      id="textField"
+    <TextField
+      class="phone-number m-x-0"
       col="1"
       row="0"
-      backgroundColor="white"
-      color="black"
       keyboardType="number"
-      placeholderColor="gray"
+      borderBottomRightRadius="16"
+      borderTopRightRadius="16"
+      borderColor="#d1dbdd"
       :text="phone"
       :hint="phoneNumberHint"
       returnKeyType="done"
@@ -40,10 +46,9 @@
       @blur="onBlur"
       @textChange="onTextChange"
     />
-
     <FlagsList
       ref="flagsList"
-      class="flagsList"
+      class="flags-list"
       col="0"
       row="1"
       rowSpan="2"
@@ -52,12 +57,16 @@
     />
 
     <MDButton
+      class="continue-btn m-x-0"
       col="0"
       colSpan="2"
       row="1"
-      class="button"
       :text="buttonText"
       @tap="onDoLogIn"
+    />
+    <StackLayout
+      col="0"
+      row="2"
     />
   </GridLayout>
 </template>
@@ -66,6 +75,7 @@ import Vue from 'vue'
 
 import { AnimationRange, JsAnimationDefinition, animate } from '@/utils/animation'
 import * as d3 from 'd3-ease'
+// import { AnimationCurve} from '@nativescript/core/ui/enums'
 
 import FlagsList from '@/components/UI/FlagsList.vue'
 
@@ -112,15 +122,15 @@ export default Vue.extend({
     },
     expandList () {
       const range: AnimationRange = {
-          from: 1, 
-          to: 300
+          from: 0, 
+          to: 280
         }
         this.animationList(range)
     },
     contrainList() {
        const range: AnimationRange = {
-          from: 300, 
-          to: 1
+          from: 280, 
+          to: 0
         }
         this.animationList(range)
     },
@@ -140,6 +150,7 @@ export default Vue.extend({
     },
     onFocus(){
       console.log('onFocus()')
+   
       if(this.isVisibleList) this.contrainList()
     },
     onBlur() {},
@@ -157,36 +168,61 @@ export default Vue.extend({
           
       }
       animate(500, [def1]).then(() => {
-        if( range.to === 1) this.isVisibleList = false
+        if( range.to <= 0) this.isVisibleList = false
       })
+
+      // // Nativescript animation module
+      // flagsList.originY = 0
+      // flagsList.animate({
+      //   height: 300,
+      //   duration: 1000,
+      //   curve: AnimationCurve.easeInOut
+      // })
     }
   }
 })
 </script>
 <style lang="scss" scoped>
-#countriesList {
-  font-size: 16;
-  height: 24;
-  padding-left: 8;
-  background-color: white;
+@import '../../app-variables';
+
+.flags-list-result {
+  background-color: $surface;
+  border-radius: $border-radius, 0, 0, $border-radius;
+ 
 }
-#textField {
-  font-size: 16;
+.flags-list-result__prefix {
+  font-weight: bold;
+  font-size: $font-sz-l;
+  background-color: $surface;
+  color: $primary-variant;
+  border: {
+    style: solid;
+    color: $primary-light;
+    width: 0 2 0 0;
+  }
 }
-#flagsList_result {
-  margin-left: 12;
-  margin-top: 26;
-  font-size: 16;
+.phone-number {
+  text-align: left;
+  font-size: $font-sz-m;
+  background-color: $surface;
+  height: 100%;
+  
+  &[text] {
+    padding-left: 8;
+    color: $primary-variant;
+    vertical-align: center;
+  }
+  &:focus {
+    font-size: $font-sz-l;
+  }
 }
-.flagsList_result_prefix {
-  margin-left: 12;
-}
-.flagsList {
-  height: 1;
+
+.flags-list {
+  height: 0;
   z-index: 999;
+  opacity: .8;
 }
-.button {
-  background-color: teal;
+.continue-btn {
   z-index: 1;
 }
 </style>

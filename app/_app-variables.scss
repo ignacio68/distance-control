@@ -1,0 +1,68 @@
+$base-theme:Default;
+$skin-name:distance-editor;
+$swatch-name:Default;
+
+$accent: #007a70;  // Light main accent color
+$complementary: #004842;
+$complementary-color: #fff;
+$secondary:  #fc726c;
+$info: #5aade7;
+$success: #469b3f;
+$warning: #fdd55a;
+$error: #e2192a;
+$primary: #4b5858;
+$secondary-color:  #2b3131;
+$background: #ffffff;
+$base-text: #647271;
+$base-bg: #e5ecec;
+$hovered-text: #647271;
+$hovered-bg: #eff8f7;
+$selected-text: #ffffff;
+$selected-bg: #fc726c;
+$font-size: 16;
+
+/* The variables are loaded before the Core styles */
+@import '~@nativescript/theme/index';
+
+// Colors
+$primary: #007a70;
+$primary-variant: #004842;
+$primary-dark: #00251e;
+$primary-light: #8da9ac;
+$primary-disabled: #668d8e;
+
+$secondary: #fc726c;
+$secondary-variant: #ad3e38;
+
+$background: #fff;
+$surface: #d1dbdd;
+$surface-light: #eef1f2;
+
+$info: #31aec4;
+$success: #469b3f;
+$warning: #fdd55a;
+$error: #e2192a;
+$onPrimary: #fff;
+$onSecondary: #fff;
+$onBackground:  #00140c;
+$onSurface: #00140c;
+$onError: #fff;
+
+// Layout
+$border-radius: 16;
+
+// Fonts
+$font-size: 16;
+
+$font-sz-xs: 8;
+$font-sz-s: 12;
+$font-sz-m: 16;
+$font-sz-l: 20;
+$font-sz-xl: 24;
+$font-sz-xxl: 32;
+
+// $primary: #F5F5F5;
+// $primaryDark: #757575;
+// $accent: #33B5E5;
+// $blue: #272734;
+// $accent21: #3d5afe

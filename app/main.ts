@@ -9,9 +9,6 @@
 
 import Vue from 'nativescript-vue'
 
-// Load themes
-import './styles/scss/global.scss'
-
 // Internationalization
 import { i18n, setLanguage } from '@/locales'
 
@@ -27,11 +24,11 @@ import './plugins/RadSideDrawer'
 
 import AppNavigator from './views/AppNavigator.vue'
 import Welcome from './views/Welcome/Welcome.vue'
+// import FakePage from './fake/FakePage.vue'
 
 import { isAndroid, isIOS } from 'tns-core-modules/platform'
 
 import VueDevtools from 'nativescript-vue-devtools'
-
 
 const v = <any>Vue
 declare const TNS_ENV: any

@@ -48,8 +48,7 @@ export default Vue.extend({
 
 <style lang="scss" scoped>
   .color_title {
-    color: black;
-    font-size: 16;
+
   }
   .color_list-item {
     margin-left: 8;

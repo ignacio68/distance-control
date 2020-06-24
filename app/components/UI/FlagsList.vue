@@ -5,29 +5,29 @@
   >
     <ListView
       v-if="isVisibleList"
-      ref="flagsList"
-      height="300"
-      color="black"
-      backgroundColor="white"
+      ref="flags-list"
+      height="280"
       for="country in countries"
       @itemTap="selectedPrefix"
     >
       <v-template>
         <GridLayout
-          class="list-group-item"
+          class="list-item"
           rows="*"
           columns="auto, auto"
+          verticalAlignment="center"
         >
           <Image 
+            class="list-item__flag"
             row="0"
             col="0"
             :src="country.flag" 
             stretch="none" 
           />
           <Label
+            class="list-item__prefix p-l-16 font-sz-s"
             row="0"
-            col="1"
-            paddingLeft="16"
+            col="1"           
             :text="country.phone_code"
           />
         </GridLayout>
@@ -91,8 +91,8 @@ export default Vue.extend({
         width: 32
       }
       const resize = {
-        height: 64,
-        width: 64
+        height: 96,
+        width: 96
       }
       const options: CropImage = {
         leftTop: leftTop,
