@@ -12,15 +12,13 @@ import Vue from 'nativescript-vue'
 // Internationalization
 import { i18n, setLanguage } from '@/locales'
 
-//----- Plugins -----//
-import './plugins/BottomSheet'
-import './plugins/FloatingActionButton'
-import './plugins/FontIcon'
-import './plugins/Mapbox'
-import './plugins/MDButton'
-import './plugins/MDSlider'
-import './plugins/MDTextField'
-import './plugins/RadSideDrawer'
+// //----- Plugins -----// 
+// import './plugins/Composition'
+// import './plugins/Mapbox'
+
+// //----- Components -----//
+// import './plugins/Components'
+import './plugins'
 
 import AppNavigator from './views/AppNavigator.vue'
 import Welcome from './views/Welcome/Welcome.vue'
