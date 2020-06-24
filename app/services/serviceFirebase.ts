@@ -25,7 +25,10 @@ export const doLogin = async (phoneNumber: string = FAKE_PHONE_NUMBER, appVerifi
     const userData = result
     return userData
   },
-    errorMessage => console.log(`firebase.doLogin errorMessage: ${errorMessage}`)
+    errorMessage => {
+      console.log(`firebase.doLogin errorMessage: ${errorMessage}`)
+      // TODO: devuelve el mensaje y true
+    }
   )
   return userData
 }
