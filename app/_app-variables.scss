@@ -5,21 +5,21 @@ $swatch-name:Default;
 $accent: #007a70;  // Light main accent color
 $complementary: #004842;
 $complementary-color: #fff;
-$secondary:  #fc726c;
+// $secondary:  #fc726c;
 $info: #5aade7;
 $success: #469b3f;
 $warning: #fdd55a;
 $error: #e2192a;
-$primary: #4b5858;
+// $primary: #4b5858;
 $secondary-color:  #2b3131;
-$background: #ffffff;
+// $background: #ffffff;
 $base-text: #647271;
 $base-bg: #e5ecec;
 $hovered-text: #647271;
 $hovered-bg: #eff8f7;
 $selected-text: #ffffff;
 $selected-bg: #fc726c;
-$font-size: 16;
+// $font-size: 16;
 
 /* The variables are loaded before the Core styles */
 @import '~@nativescript/theme/index';
