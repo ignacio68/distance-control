@@ -2,7 +2,7 @@ export default {
   welcome: {
     title: "¡BIENVENIDO!",
     subtitle: "Activa tus zonas de seguridad",
-    presentation: "Necesitamos tu numero de teléfono para darte de alta y te puedas conectar con tus familiares y amigos y, también, guardar tus preferencias",
+    presentation: "Necesitamos tu numero de teléfono para darte de alta y puedas conectar con tus familiares, amigos y guardar tus preferencias",
     skip: "Más tarde",
     toSignUp: "Dar de alta",
     toLogIn:"Ya tengo una cuenta"
