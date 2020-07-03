@@ -76,7 +76,8 @@ export default Vue.extend({
   methods: {
     async doLogIn(fullPhoneNumber) {
       console.log('doLogin()')
-      await userLogin(fullPhoneNumber).then(() => this.toPage(this.navigation.appNavigator))
+      // await userLogin(fullPhoneNumber).then(() => this.toPage(this.navigation.appNavigator))
+      this.toPage(this.navigation.appNavigator)
     },
     toPage(page) {
       this.$navigateTo(page)
