@@ -134,7 +134,7 @@ export default Vue.extend({
       console.log('onFocus()')
       if(this.isFlagsListVisible) this.contrainList()
     },
-     onBlur() {
+    onBlur() {
       console.log('onBlur(')
     },
 
@@ -181,6 +181,9 @@ export default Vue.extend({
 </script>
 <style lang="scss" scoped>
 @import '../../app-variables';
+.flags-list-wrapper {
+     background-color: white;
+}
 
 .flags-list-result {
   background-color: $surface;
@@ -223,6 +226,6 @@ export default Vue.extend({
   z-index: 1;
 }
 .dummy-layout {
-  background-color: $background;
+  background-color: white;
 }
 </style>
