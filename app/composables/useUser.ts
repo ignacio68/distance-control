@@ -1,11 +1,23 @@
-import { ref, reactive, computed, toRef } from '@vue/composition-api'
+import { ref, reactive, computed } from '@vue/composition-api'
+import { useCountry } from './useCountry'
 
-const isLoading = ref(false)
+export const useUser = () => {
+  let { prefix } = useCountry()
+  const phone = ref('')
+  const state = reactive({
+    phoneNumber: computed(() => prefix.value + phone.value),
+    isLogging: true
+  })
 
-let state = reactive ({
-  phone: null,
-  prefix: null,
-  completePhoneNumber: computed(() => state.prefix + state.phone)
-})
+  const setLogging = (value: boolean) => state.isLogging = value
+  const setPhone = (value) => phone.value = value
 
-export default { isLoading }
+  return {
+    user: computed(() => state),
+    phone: computed(() => phone.value),
+    fullPhoneNumber: computed(() => state.phoneNumber),
+    isLogging: computed(() => state.isLogging),
+    setPhone,
+    setLogging
+  }
+}

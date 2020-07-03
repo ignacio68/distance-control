@@ -2,8 +2,14 @@ export default {
   welcome: {
     title: "¡BIENVENIDO!",
     subtitle: "Activa tus zonas de seguridad",
-    phone: "Necesitamos tu numero de teléfono para darte de alta y te puedas conectar con tus familiares y amigos y, también, guardar tus preferencias",
-    phoneNumber: "número de teléfono",
+    presentation: "Necesitamos tu numero de teléfono para darte de alta y te puedas conectar con tus familiares y amigos y, también, guardar tus preferencias",
+    skip: "Más tarde",
+    toSignUp: "Dar de alta",
+    toLogIn:"Ya tengo una cuenta"
+  },
+  signup: {
+    text: "Escribe tu número de movil, por favor",
+    phoneNumberHint: "número de teléfono",
     button: "Continuar",
     accept: "Si continuas, aceptas nuestra ",
     privacy: "Política de Privacidad",

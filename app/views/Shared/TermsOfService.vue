@@ -19,10 +19,7 @@
 import Vue from 'vue'
 
 export default Vue.extend({
-  name: 'TermsOfService',
-  data() {
-    return {}
-  }
+  name: 'TermsOfService'
 })
 </script>
 <style lang="scss" scoped>

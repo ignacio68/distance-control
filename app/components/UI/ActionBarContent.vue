@@ -10,7 +10,7 @@
       color="white"
       :size="16"
       col="0"
-      @tap="$emit('tap-drawer-menu')"
+      @tap="onTap('tap-drawer-menu')"
     />
 
     <Label
@@ -23,11 +23,11 @@
     <FontIcon
       class="fonticon actionBar_visibility-button"
       type="far"
-      :name="isVisibleIcon"
+      :name="visibilityIcon"
       color="white"
       :size="16"
       col="2"
-      @tap="$emit('tap-visibility')"
+      @tap="onTap('tap-visibility')"
     />
 
     <FontIcon
@@ -37,7 +37,7 @@
       color="white"
       :size="16"
       col="3"
-      @tap="$emit('tap-search')"
+      @tap="onTap('tap-search')"
     />
 
     <FontIcon
@@ -47,13 +47,14 @@
       type="far"
       name="fa-ellipsis-v"
       col="4"
-      @tap="$emit('tap-overflow-menu')"
+      @tap="onTap('tap-overflow-menu')"
     />
   </GridLayout>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
+import { ref, computed } from '@vue/composition-api'
 
 import FontIcon from '@/components/UI/FontIcon.vue'
 
@@ -68,14 +69,13 @@ export default Vue.extend({
       default: true
     }
   },
-  data() {
-    return {
-    }
-  },
-  computed: {
-    isVisibleIcon() {
-      return this.isVisible ? 'fa-eye-slash' : 'fa-eye'
-    }
+  setup(props, { emit }) {
+    const isVisible = ref(props.isVisible)
+    const visibilityIcon = computed(() => isVisible ? 'fa-eye-slash' : 'fa-eye' )
+
+    const onTap = (action) => emit(action)
+
+    return { visibilityIcon, onTap }
   }
 })
 </script>

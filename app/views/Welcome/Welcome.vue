@@ -13,47 +13,35 @@
         :text="$t('lang.views.welcome.subtitle')"
       />
       <TextView
-        class="text body m-x-32 m-t-32 m-b-16"
+        class="text m-x-32 m-t-32 m-b-16 font-sz-m"
         color="black"
         editable="false"
         lineHeihgt="0"
-        :text="$t('lang.views.welcome.phone')"
+        :text="$t('lang.views.welcome.presentation')"
       />
-      <PhoneNumber
-        class="m-x-32"
-        :phoneNumberHint="$t('lang.views.welcome.phoneNumber')"
-        :buttonText="$t('lang.views.welcome.button')"
-        @do-login="doLogIn"
-      />
-        
-      <!-- TERMS OF SERVICE & PRIVACY POLICY -->
-      <FlexboxLayout
-        flexWrap="wrap"
-        class="accept font-sz-s m-x-32 m-y-16"
+      <stacklayout
+        orientation="horizontal"
+        class="pull-right m-x-32"
       >
-        <Label
-          class="accept__text"
-          :text="$t('lang.views.welcome.accept')"
+        <Label 
+          class="skip--button text-uppercase"
           textWrap="true"
+          :text="$t('lang.views.welcome.skip')"
+          @tap="toPage(navigation.appNavigator)"
         />
-        <Label
-          class="accept__link"
-          :text="$t('lang.views.welcome.privacy')"
-          textWrap="true"
-          @tap="toPage(navigation.privacyPolicy)"
+        <MDButton 
+          class="-primary m-r-0"
+          width="160"
+          :text="$t('lang.views.welcome.toSignUp')"
+          @tap="toPage(navigation.signUp)"
         />
-        <Label
-          class="accept__text"
-          :text="$t('lang.views.welcome.and')"
-          textWrap="true"
-        />
-        <Label
-          class="accept__link"
-          :text="$t('lang.views.welcome.service')"
-          textWrap="true"
-          @tap="toPage(navigation.termsOfService)"
-        />
-      </flexboxlayout>
+      </stacklayout>
+      <Label
+        class="tologin m-r-32 pull-right"
+        :text="$t('lang.views.welcome.toLogIn')"
+        textWrap="true"
+        @tap="toPage(navigation.logIn)"
+      />
     </StackLayout>
   </Page>
 </template>
@@ -61,39 +49,21 @@
 <script lang="ts">
 import Vue from 'vue'
 
-import { userLogin } from '@/api/auth'
-// import { Elevation } from '@/utils/elevations'
-
-import PhoneNumber from '@/components/UI/PhoneNumber.vue'
-
+import SignUp from '../Auth/SignUp.vue'
+import LogIn from '../Auth/LogIn.vue'
 import AppNavigator from '../AppNavigator.vue'
-import PrivacyPolicy from '../Shared/PrivacyPolicy.vue'
-import TermsOfService from '../Shared/TermsOfService.vue'
-
 export default Vue.extend({
   name: 'Welcome',
-  components:{
-    PhoneNumber
-  },
-  data(){
+  data () {
     return {
       navigation: {
+        signUp: SignUp,
+        logIn: LogIn,
         appNavigator: AppNavigator,
-        privacyPolicy: PrivacyPolicy,
-        termsOfService: TermsOfService
       }
     }
   },
   methods: {
-    // setPhoneNumber(phoneNumber) {
-    //   this.phoneNumber = phoneNumber
-    //   console.log(`${this.phoneNumber}`)
-    // },
-    async doLogIn(phoneNumber) {
-      console.log('doLogin()')
-      // const phoneNumber = this.phoneNumber
-      await userLogin(phoneNumber).then(() => this.toPage(this.navigation.appNavigator))
-    },
     toPage(page) {
       this.$navigateTo(page)
     },
@@ -116,15 +86,20 @@ export default Vue.extend({
 .subtitle {
   font-weight: bold;
   text-align: center;
-  color: $secondary-variant
+  color: $secondary-variant;
 }
 .text {
   background-color: $background;
   color: $primary;
 }
-.accept__link {
-  color: $accent;
+.skip--button {
+  color: $primary-variant;
+  text-align: center;
+  vertical-align: center;
   font-weight: bold;
+}
+.tologin {
+  color: $primary;
 }
 
 </style>

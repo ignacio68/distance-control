@@ -19,8 +19,9 @@ import './plugins/Mapbox'
 // //----- Components -----//
 import './plugins/Components'
 
-// composable
-import  useUser  from './composables/useUser'
+// composable 
+import { reactive, computed } from '@vue/composition-api'
+import  { useUser } from './composables/useUser'
 
 import AppNavigator from './views/AppNavigator.vue'
 import Welcome from './views/Welcome/Welcome.vue'
@@ -34,7 +35,8 @@ const v = <any>Vue
 declare const TNS_ENV: any
 
 if(TNS_ENV !== 'production') {
-  v.use(VueDevtools, { host: '192.168.1.101'}) //mobile
+  // v.use(VueDevtools, { host: '192.168.1.101'}) //mobile
+  v.use(VueDevtools) //mobile
 }
 
 // Prints Vue logs when --env.production is *NOT* set while building
@@ -42,6 +44,10 @@ v.config.silent = (TNS_ENV === 'production')
  
 new v({
   i18n,
+  setup() {
+    const { isLogging } = useUser()
+    return { isLogging }
+  },
   beforeCreate() {
     // Set the platform OS global variable
     v.prototype.IS_ANDROID = isAndroid
@@ -52,5 +58,5 @@ new v({
     setLanguage()
   },
   render: h => h('frame', [h(Welcome)])
-  // render: h => h('frame', [h(useUser ? AppNavigator : Welcome)])
+  // render: h => h('frame', [h( this.isLogging ? AppNavigator : Welcome)])
 }).$start()

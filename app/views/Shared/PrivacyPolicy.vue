@@ -20,10 +20,7 @@
 import Vue from 'vue'
 
 export default Vue.extend({
-  name: 'PrivacyPolicy',
-  data() {
-    return {}
-  }
+  name: 'PrivacyPolicy'
 })
 </script>
 <style lang="scss" scoped>

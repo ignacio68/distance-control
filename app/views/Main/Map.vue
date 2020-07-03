@@ -47,6 +47,7 @@
 
 <script lang="ts">
 import Vue from 'vue'
+import { ref, watchEffect } from '@vue/composition-api'
 
 import { mapToken } from '@/setup/map'
 
@@ -78,6 +79,16 @@ export default Vue.extend({
       default: true
     }
   },
+
+  // setup(props) {
+  //   watchEffect(() => {
+  //     function isVisible (props.isVisible) {
+  //     console.log(`is visible: ${props.isVisible}`)
+  //     this.showSecurityArea('user', props.isVisible)
+  //   }
+  //   })
+  //   return {}
+  // },
 
   data() {
     return {

@@ -1,7 +1,8 @@
 <template>
   <Page 
     actionBarHidden="true" 
-    backgroundSpanUnderStatusBar="false">
+    backgroundSpanUnderStatusBar="false"
+  >
     <GridLayout 
       rows="auto, *" 
       class="map"
@@ -36,12 +37,11 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
+import { ref, onMounted, defineComponent } from '@vue/composition-api'
 
-// mapStyle="mapbox://styles/ignacio68/ckay3bxbr11qt1hquzxx1ohot"
 // icon="res://ic_add_white"
 
-export default Vue.extend({
+export default defineComponent({
   name: 'MapComponent',
   props: {
     accessToken: {
@@ -61,18 +61,21 @@ export default Vue.extend({
       required: true
     }
   },
-  data() {
-    return {
-      // mapStyle: '../../assets/maps/styles/dark_green/style.json',
-      mapStyle:'mapbox://styles/ignacio68/ckay3bxbr11qt1hquzxx1ohot',
-      anotherMapStyle: 'traffic_day'
-    }
-  },
-  methods: {
-    onMapReady(e) {
+  setup(props, { emit }){
+    // const mapStyle = '../../assets/maps/styles/dark_green/style.json',
+    const mapStyle = ref('')
+    const anotherMapStyle = 'traffic_day'
+
+    const onMapReady = (e) => {
       console.log('MAP READY!')
-      this.$emit('on-map-ready', e)
+      emit('on-map-ready', e)
     }
+
+    onMounted (() => {
+      mapStyle.value = 'mapbox://styles/ignacio68/ckay3bxbr11qt1hquzxx1ohot'
+    })
+
+    return { mapStyle, anotherMapStyle, onMapReady}
   }
 })
 </script>

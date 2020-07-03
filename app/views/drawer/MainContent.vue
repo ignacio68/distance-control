@@ -8,7 +8,7 @@
       >
         <ActionBarContent 
           :isVisible="isVisible"
-          @tap-drawer-menu="$emit('on-tap-drawer-menu')"
+          @tap-drawer-menu="onTap('on-tap-drawer-menu')"
           @tap-visibility="onTapVisibility()"
           @tap-search="onTapSearch()"
           @tap-overflow-menu="onTapOverflowMenu()"
@@ -31,37 +31,29 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
+import { ref, defineComponent } from '@vue/composition-api'
 
 import ActionBarContent from '@/components/UI/ActionBarContent.vue'
 import Map from '../main/Map.vue'
 import BottomAppBar from '@/components/UI/BottomAppBar.vue'
 
-export default Vue.extend({
+export default defineComponent({
   name: "MainContent",
   components: {
     Map,
     BottomAppBar,
     ActionBarContent
   },
-  data() {
-    return {
-      isVisible: true
-    }
-  },
+  setup(props, { emit }) {
+    const isVisible = ref(true)
 
-  methods: {
-    onTapVisibility() {
-      console.log("Change control areas visibility")
-      this.isVisible = !this.isVisible
-      
-    },
-    onTapSearch() {
-      console.log("Tap search action!")
-    },
-    onTapOverflowMenu() {
-      console.log("Tap on extended menu")
-    }
+    const onTapVisibility = () => isVisible.value = !isVisible.value
+    const onTap = (action) => emit(action)
+    // TODO: change actions
+    const onTapSearch = () => console.log("Tap search action!")
+    const onTapOverflowMenu = () => console.log("Tap on extended menu")
+
+    return { isVisible, onTapVisibility, onTap, onTapSearch, onTapOverflowMenu }
   }
 })
 </script>

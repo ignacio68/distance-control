@@ -14,34 +14,26 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
+import { ref, defineComponent } from '@vue/composition-api'
+
 import MainContent from './drawer/MainContent.vue'
 import DrawerContent from './drawer/DrawerContent.vue'
 
-export default Vue.extend({
+export default defineComponent({
   name: 'AppNavigator',
   components: {
     MainContent,
     DrawerContent,
   },
-  data() {
-    return {
-      isVisible: true
-    }
-  },
+  setup() {
+    const isVisible = ref(true)
 
-  methods: {
-    onTapVisibility() {
-      console.log("Change control areas visibility")
-      this.isVisible = !this.isVisible
-      
-    },
-    onTapSearch() {
-      console.log("Tap search action!")
-    },
-    onTapOverflowMenu() {
-      console.log("Tap on extended menu")
-    }
+    const onTapVisibility = () => isVisible.value = !isVisible.value
+
+    const onTapSearch = () => console.log("Tap search action!")
+    const onTapOverflowMenu = () => console.log("Tap on extended menu")
+
+    return { isVisible, onTapVisibility, onTapSearch, onTapOverflowMenu }
   }
 })
 </script>
