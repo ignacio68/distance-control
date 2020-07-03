@@ -14,20 +14,23 @@
         <GridLayout
           class="list-item"
           rows="*"
-          columns="auto, auto"
+          columns="auto, auto, auto"
           verticalAlignment="center"
         >
           <Image 
             class="list-item__flag"
-            row="0"
             col="0"
             :src="country.flag" 
             stretch="none" 
           />
           <Label
-            class="list-item__prefix p-l-16 font-sz-s"
-            row="0"
+            class="list-item__code p-l-8 font-sz-s"
             col="1"           
+            :text="country.country_code"
+          />
+          <Label
+            class="list-item__prefix p-l-8 font-sz-s"
+            col="2"           
             :text="country.phone_code"
           />
         </GridLayout>
@@ -37,8 +40,8 @@
 </template>
 <script lang="ts">
 import Vue from 'vue'
- 
-import { createThumbFromImage, CropImage } from '@/utils/image'
+
+import { loadCountries } from '@/utils/countries'
 
 import JSONCountries from '@/data/phone_country_code.json'
 import JSONFlagsIndices from '@/data/flag_indices.json'
@@ -58,75 +61,32 @@ export default Vue.extend({
       countryCode: '',
       prefix: '',
       flag: null,
-      selectedIndex: 210,
       countriesFilePath: 'assets/images/flags@2x.png'
     }
   },
   created() {
-    console.log('created()')
-    this.loadCountries(JSONCountries, this.countriesFilePath, JSONFlagsIndices)
+    this.countries = loadCountries({
+                        countriesList: JSONCountries, 
+                        filePath: this.countriesFilePath, 
+                        flagsIndices: JSONFlagsIndices
+                        })
   },
   async mounted() {
-    console.log('mounted()')
-    this.setValues(this.selectedIndex)
-    const values = {
-        prefix: this.prefix,
-        flag: this.flag
-      }
-    this.$nextTick(() => this.$emit('selected-prefix', values))
+    this.setValues('50')
   },
   methods: {
-    loadCountries (countriesList, filePath: string, flagsIndices) {
-      console.log('loadCountries()')
-      countriesList.map((country) => {
-        this.countries.push (
-          {
-            country_code: country.country_code,
-            flag: this.loadFlag(country.country_code, filePath, flagsIndices),
-            phone_code: `+${country.phone_code}`
-          }
-        )
-      })
-      console.log(`countries: ${this.countries.length}`)
-    },
-    loadFlag(country: string, filePath: string, flagsIndices){
-      console.log('loadFlag()')
-      const leftTop = {
-        x: 0,
-        y: flagsIndices[country] * 2
-      }
-      const size = {
-        height: 32,
-        width: 32
-      }
-      const resize = {
-        height: 96,
-        width: 96
-      }
-      const options: CropImage = {
-        leftTop: leftTop,
-        size: size,
-        resize: resize
-      }
-      const image = createThumbFromImage(filePath, options)
-      return image
-    },
-    setValues(selectedIndex: string) {
-      console.log(`setValues()`)
-      this.flag = this.countries[selectedIndex].flag
-      this.prefix = this.countries[selectedIndex].phone_code
-      this.countryCode = this.countries[selectedIndex].country_code
-    },
-    selectedPrefix(e) {
-      console.log(`selectedPrefix: ${e.index}`)
-      this.selectedIndex = e.index
-      this.setValues(this.selectedIndex)
+    setValues(index: string) {
+      this.flag = this.countries[index].flag
+      this.prefix = this.countries[index].phone_code
+      this.countryCode = this.countries[index].country_code
       const values = {
         prefix: this.prefix,
         flag: this.flag
       }
-      console.dir(values)
       this.$emit('selected-prefix', values)
+    },
+    selectedPrefix(e) {
+      this.setValues(e.index)
     },
   }
 })
