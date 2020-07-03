@@ -14,24 +14,27 @@
       />
       <TextView
         class="text m-x-32 m-t-32 m-b-16 font-sz-m"
-        color="black"
+        textAlignment="center"
         editable="false"
         lineHeihgt="0"
+        color="#00251e"
         :text="$t('lang.views.welcome.presentation')"
       />
       <stacklayout
         orientation="horizontal"
-        class="pull-right m-x-32"
+        class="m-x-32"
       >
-        <Label 
-          class="skip--button text-uppercase"
-          textWrap="true"
+        <MDButton 
+          class="skip--button m-l-0"
+          width="154"
           :text="$t('lang.views.welcome.skip')"
+          borderColor="#007a70"
+          borderWidth="1"
           @tap="toPage(navigation.appNavigator)"
         />
         <MDButton 
-          class="-primary m-r-0"
-          width="160"
+          class="-primary ok--button m-r-0"
+          width="154"
           :text="$t('lang.views.welcome.toSignUp')"
           @tap="toPage(navigation.signUp)"
         />
@@ -91,12 +94,14 @@ export default Vue.extend({
 .text {
   background-color: $background;
   color: $primary;
+  font-weight: bold;
+}
+.ok--button {
+  font-weight: bold;
 }
 .skip--button {
-  color: $primary-variant;
-  text-align: center;
-  vertical-align: center;
-  font-weight: bold;
+  color: $primary;
+  background-color: white;
 }
 .tologin {
   color: $primary;
