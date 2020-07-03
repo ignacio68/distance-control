@@ -95,6 +95,7 @@ export default Vue.extend({
   background-color: $background;
   color: $primary;
   font-weight: bold;
+  font-size: $font-sz-m;
 }
 .ok--button {
   font-weight: bold;
