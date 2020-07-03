@@ -29,11 +29,11 @@
         row="0"
         col="1"
         :text="prefix"
-      /> -->
+      />
     </GridLayout>
 
     <TextField
-      v-model="phone"
+      v-model="phoneNumber"
       class="phone-number m-x-0"
       col="1"
       row="0"
@@ -41,7 +41,7 @@
       borderBottomRightRadius="16"
       borderTopRightRadius="16"
       borderColor="#d1dbdd"
-      :text="phone"
+      :text="phoneNumber"
       :hint="phoneNumberHint"
       returnKeyType="done"
       @focus="onFocus"
@@ -54,7 +54,7 @@
       col="0"
       row="1"
       rowSpan="2"
-      :isVisibleList="isVisibleList"
+      :isFlagsListVisible="isFlagsListVisible"
       @selected-prefix="onSelectedPrefix"
     />
 
@@ -67,6 +67,7 @@
       @tap="onDoLogIn"
     />
     <StackLayout
+      class="dummy-layout"
       col="0"
       row="2"
     />
@@ -74,13 +75,12 @@
 </template>
 <script lang="ts">
 import Vue from 'vue'
-import { ref, reactive, computed, onMounted } from '@vue/composition-api'
 
 import { AnimationRange, JsAnimationDefinition, animate } from '@/utils/animation'
 import * as d3 from 'd3-ease'
 // import { AnimationCurve} from '@nativescript/core/ui/enums'
 
-import FlagsList from '@/components/UI/FlagsList.vue'
+import FlagsList from './FlagsList.vue'
 
 export default Vue.extend({
   name: "PhoneNumber",
@@ -99,48 +99,62 @@ export default Vue.extend({
       default: ''
     }
   },
-  setup(props, {emit}) {
-    // state
-    const phone = ref(null)
-    const prefix = ref(null)
-    const completePhoneNumber = computed(() => prefix.value + phone.value)
-    const flag = ref('')
-    const isVisibleList = ref(false)
-    const flagsList = ref(null)
-
-     // hooks
-    onMounted(() => {
-      console.log('PhoneNumber mounted()')
-      })
-
-    // methods
-    const onTapPrefix = () => {
-      if(!isVisibleList) {
-        isVisibleList.value = true
-        expandList()
-      } else {
-      contrainList()
-      }
+  data() {
+    return {
+      phoneNumber: '',
+      prefix: '',
+      flag: null,
+      isFlagsListVisible: false
     }
+  },
+  methods: {
+    onTapPrefix(){
+      if(!this.isFlagsListVisible) {
+        this.isFlagsListVisible = true
+        this.expandList()
+      } else {
+        this.contrainList()
+      }
+    },
+    onSelectedPrefix(values) {
+      this.prefix = values.prefix
+      this.flag = values.flag
+      this.contrainList()
+    },
+    onTextChange() {
+      console.log(`phoneNumber: ${this.phoneNumber}`)
+    },
+    onDoLogIn() {
+      const fullPhoneNumber = this.prefix + this.phoneNumber
+      console.log(`nº de teléfono: ${fullPhoneNumber}`)
+      // setPhoneNumber(fullPhoneNumber.value)
+      this.$emit('do-login', fullPhoneNumber)   
+    },
+    onFocus() {
+      console.log('onFocus()')
+      if(this.isFlagsListVisible) this.contrainList()
+    },
+     onBlur() {
+      console.log('onBlur(')
+    },
 
-    const expandList = () => {
+    /***** ANIMATION *****/
+    expandList(){
       const range: AnimationRange = {
           from: 0, 
           to: 280
         }
-        animationList(range)
-    }
-
-    const contrainList = () => {
+        this.animationList(range)
+    },
+    contrainList() {
        const range: AnimationRange = {
-          from: 280,           to: 0
+          from: 280,           
+          to: 0
         }
-        animationList(range)
-    }
-
-    /***** ANIMATION *****/
-    const animationList = (range: AnimationRange) => {
-      const flagsListView = flagsList.value.nativeView
+        this.animationList(range)
+    },    
+    animationList(range: AnimationRange) {
+      const flagsListView = this.$refs.flagsList.nativeView
 
       const def1: JsAnimationDefinition = {
         getRange:  () => {
@@ -151,7 +165,7 @@ export default Vue.extend({
           
       }
       animate(500, [def1]).then(() => {
-        if( range.to <= 0) isVisibleList.value = false
+        if( range.to <= 0) this.isFlagsListVisible = false
       })
 
       // // Nativescript animation module
@@ -162,31 +176,6 @@ export default Vue.extend({
       //   curve: AnimationCurve.easeInOut
       // })
     }
-
-    const onSelectedPrefix = (values) => {
-      prefix.value = values.prefix
-      flag.value = values.flag
-      contrainList()
-    }
-
-    const onTextChange = () => {
-      console.log(phone.value)
-    }
-
-    const onDoLogIn = () => {
-      console.log(`nº de teléfono: ${completePhoneNumber.value}`)
-      emit('do-login', completePhoneNumber.value)   
-    }
-
-    const onFocus = () => {
-      console.log('onFocus()')
-   
-      if(isVisibleList) contrainList()
-    } 
-
-    const onBlur = () => {}
-
-    return { phone, flag, prefix, onTapPrefix, onTextChange, onFocus, onBlur, isVisibleList, onSelectedPrefix, onDoLogIn, flagsList }
   }
 })
 </script>
@@ -232,5 +221,8 @@ export default Vue.extend({
 }
 .continue-btn {
   z-index: 1;
+}
+.dummy-layout {
+  background-color: $background;
 }
 </style>

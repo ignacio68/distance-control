@@ -4,7 +4,7 @@
     verticalAlignment="top"
   >
     <ListView
-      v-if="isVisibleList"
+      v-if="isFlagsListVisible"
       ref="flags-list"
       height="280"
       for="country in countries"
@@ -37,32 +37,37 @@
 </template>
 <script lang="ts">
 import Vue from 'vue'
-
+ 
 import { createThumbFromImage, CropImage } from '@/utils/image'
 
 import JSONCountries from '@/data/phone_country_code.json'
-import JSONFlagIndices from '@/data/flag_indices.json'
+import JSONFlagsIndices from '@/data/flag_indices.json'
 
 export default Vue.extend({
+  
   name: 'FlagsList',
   props: {
-    isVisibleList:{
+    isFlagsListVisible:{
       type: Boolean,
       default: false
     }
   },
-   data() {
-    return{
+  data() {
+    return{ 
       countries: [],
       countryCode: '',
-      phone: '',
       prefix: '',
       flag: null,
       selectedIndex: 210,
+      countriesFilePath: 'assets/images/flags@2x.png'
     }
   },
-  mounted() {
-    this.setCountries()
+  created() {
+    console.log('created()')
+    this.loadCountries(JSONCountries, this.countriesFilePath, JSONFlagsIndices)
+  },
+  async mounted() {
+    console.log('mounted()')
     this.setValues(this.selectedIndex)
     const values = {
         prefix: this.prefix,
@@ -71,20 +76,24 @@ export default Vue.extend({
     this.$nextTick(() => this.$emit('selected-prefix', values))
   },
   methods: {
-    setCountries() {
-      JSONCountries.map(country => {
-      this.countries.push({
-        country_code: country.country_code,
-        flag: this.setFlag(country.country_code),
-        phone_code: `+${country.phone_code}`
-        })
+    loadCountries (countriesList, filePath: string, flagsIndices) {
+      console.log('loadCountries()')
+      countriesList.map((country) => {
+        this.countries.push (
+          {
+            country_code: country.country_code,
+            flag: this.loadFlag(country.country_code, filePath, flagsIndices),
+            phone_code: `+${country.phone_code}`
+          }
+        )
       })
+      console.log(`countries: ${this.countries.length}`)
     },
-    setFlag(country: string) {
-      const filePath = 'assets/images/flags@2x.png'
+    loadFlag(country: string, filePath: string, flagsIndices){
+      console.log('loadFlag()')
       const leftTop = {
         x: 0,
-        y: JSONFlagIndices[country] * 2
+        y: flagsIndices[country] * 2
       }
       const size = {
         height: 32,
@@ -103,22 +112,22 @@ export default Vue.extend({
       return image
     },
     setValues(selectedIndex: string) {
+      console.log(`setValues()`)
       this.flag = this.countries[selectedIndex].flag
       this.prefix = this.countries[selectedIndex].phone_code
       this.countryCode = this.countries[selectedIndex].country_code
     },
     selectedPrefix(e) {
+      console.log(`selectedPrefix: ${e.index}`)
       this.selectedIndex = e.index
       this.setValues(this.selectedIndex)
       const values = {
         prefix: this.prefix,
         flag: this.flag
       }
+      console.dir(values)
       this.$emit('selected-prefix', values)
     },
-    onFocus(){
-      },
-    onBlur() {}
   }
 })
 </script>
