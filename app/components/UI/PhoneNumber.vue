@@ -111,15 +111,15 @@ export default Vue.extend({
     onTapPrefix(){
       if(!this.isFlagsListVisible) {
         this.isFlagsListVisible = true
-        this.expandList()
+        this.showFlagslist()
       } else {
-        this.contrainList()
+        this.hideFlagslist()
       }
     },
     onSelectedPrefix(values) {
       this.prefix = values.prefix
       this.flag = values.flag
-      this.contrainList()
+      this.hideFlagslist()
     },
     onTextChange() {
       console.log(`phoneNumber: ${this.phoneNumber}`)
@@ -132,21 +132,21 @@ export default Vue.extend({
     },
     onFocus() {
       console.log('onFocus()')
-      if(this.isFlagsListVisible) this.contrainList()
+      if(this.isFlagsListVisible) this.hideFlagslist()
     },
     onBlur() {
       console.log('onBlur(')
     },
 
     /***** ANIMATION *****/
-    expandList(){
+    showFlagslist(){
       const range: AnimationRange = {
           from: 0, 
           to: 280
         }
         this.animationList(range)
     },
-    contrainList() {
+    hideFlagslist() {
        const range: AnimationRange = {
           from: 280,           
           to: 0
