@@ -57,6 +57,6 @@ new v({
 
     setLanguage()
   },
-  render: h => h('frame', [h(Welcome)])
+  render: h => h('frame', [h(AppNavigator)])
   // render: h => h('frame', [h( this.isLogging ? AppNavigator : Welcome)])
 }).$start()
