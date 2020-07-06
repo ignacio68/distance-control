@@ -1,4 +1,4 @@
-import * as storage from '@/services'
+import * as storage from '@/services/serviceStorage'
 
 export const setStorage = (id: string, values?: object) => storage.setStorage(id, values).then(success => success)
 
