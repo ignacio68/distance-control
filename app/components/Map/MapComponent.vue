@@ -27,26 +27,39 @@
         @mapReady="onMapReady"
       />
       <MDFloatingActionButton
+        ref="fab"
         row="1"
-        rippleColor="#f1f1f1"
-        class="center-button"
-        src="res://ic_location_searching_white_24dp"
-      />     
+        class="fab m-16"
+        rippleColor="white"
+        :elevation="elevationFAB"
+        src="res://ic_my_location_white_24dp"
+        @tap="setCenter"
+      />
+      <MDFloatingActionButton
+        ref="mapStyle"
+        row="1"
+        class="map-style m-r-16 m-b-64"
+        rippleColor="white"
+        :elevation="elevationFAB"
+        src="res://ic_map_black_24dp"
+        @tap="changeMapStyle"
+      />
     </GridLayout>
   </Page>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
-import { ref, onMounted, defineComponent } from '@vue/composition-api'
 
-import FloatingActionButtonPlugin from 'nativescript-material-floatingactionbutton/vue';
- 
+import FloatingActionButtonPlugin from 'nativescript-material-floatingactionbutton/vue'
+
+import { Elevation } from '@/utils/elevations'
+
 Vue.use(FloatingActionButtonPlugin);
 
 // icon="res://ic_add_white"
 
-export default defineComponent({
+export default Vue.extend({
   name: 'MapComponent',
   props: {
     accessToken: {
@@ -66,32 +79,53 @@ export default defineComponent({
       required: true
     }
   },
-  setup(props, { emit }){
-    // const mapStyle = '../../assets/maps/styles/dark_green/style.json',
-    const mapStyle = ref('')
-    const anotherMapStyle = 'traffic_day'
-
-    const onMapReady = (e) => {
-      console.log('MAP READY!')
-      emit('on-map-ready', e)
+  data() {
+    return {
+      // mapStyle: '../../assets/maps/styles/dark_green/style.json',
+      mapStyle: null,
+      customMapStyle: 'mapbox://styles/ignacio68/ckay3bxbr11qt1hquzxx1ohot',
+      satelliteMapStyle:'satellite_streets',
+      defaultMapStyle:'traffic_day',
+      isSatelliteMap: false,
+      elevationFAB: Elevation.FAB_RESTING
     }
-
-    onMounted (() => {
-      mapStyle.value = 'mapbox://styles/ignacio68/ckay3bxbr11qt1hquzxx1ohot'
-    })
-
-    return { mapStyle, anotherMapStyle, onMapReady}
+  },
+  mounted() {
+      this.mapStyle = this.customMapStyle
+    },
+  methods: {
+     onMapReady(e) {
+      console.log('MAP READY!')
+      this.$emit('on-map-ready', e)
+    },
+    setCenter(e) {
+      this.$refs.fab.nativeView.elevation = Elevation.FAB_PRESSED
+      this.$emit('set-center', e)
+    },
+    changeMapStyle() {
+      const mapStyleButton = this.$refs.mapStyle.nativeView
+      mapStyleButton.elevation = Elevation.FAB_PRESSED
+      this.isSatelliteMap = !this.isSatelliteMap
+      this.isSatelliteMap ? mapStyleButton.mapStyle = this.satelliteMapStyle : mapStyleButton.mapStyle = this.customMapStyle
+      console.log(mapStyleButton.mapStyle)
+    }
   }
 })
 </script>
 
 <style lang="scss" scoped>
-  .center-button {
-  height: 70;
-  width: 70; 
-  margin: 15;
-  background-color: #ff4081;
-  horizontal-align: right;
-  vertical-align: top;
-}
+  @import '../../app-variables';
+
+  .fab {
+    background-color: $secondary;
+    color: white;
+    horizontal-align:  right;
+    vertical-align: top;
+  }
+  .map-style{
+    background-color: $secondary;
+    color: white;
+    horizontal-align:  right;
+    vertical-align: bottom;
+  }
 </style>
