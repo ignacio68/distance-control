@@ -134,8 +134,8 @@ export default Vue.extend({
   mounted() {
     console.log('mounted()')
     // this.setInitialUserLocation()
-    this.$root.$on('setNewMarker', () =>  this.showBottomSheet())
-    this.$root.$on('removeSecurityArea', value => this.removeSecurityArea(value.name))
+    this.$root.$on('set-new-marker', () =>  this.showBottomSheet())
+    this.$root.$on('remove-security-area', value => this.removeSecurityArea(value.name))
   },
 
   methods: {
