@@ -1,4 +1,7 @@
 export default {
+  actionBar: {
+    title: "Security Areas"
+  },
   newMarker: {
     title: "New Marker",
     name: "Name:",
