@@ -35,7 +35,7 @@ export default Vue.extend({
       this.$root.$emit('set-new-marker', { name: 'user' })
     },
     tapRemoveSecurityArea() {
-      this.$root.$emit('remove-security-srea', { name: 'user' })
+      this.$root.$emit('remove-security-area', { name: 'user' })
     }, 
   }
 })
