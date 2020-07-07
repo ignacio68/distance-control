@@ -82,6 +82,7 @@ export default Vue.extend({
   data() {
     return {
       // mapStyle: '../../assets/maps/styles/dark_green/style.json',
+      map: null,
       mapStyle: null,
       customMapStyle: 'mapbox://styles/ignacio68/ckay3bxbr11qt1hquzxx1ohot',
       satelliteMapStyle:'satellite_streets',
@@ -96,6 +97,7 @@ export default Vue.extend({
   methods: {
      onMapReady(e) {
       console.log('MAP READY!')
+      this.map = e.map
       this.$emit('on-map-ready', e)
     },
     setCenter(e) {
@@ -103,11 +105,10 @@ export default Vue.extend({
       this.$emit('set-center', e)
     },
     changeMapStyle() {
-      const mapStyleButton = this.$refs.mapStyle.nativeView
-      mapStyleButton.elevation = Elevation.FAB_PRESSED
+      console.dir('changeMapStyle()')
+      this.$refs.mapStyle.nativeView.elevation = Elevation.FAB_PRESSED
       this.isSatelliteMap = !this.isSatelliteMap
-      this.isSatelliteMap ? mapStyleButton.mapStyle = this.satelliteMapStyle : mapStyleButton.mapStyle = this.customMapStyle
-      console.log(mapStyleButton.mapStyle)
+      this.isSatelliteMap ? this.map.setMapStyle(this.satelliteMapStyle) : this.map.setMapStyle(this.customMapStyle)
     }
   }
 })
