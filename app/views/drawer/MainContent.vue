@@ -30,7 +30,10 @@
 
 <script lang="ts">
 import Vue from 'vue'
-// import { ref, defineComponent } from '@vue/composition-api'
+
+import * as application from "@nativescript/core/application"
+
+import { onBackEvent, clearBackEvent } from '@/utils/backButton'
 
 import ActionBarContent from '@/components/UI/ActionBarContent.vue'
 import Map from '../main/Map.vue'
@@ -48,7 +51,17 @@ export default Vue.extend({
       isVisible: false
     }
   },
+  created() {
+    onBackEvent(this.backEvent)
+  },
+  beforeDestroy() {
+    clearBackEvent(this.backEvent)
+  },
   methods: {
+    backEvent() {
+      console.log('Has presionado el boton de volver de Android!!')
+      application.android.foregroundActivity.finish();
+    },
     onTapVisibility() {
       this.isVisible = !this.isVisible
     },
