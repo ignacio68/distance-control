@@ -18,20 +18,15 @@ Page {
   color: $onBackground;
 }
 
-ActionBar {
-  background-color: $primary;
-  color: $onPrimary;
-}
+// StackLayout {
+//   background-color: $background;
+//   color: $onBackground;
+// }
 
-StackLayout {
-  background-color: $background;
-  color: $onBackground;
-}
-
-GridLayout {
-  background-color: $background;
-  color: $onBackground;
-}
+// GridLayout {
+//   background-color: $background;
+//   color: $onBackground;
+// }
 
 Label {
   background-color: $background;
@@ -63,12 +58,12 @@ MDTextField {
   color: $onSurface;
 }
 
-#action-bar {
-  background-color: $primary;
+.action-bar {
+  background-color: $primary-variant;
   color: $onPrimary;
 }
 
 .bottom-app-bar {
-  background-color: $primary;
+  background-color: $primary-variant;
   color: $onPrimary;
 }
