@@ -1,63 +1,70 @@
 <template>
   <Frame>
-    <Page>
-      <ActionBar
-        id="actionBar" 
-        flat="true"
-        :height="56"
+    <Page actionBarHidden="true">
+      <GridLayout
+        class="drawerContent"
+        rows="56,*,56"
+        columns="*"
       >
-        <ActionBarContent 
+        <ActionBar 
+          class="action-bar"
+          row="0"
+          width="100%"
           :isVisible="isVisible"
           @tap-drawer-menu="onTap('on-tap-drawer-menu')"
           @tap-visibility="onTapVisibility()"
           @tap-search="onTapSearch()"
           @tap-overflow-menu="onTapOverflowMenu()"
         />
-      </ActionBar>
-      <GridLayout 
-        class="drawerContent"
-        rows="*, auto"
-      >
         <!-- <Frame row="0"> -->
         <Map
-          row="0"
+          row="1"
           :isVisible="isVisible" 
         />
         <!-- </Frame> -->
-        <BottomAppBar row="1" />
+        <BottomAppBar row="2" />
       </GridLayout>
     </Page>
   </Frame>
 </template>
 
 <script lang="ts">
-import { ref, defineComponent } from '@vue/composition-api'
+import Vue from 'vue'
+// import { ref, defineComponent } from '@vue/composition-api'
 
 import ActionBarContent from '@/components/UI/ActionBarContent.vue'
 import Map from '../main/Map.vue'
 import BottomAppBar from '@/components/UI/BottomAppBar.vue'
 
-export default defineComponent({
+export default Vue.extend({
   name: "MainContent",
   components: {
     Map,
     BottomAppBar,
-    ActionBarContent
+    ActionBar: ActionBarContent
   },
-  setup(props, { emit }) {
-    const isVisible = ref(true)
-
-    const onTapVisibility = () => isVisible.value = !isVisible.value
-    const onTap = (action) => emit(action)
+  data() {
+    return {
+      isVisible: false
+    }
+  },
+  methods: {
+    onTapVisibility() {
+      this.isVisible = !this.isVisible
+    },
+    onTap(action) {
+      this.$emit(action)
+    },
     // TODO: change actions
-    const onTapSearch = () => console.log("Tap search action!")
-    const onTapOverflowMenu = () => console.log("Tap on extended menu")
-
-    return { isVisible, onTapVisibility, onTap, onTapSearch, onTapOverflowMenu }
+    onTapSearch() {
+      console.log("Tap search action!")
+    },
+    onTapOverflowMenu() {
+      console.log("Tap on extended menu")
+    }
   }
 })
 </script>
 
 <style lang="scss" scoped>
-
 </style>
