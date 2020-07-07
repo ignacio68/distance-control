@@ -17,7 +17,7 @@ export default Vue.extend({
   props: {
     type: {
       type: String,
-      default: 'fa'
+      default: 'mdi'
     },
     color: {
       type: String,

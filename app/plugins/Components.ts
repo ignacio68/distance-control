@@ -16,16 +16,18 @@ v.registerElement(
   () => require('@nstudio/nativescript-floatingactionbutton').Fab
 )
 
-//  Font Icon
-TNSFontIcon.debug = false
-TNSFontIcon.paths = {
-  fa: './assets/styles/css/font-awesome/fontawesome.min.css',
-  far: './assets/styles/css/font-awesome/regular.min.css',
-  fas: './assets/styles/css/font-awesome/solid.min.css',
-  fab: './assets/styles/css/font-awesome/brands.min.css'
-}
-TNSFontIcon.loadCss()
-v.filter('fonticon', fonticon)
+// //  Font Icon
+// TNSFontIcon.debug = false
+// TNSFontIcon.paths = {
+//   fa: 'assets/styles/css/font-awesome/fontawesome.css',
+//   far: 'assets/styles/css/font-awesome/regular.css',
+//   fas: 'assets/styles/css/font-awesome/solid.css',
+//   fab: 'assets/styles/css/font-awesome/brands.css',
+//   // mdi: 'assets/styles/css/material-design/materialIcons.css',
+//   mdi: 'material-design-icons.css'
+// }
+// TNSFontIcon.loadCss()
+// v.filter('fonticon', fonticon)
 
 // Material Button
 v.use(ButtonPlugin)
