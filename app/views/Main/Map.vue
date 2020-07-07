@@ -47,13 +47,12 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import { ref, watchEffect } from '@vue/composition-api'
 
 import { mapToken } from '@/setup/map'
 
 import * as map from '@/api/map'
-import { getCurrentUserLocation } from '@/services'
-import { setStorage } from '@/api'
+import { getCurrentUserLocation } from '@/services/serviceGeolocation'
+import { setStorage } from '@/api/storage'
 import { Color } from '@nativescript/core/color'
 import { screen } from '@nativescript/core/platform'
 import { CubicBezierAnimationCurve } from  '@nativescript/core/ui/animation'
