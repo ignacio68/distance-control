@@ -26,7 +26,6 @@
   },
   "dependencies": {
     "@nativescript/theme": "^2.2.1",
-    "@nstudio/nativescript-floatingactionbutton": "^2.0.1",
     "@vue/devtools": "^5.3.3",
     "d3-ease": "^1.0.6",
     "nativescript-bitmap-factory": "^1.8.1",
@@ -34,6 +33,7 @@
     "nativescript-mapbox": "^5.0.1",
     "nativescript-material-bottomsheet": "^3.2.8",
     "nativescript-material-button": "^3.2.8",
+    "nativescript-material-floatingactionbutton": "^3.2.10",
     "nativescript-material-slider": "^3.2.8",
     "nativescript-material-textfield": "^3.2.8",
     "nativescript-plugin-firebase": "^10.5.2",

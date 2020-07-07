@@ -26,18 +26,23 @@
         :showUserLocation="true"
         @mapReady="onMapReady"
       />
-      <Fab
+      <MDFloatingActionButton
         row="1"
         rippleColor="#f1f1f1"
         class="center-button"
-        @tap="$emit('set-center')"
-      />
+        src="res://ic_location_searching_white_24dp"
+      />     
     </GridLayout>
   </Page>
 </template>
 
 <script lang="ts">
+import Vue from 'vue'
 import { ref, onMounted, defineComponent } from '@vue/composition-api'
+
+import FloatingActionButtonPlugin from 'nativescript-material-floatingactionbutton/vue';
+ 
+Vue.use(FloatingActionButtonPlugin);
 
 // icon="res://ic_add_white"
 
