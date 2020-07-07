@@ -3,27 +3,19 @@
     class="bottom-app-bar"
     orientation="horizontal"
     height="56"
-    columns="auto, *, auto"
+    columns="48, *, 48"
   >
-    <Label  
+    <Icon  
       col="0"
-      text="Nuevo"
-      horizontalAlignment="center"
-      @tap="newMarker"
+      class="add_marker-button"
+      name="res://ic_person_pin_white_24dp"
+      @onTap="newMarker"
     />
-    <!-- <FontIcon  
-      col="0"
-      type="fas"
-      name="fa-user-plus"
-      color="white"
-      :size="16"
-      @tap="newMarker()"
-    /> -->
-    <Label
-      col="1"
-      text="Borrar"
-      horizontalAlignment="center"
-      @tap="tapRemoveSecurityArea"
+    <Icon
+      col="2"
+      class="delete_area-button"
+      name="res://ic_layers_clear_white_24dp"
+      @onTap="tapRemoveSecurityArea"
     />
   </GridLayout>
 </template>
@@ -31,12 +23,12 @@
 <script lang="ts">
 import Vue from 'vue'
 
-import FontIcon from './FontIcon.vue'
+import Icon from '@/components/UI/Icon.vue'
 
 export default Vue.extend({
   name: 'BottomAppBar',
   components: {
-    FontIcon
+    Icon
   },
   methods: {
     newMarker() {
@@ -50,12 +42,10 @@ export default Vue.extend({
 </script>
 
 <style lang="scss" scoped>
-  Label {
-    font-size: 20;
-    padding: {
-      top: 16;
-      right: 16;
-      left: 16;
-    }
+  .add_marker-button {
+    margin-left: 4;
+  }
+  .delete_area-button {
+    margin-right: 4;
   }
 </style>
