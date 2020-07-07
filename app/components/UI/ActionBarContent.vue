@@ -1,88 +1,98 @@
 <template>
   <GridLayout
+    class="action-bar"
+    verticalAlignment="middle"
+    height="56"
     width="100%"
-    columns="auto, *, auto, auto, auto"
+    columns="48, *, 48, 48, 48"
   >
-    <FontIcon
-      class="fonticon"
-      type="far"
-      name="fa-bars"
-      color="white"
-      :size="16"
+    <Icon
       col="0"
-      @tap="onTap('tap-drawer-menu')"
+      class="action-bar_menu-button"
+      name="res://ic_menu_white_24dp"
+      @onTap="onTap('tap-drawer-menu')"
     />
 
     <Label
-      class="actionBar_title"
-      text="Areas de Control"
-      :fontSize="16"
       col="1"
+      class="action-bar_title"
+      verticalAlignment="middle"
+      :text="$t('lang.components.actionBar.title')"
     />
 
-    <FontIcon
-      class="fonticon actionBar_visibility-button"
-      type="far"
-      :name="visibilityIcon"
-      color="white"
-      :size="16"
+    <Icon
       col="2"
-      @tap="onTap('tap-visibility')"
+      class="action-bar_visibility-button m-r-0"
+      :name="visibilityIcon"
+      @onTap="onTap('tap-visibility')"
     />
 
-    <FontIcon
-      class="fonticon actionBar_search-button"
-      type="far"
-      name="fa-search"
-      color="white"
-      :size="16"
+    <Icon
       col="3"
-      @tap="onTap('tap-search')"
+      class="action-bar_search-button m-r-0"
+      name="res://ic_search_white_24dp"
+      @onTap="onTap('tap-search')"
     />
 
-    <FontIcon
-      class="fonticon actionBar_overflowMenu-button"
-      color="white"
-      :size="16"
-      type="far"
-      name="fa-ellipsis-v"
+    <Icon
       col="4"
-      @tap="onTap('tap-overflow-menu')"
+      class="action-bar_overflowMenu-button"
+      name="res://ic_more_vert_white_24dp"
+      color="white"
+      @onTap="onTap('tap-overflow-menu')"
     />
   </GridLayout>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
-import { ref, computed } from '@vue/composition-api'
 
-import FontIcon from '@/components/UI/FontIcon.vue'
+import Icon from '@/components/UI/Icon.vue'
 
 export default Vue.extend({
   name: 'ActionBarContent',
   components: {
-    FontIcon
+    Icon
   },
   props: {
     isVisible: {
       type: Boolean,
-      default: true
+      default: false
     }
   },
-  setup(props, { emit }) {
-    const isVisible = ref(props.isVisible)
-    const visibilityIcon = computed(() => isVisible ? 'fa-eye-slash' : 'fa-eye' )
-
-    const onTap = (action) => emit(action)
-
-    return { visibilityIcon, onTap }
+  data() {
+    return {
+    }
+  },
+  computed: {
+    visibilityIcon() {
+      return this.isVisble ? 'res://ic_visibility_off_white_24dp' : 'res://ic_visibility_white_24dp'
+    }
+  },
+  methods: {
+    onTap(action) {
+      this.$emit(action)
+    }
   }
 })
 </script>
 
-<style>
-.fonticon {
-  border: 1px, solid, white;
-  padding: 12;
+<style lang="scss" scoped>
+@import '../../app-variables';
+
+.action-bar_menu-button {
+  margin-left: 4;
+}
+
+.action-bar_title {
+  margin-left: 20;
+  font-weight: 700;
+  font-size: 20;
+  background-color: $primary-variant;
+  color:$onPrimary;
+}
+
+.action-bar_overflowMenu-button {
+  margin-right: 4;
 }
 </style>
