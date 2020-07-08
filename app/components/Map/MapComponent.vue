@@ -51,10 +51,10 @@
 <script lang="ts">
 import Vue from 'vue'
 
-import FloatingActionButtonPlugin from 'nativescript-material-floatingactionbutton/vue'
-
+import { setMap, getMap as map } from '@/store/map'
 import { Elevation } from '@/utils/elevations'
 
+import FloatingActionButtonPlugin from 'nativescript-material-floatingactionbutton/vue'
 Vue.use(FloatingActionButtonPlugin);
 
 // icon="res://ic_add_white"
@@ -82,7 +82,6 @@ export default Vue.extend({
   data() {
     return {
       // mapStyle: '../../assets/maps/styles/dark_green/style.json',
-      map: null,
       mapStyle: null,
       customMapStyle: 'mapbox://styles/ignacio68/ckay3bxbr11qt1hquzxx1ohot',
       satelliteMapStyle:'satellite_streets',
@@ -91,13 +90,17 @@ export default Vue.extend({
       elevationFAB: Elevation.FAB_RESTING
     }
   },
+  computed:{
+    map
+  },
   mounted() {
       this.mapStyle = this.customMapStyle
     },
   methods: {
      onMapReady(e) {
       console.log('MAP READY!')
-      this.map = e.map
+      const map = e.map
+      setMap(map)
       this.$emit('on-map-ready', e)
     },
     setCenter(e) {

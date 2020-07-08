@@ -112,8 +112,8 @@ export const addMarker = (map: any, marker: Marker) => {
   map.addMarkers(newMarkers).then(() => markers.setNewMarker(markers))
 }
 
-export const updateMarker = (map: any, id) => {
+export const updateMarker = (map: any, id: string) => {
   map.updateMarker(id)
 }
 
-export const removeMarker = (map: any, id) => map.removeMarkers(id)
+export const removeMarker = (map: any, id: string) => map.removeMarkers(id)

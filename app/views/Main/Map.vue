@@ -50,7 +50,8 @@ import Vue from 'vue'
 
 import { mapToken } from '@/setup/map'
 
-import * as map from '@/api/map'
+import { addSource, setCenter, addMarker, updateMarker, setSecurityArea, showSecurityArea, removeSecurityArea } from '@/api/map'
+// import * as map from '@/api/map'
 import { getCurrentUserLocation } from '@/services/serviceGeolocation'
 import { setStorage } from '@/api/storage'
 import { Color } from '@nativescript/core/color'
@@ -59,6 +60,7 @@ import { CubicBezierAnimationCurve } from  '@nativescript/core/ui/animation'
 
 import { Coordinates, Marker, PolygonOptions } from '@/utils/types'
 
+import { getMap as map } from '@/store/map'
 import userLocation from '@/store/userLocation'
 import securityArea from '@/store/securityArea'
 
@@ -96,7 +98,7 @@ export default Vue.extend({
         lat: '0',
         lng: '0',
       },
-      map: void 0,
+      // map: void 0,
       radius: 10,
       fillColor: 'green',
       fillOpacity: 5,
@@ -107,6 +109,7 @@ export default Vue.extend({
   },
 
   computed: {
+    map,
     currentUserLocation(): Coordinates {
       return userLocation.getCurrentUserLocation()
     },
@@ -183,16 +186,16 @@ export default Vue.extend({
       })
     },
 
-    onMapReady(args) {
+    onMapReady() {
       console.log('onMapReady()')
-      this.map = args.map
-      map.addSource(this.map, 'main') // TODO: Change source name
+      // this.map = args.map
+      addSource(this.map, 'main') // TODO: Change source name
       // this.showMarkers()
     },
 
     centerCamera() {
       console.log('setCenter()')
-      map.setCenter(this.map)
+      setCenter(this.map)
     },
 
     /***** markers *****/
@@ -216,13 +219,13 @@ export default Vue.extend({
       setStorage(marker.id, marker).then(success => {
         console.log(`setStorage? ${success}`)
         if(success){
-           map.addMarker(this.map, marker)
+          addMarker(this.map, marker)
         }
       })
      
     },
     updateMarker(id: string) {
-      map.updateMarker(this.map, id)
+      updateMarker(this.map, id)
     },
     removeMarker(id: string) {
       this.map.removeMarkers(this.map, id)
@@ -248,16 +251,16 @@ export default Vue.extend({
         fillOpacity: this.fillOpacity / 10,
         isVisible: true
       } 
-      map.setSecurityArea(this.map, polygonOptions) 
+      setSecurityArea(this.map, polygonOptions) 
     },
 
     showSecurityArea(id: string, value:boolean) {
-      map.showSecurityArea(this.map, id, value)  
+      showSecurityArea(this.map, id, value)  
     },
 
     removeSecurityArea(id: string) {
       console.log(`remove polygon: ${id}`)
-      map.removeSecurityArea(this.map, id)
+      removeSecurityArea(this.map, id)
     }
   }
 })
