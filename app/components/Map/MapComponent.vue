@@ -82,7 +82,7 @@ export default Vue.extend({
   data() {
     return {
       // mapStyle: '../../assets/maps/styles/dark_green/style.json',
-      mapStyle: null,
+      // mapStyle: null,
       customMapStyle: 'mapbox://styles/ignacio68/ckay3bxbr11qt1hquzxx1ohot',
       satelliteMapStyle:'satellite_streets',
       defaultMapStyle:'traffic_day',
@@ -91,10 +91,14 @@ export default Vue.extend({
     }
   },
   computed:{
-    map
+    map,
+    mapStyle() {
+      if(this.customMapStyle) { return this.customMapStyle }
+      else { return this.defaultMapStyle }
+    }
   },
   mounted() {
-      this.mapStyle = this.customMapStyle
+      // this.mapStyle = this.customMapStyle | 
     },
   methods: {
      onMapReady(e) {
@@ -111,7 +115,7 @@ export default Vue.extend({
       console.dir('changeMapStyle()')
       this.$refs.mapStyle.nativeView.elevation = Elevation.FAB_PRESSED
       this.isSatelliteMap = !this.isSatelliteMap
-      this.isSatelliteMap ? this.map.setMapStyle(this.satelliteMapStyle) : this.map.setMapStyle(this.customMapStyle)
+      this.isSatelliteMap ? this.map.setMapStyle(this.satelliteMapStyle) : this.map.setMapStyle(this.mapStyle)
     }
   }
 })
