@@ -2,13 +2,13 @@ import Vue from 'Vue'
 
 const state = Vue.observable({
   user: {
-    phonenumber: '',
+    phoneNumber: '',
     isLogged: false
   }
 })
 
-export const user = () => state
+const updateUser = (args) => { }
 
-export default {
-  user
-}
+export const getUser = state.user
+
+export const setUser = (args) => updateUser(args)
