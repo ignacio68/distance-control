@@ -68,14 +68,14 @@ export default Vue.extend ({
       iconRipple
         .animate({
           curve: AnimationCurve.linear,
-          duration: 100,
-          opacity: 0.4
+          duration: 500,
+          opacity: 0.6
         })
         .then(() => {
           iconRipple
             .animate({
               curve: AnimationCurve.linear,
-              duration: 100,
+              duration: 500,
               opacity: 0.0
             })
             .then(() => {})
