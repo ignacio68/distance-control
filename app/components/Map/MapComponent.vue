@@ -125,14 +125,14 @@ export default Vue.extend({
   @import '../../app-variables';
 
   .fab {
-    background-color: $secondary;
-    color: white;
+    background-color: $background;
+    color:$secondary;
     horizontal-align:  right;
     vertical-align: top;
   }
   .map-style{
-    background-color: $secondary;
-    color: white;
+    background-color: $background;
+    color: $secondary;
     horizontal-align:  right;
     vertical-align: bottom;
   }
