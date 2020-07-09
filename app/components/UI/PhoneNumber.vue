@@ -1,6 +1,6 @@
 <template>
   <GridLayout
-    class="flag-list-wrapper"
+    class="flags-list-wrapper"
     columns="120, *"
     rows="64, 64, 250"
     verticalAlignment="top"
