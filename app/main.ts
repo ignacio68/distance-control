@@ -55,9 +55,8 @@ new v({
   },
   beforeCreate() {
     // Set the platform OS global variable
-    v.prototype.IS_ANDROID = isAndroid
-    v.prototype.IS_IOS = isIOS
-    v.prototype.$isMarkerMenuShowing = false
+    // v.prototype.IS_ANDROID = isAndroid
+    // v.prototype.IS_IOS = isIOS
 
     setLanguage()
   },
