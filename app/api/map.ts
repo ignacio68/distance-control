@@ -2,7 +2,7 @@ import { getCurrentUserLocation } from '@/services/serviceGeolocation'
 import { getSecurityAreaPoints } from '@/services/serviceMap'
 
 import securityArea from '@/store/securityArea'
-import markers from '@/store/markers'
+import { setNewMarker } from '@/store/markers'
 
 import { PolygonOptions, Marker, CircleLayer } from '@/utils/types'
 
@@ -109,7 +109,7 @@ export const showMarkers = () => {}
 export const addMarker = (map: any, marker: Marker) => {
   const newMarkers = []
   newMarkers.push(marker)
-  map.addMarkers(newMarkers).then(() => markers.setNewMarker(markers))
+  map.addMarkers(newMarkers).then(() => setNewMarker(marker))
 }
 
 export const updateMarker = (map: any, id: string) => {
