@@ -9,7 +9,7 @@
       col="0"
       class="add_marker-button"
       name="res://ic_person_pin_white_24dp"
-      @onTap="newMarker"
+      @onTap="showMarkerMenu"
     />
     <Icon
       col="2"
@@ -31,8 +31,8 @@ export default Vue.extend({
     Icon
   },
   methods: {
-    newMarker() {
-      this.$root.$emit('set-new-marker', { name: 'user' })
+    showMarkerMenu() {
+      console.log(`showMarkerMenu()`)
     },
     tapRemoveSecurityArea() {
       this.$root.$emit('remove-security-area', { name: 'user' })
