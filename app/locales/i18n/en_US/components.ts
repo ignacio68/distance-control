@@ -4,8 +4,10 @@ export default {
   },
   newMarker: {
     title: "New Location",
-    name: "Name:",
-    error: "Missing the name and/or coordinates",
+    id: "Name:",
+    groupError: "The marker needs a group",
+    idError: "Missing the name",
+    colorError: "Please, choose a color",
     group: "Group: ",
     cancelButton: "Cancel",
     addButton: "Add"
