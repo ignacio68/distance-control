@@ -53,7 +53,7 @@ import Vue from 'vue'
 import { userLogin } from '@/api/auth'
 // import { Elevation } from '@/utils/elevations'
 
-import PhoneNumber from '@/components/UI/PhoneNumber.vue'
+import PhoneNumber from '@/components/Auth/PhoneNumber.vue'
 
 import AppNavigator from '../AppNavigator.vue'
 import PrivacyPolicy from '../Shared/PrivacyPolicy.vue'
