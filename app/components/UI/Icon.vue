@@ -36,7 +36,8 @@
 <script lang="ts">
 import Vue from 'vue'
 
-const AnimationCurve = require('tns-core-modules/ui/enums').AnimationCurve
+// const AnimationCurve = require('tns-core-modules/ui/enums').AnimationCurve
+import { AnimationCurve } from '@nativescript/core/ui/enums'
 
 export default Vue.extend ({
   name: "Icon",
