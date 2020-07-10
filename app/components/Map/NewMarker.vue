@@ -4,64 +4,76 @@
       <Label
         class="menu_title"
         :text="$t('lang.components.newMarker.title')"
-        height="36"
-        effectiveBorderBottomWidth="1"
-        borderBottomColor="black"
+        height="32"
+        borderColor="#00251e"
       />
-      <GridLayout
-        class="newMarkerMenu"
-        rows="36, auto, 32, 32, 64, 32"
+      <!-- <GridLayout
+        class="new-marker-menu"
+        rows="48, auto, 48, 48, 64"
         columns="*"
-      >
-        <TextForm
+      >  -->
+      <GridLayout
+        class="new-marker-menu"
+        rows="48, 48, auto, 48, 48, 64"
+        columns="*"
+      > 
+        <GroupsList
           row="0"
-          class="name"
-          :labelWidth="60"
-          :textFieldWidth="200"
-          :maxLenght="24"
-          returnKeyType="next"
-          :textFormLabel="$t('lang.components.newMarker.name')"
-          :value="marker.id"
-          @on-text-change="setId(marker.id)"
+          :labelWidth="64"
+          :labelText="$t('lang.components.newMarker.group')"
+        />
+        <!-- <TextForm
+          row="0"
+          class="new-marker-menu_group"
+          :labelWidth="64"
+          :labelText="$t('lang.components.newMarker.group')"
+          returnKeyType="done"
+          :maxLengthText="24"
+          @on-text-change="setGroup"
+        /> -->
+        <TextForm
+          row="1"
+          class="new-marker-menu__name"
+          :labelWidth="64"
+          :labelText="$t('lang.components.newMarker.name')"
+          returnKeyType="done"
+          :maxLengthText="24"
+          @on-text-change="setId"
         />
         <Label 
           v-if="hasError"
-          row="1"
-          class="error"
+          row="2"
+          class="new-marker-menu__name-error"
           :text="$t('lang.components.newMarker.error')"
         />
-        <ColorSelector row="2" />
-        <TextForm
+        <ColorSelector 
           row="3"
-          class="group"
-          :labelWidth="80"
-          :textFieldWidth="200"
-          :textFormLabel="$t('lang.components.newMarker.group')"
-          :value="marker.group"
-          @on-text-change="setGroup(marker.group)"
+          :labelWidth="64"
+          @on-selected-color="onSelectedColor"
         />
-        <NewArea 
+        <!-- <NewArea 
           row="4" 
           @on-radius-change="onRadiusChange"
-        />
+        />-->
         <StackLayout
-          row="5"
-          class="buttons"
+          row="4"
+          class="new-marker-menu_buttons p-r-16"
           orientation="horizontal"
           horizontalAlignment="right"
         >
           <Label
-            class="buttons_cancel"
+            class="new-marker-menu_button_cancel"
             :text="$t('lang.components.newMarker.cancelButton')"
             verticalAlignment="center"
             @tap="onCancel"
           />
-          <Button
-            class="buttons_add"
+          <MDButton
+            class="new-marker-menu_button_add"
+            width="88"
             :text="$t('lang.components.newMarker.addButton')"
             @tap="onAdd"
           />
-        </StackLayout>
+        </StackLayout> 
       </GridLayout>
     </StackLayout>
   </Page>
@@ -70,6 +82,9 @@
 <script lang="ts">
 import Vue from 'vue'
 
+import { setNewMarker, getMarker } from '@/store/markers'
+
+import GroupsList from '@/components/Markers/GroupsList.vue'
 import TextForm from '@/components/UI/TextForm.vue'
 import ColorSelector from '@/components/UI/ColorSelector.vue'
 import NewArea from '@/components/Map/NewArea.vue'
@@ -77,6 +92,7 @@ import NewArea from '@/components/Map/NewArea.vue'
 export default Vue.extend({
   name: 'NewMarker',
   components: {
+    GroupsList,
     TextForm,
     ColorSelector,
     NewArea,
@@ -89,11 +105,13 @@ export default Vue.extend({
   },
   data() {
     return {
+      markerValue: '',
+      markerColor: null,
       marker: {
         id: '',
         coordinates: {
-          lat: '',
-          lng: '',
+          lat: '40.456074',
+          lng: '-3.6806088',
         },
         group: '',
         color: '',
@@ -112,13 +130,15 @@ export default Vue.extend({
     }
   },
   methods: {
-    setId(id) {
-      console.log('setId()')
-      this.marker.id = id
+    setId(value){
+      this.marker.id = value
     },
-    setGroup(group) {
-      console.log('setgroup()')
-      this.marker.group = group
+    setGroup(value){
+      this.marker.group = value
+    },
+    onSelectedColor(color) {
+      this.markerColor = color
+      this.marker.color = color.color
     },
     onRadiusChange(value) {
       console.log('onRadiusChange()')
@@ -130,6 +150,9 @@ export default Vue.extend({
     },
     onAdd() {
       console.log('onAdd()')
+      console.log(this.marker.id)
+      console.log(this.marker.group)
+      console.log(this.markerColor.name)
       this.$emit('on-marker-done', this.marker)
     },
   },
@@ -137,23 +160,20 @@ export default Vue.extend({
 </script>
 
 <style scoped lang="scss">
-.newMarker {
-  height: 360;
-  vertical-aligment: bottom;
-  padding-left: 16;
-  padding-right: 16;
-}
+@import '../../app-variables';
+
 .menu_title {
  font-weight: 700;
+ font-size: 16;
+ color: $primary-variant;
+ opacity: .8;
+ border-bottom: 1, solid, rgba($primary, .1);
 }
-.error {
+.new-marker-menu__name-error {
   color: red;
+}
+.new-marker-menu_button_add {
 
 }
-.buttons_cancel {
 
-}
-.buttons_add {
-
-}
 </style>
