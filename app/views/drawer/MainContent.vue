@@ -12,17 +12,31 @@
           width="100%"
           :isVisible="isVisible"
           @tap-drawer-menu="onTap('on-tap-drawer-menu')"
-          @tap-visibility="onTapVisibility()"
-          @tap-search="onTapSearch()"
-          @tap-overflow-menu="onTapOverflowMenu()"
+          @tap-visibility="onTapVisibility"
+          @tap-search="onTapSearch"
+          @tap-overflow-menu="onTapOverflowMenu"
         />
         <!-- <Frame row="0"> -->
         <Map
+          class="Map"
           row="1"
-          :isVisible="isVisible" 
+          :isVisible="isVisible"
+          :isMarkerMenuShowing="isMarkerMenuShowing"
         />
         <!-- </Frame> -->
-        <BottomAppBar row="2" />
+        <BottomAppBar 
+          class="BottomBar"
+          row="2" 
+        />
+        <MDFloatingActionButton
+          ref="add-marker"
+          row="2"
+          class="add-marker"
+          rippleColor="white"
+          :elevation="elevationFAB"
+          src="res://ic_person_pin_white_24dp"
+          @tap="showMarkerMenu"
+        />
       </GridLayout>
     </Page>
   </Frame>
@@ -31,6 +45,8 @@
 <script lang="ts">
 import Vue from 'vue'
 
+import { Elevation } from '@/utils/elevations'
+
 import * as application from "@nativescript/core/application"
 
 import { onBackEvent, clearBackEvent } from '@/utils/backButton'
@@ -38,6 +54,8 @@ import { onBackEvent, clearBackEvent } from '@/utils/backButton'
 import ActionBarContent from '@/components/UI/ActionBarContent.vue'
 import Map from '../main/Map.vue'
 import BottomAppBar from '@/components/UI/BottomAppBar.vue'
+import FloatingActionButtonPlugin from 'nativescript-material-floatingactionbutton/vue'
+Vue.use(FloatingActionButtonPlugin);
 
 export default Vue.extend({
   name: "MainContent",
@@ -48,7 +66,9 @@ export default Vue.extend({
   },
   data() {
     return {
-      isVisible: false
+      isVisible: false,
+      isMarkerMenuShowing: false,
+      elevationFAB: Elevation.FAB_RESTING
     }
   },
   created() {
@@ -74,10 +94,23 @@ export default Vue.extend({
     },
     onTapOverflowMenu() {
       console.log("Tap on extended menu")
-    }
+    },
+    showMarkerMenu() {
+      console.log(`showMarkerMenu()`)
+      this.isMarkerMenuShowing = !this.isMarkerMenuShowing
+      console.log(`isMarkerMenuShowing: ${this.isMarkerMenuShowing}`)
+    },
   }
 })
 </script>
 
 <style lang="scss" scoped>
+@import '../../app-variables';
+
+.add-marker {
+  margin-bottom: 64;
+  height: 56;
+  width: 56;
+  color: $onPrimary;
+}
 </style>
