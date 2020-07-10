@@ -107,9 +107,9 @@ export const removeSecurityArea = async (map: any, id: string) => {
 export const showMarkers = () => {}
 
 export const addMarker = (map: any, marker: Marker) => {
-  const newMarkers = []
-  newMarkers.push(marker)
-  map.addMarkers(newMarkers).then(() => setNewMarker(marker))
+  const newMarker = []
+  newMarker.push(marker)
+  map.addMarkers(newMarker).then(() => setNewMarker(marker))
 }
 
 export const updateMarker = (map: any, id: string) => {
