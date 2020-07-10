@@ -3,7 +3,7 @@ export default {
     title: "Security Areas"
   },
   newMarker: {
-    title: "New Marker",
+    title: "New Location",
     name: "Name:",
     error: "Missing the name and/or coordinates",
     group: "Group: ",
@@ -15,6 +15,6 @@ export default {
     opacity: "Opacity"
   },
   colorSelector: {
-    text: "Select the icon color"
+    text: "Color:"
   }
 }
