@@ -34,6 +34,7 @@
           returnKeyType="done"
           :maxLengthText="24"
           @on-text-change="setId"
+          @on-return-press="enabledFab"
         />
         <Label 
           v-if="hasIdError"
@@ -58,15 +59,24 @@
           orientation="horizontal"
           horizontalAlignment="right"
         >
-          <Label
+          <!-- <Label
             class="new-marker-menu_button_cancel"
             :text="$t('lang.components.newMarker.cancelButton')"
+            width="100"
             verticalAlignment="center"
+            @tap="onCancel"
+          /> -->
+          <MDButton 
+            class="new-marker-menu_button_cancel m-l-0"
+            width="96"
+            :text="$t('lang.components.newMarker.cancelButton')"
+            borderColor="#007a70"
+            borderWidth="1"
             @tap="onCancel"
           />
           <MDButton
-            class="new-marker-menu_button_add"
-            width="88"
+            class="new-marker-menu_button_add m-r-0"
+            width="96"
             :text="$t('lang.components.newMarker.addButton')"
             @tap="onAdd"
           />
@@ -95,10 +105,10 @@ export default Vue.extend({
     NewArea,
   },
   props: {
-    // hasError: {
-    //   type: Boolean,
-    //   default: false
-    // }
+    isCanceled: {
+      type: Boolean,
+      default: false
+    }
   },
   data() {
     return {
@@ -133,13 +143,21 @@ export default Vue.extend({
 
   },
   methods: {
-    setId(id){
+    reset() {
+      this.marker.id = null,
+      this.group = null,
+      this.color = null
+    },
+    enabledFab() {
+      this.$emit('enabled-fab', true)
+    },
+    setId(id) {
       console.log(`id: ${id}`)
       this.marker.id = id
       this.hasIdError = null
-      
+      this.$emit('enabled-fab', false)
     },
-    setGroup(group){
+    setGroup(group) {
       console.log(`group: ${group}`)
       this.marker.group = group
       this.hasGroupError = null
@@ -189,10 +207,12 @@ export default Vue.extend({
  opacity: .8;
  border-bottom: 1, solid, rgba($primary, .1);
 }
-.group-list {
-}
 .new-marker-menu_error {
   color: red;
+}
+.new-marker-menu_button_cancel {
+  color: $primary;
+  background-color: white;
 }
 .new-marker-menu_button_add {
 

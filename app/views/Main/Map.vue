@@ -24,10 +24,9 @@
       <NewMarker
         class="newMarker m-16"
         backgroundColor="white"
-        :hasError="hasNewMarkerError"
+        @enabled-fab="onEnabledFab"
         @on-marker-cancel="hideBottomSheet()"
         @on-marker-done="newMarker"
-        @on-radius-change="onRadiusChange"
       />
     </Frame>
   </GridLayout>
@@ -107,8 +106,7 @@ export default Vue.extend({
       radius: 1,
       fillOpacity: 5,
       activeUser: null,
-      newMarkerMenu: false,
-      hasNewMarkerError: false,
+      newMarkerMenu: false
     }
   },
 
@@ -149,22 +147,19 @@ export default Vue.extend({
   },
 
   methods: {
-    onRadiusChange(value) {
-       this.getRadius = value
+    onEnabledFab(bool) {
+      console.log(`onEnabledFab(): ${bool}`)
+      this.$emit('enabled-fab', bool)
     },
+    // onRadiusChange(value) {
+    //    this.getRadius = value
+    // },
 
     /***** BOTTOM SHEET *****/
     loadBottomSheet() {
-      console.log('loadBottomSheet()')
-      // const bottomSheet = this.$refs.bottomSheet.nativeView
-      this.hasNewMarkerError = false
       this.bottomSheet.translateY = screen.mainScreen.heightDIPs
     },
     showBottomSheet() {
-      console.log('showBottomSheet()')
-      // const bottomSheet = this.$refs.bottomSheet.nativeView
-      this.hasNewMarkerError = false
-
       this.bottomSheet.animate({
         duration: 1000,
         translate: { x: 0, y: screen.mainScreen.heightDIPs - 500 },
@@ -172,10 +167,6 @@ export default Vue.extend({
       })
     },
     hideBottomSheet() {
-      console.log('hideBottomSheet()')
-      // const bottomSheet = this.$refs.bottomSheet.nativeView
-      this.hasNewMarkerError = false
-
       this.bottomSheet.animate({
         duration: 1000,
         translate: { x: 0, y: screen.mainScreen.heightDIPs },
@@ -200,10 +191,10 @@ export default Vue.extend({
     /***** markers *****/
     newMarker(values) {
       console.log(`newMarker()`)
-      if(!values.id || !values.coordinates) {
-        this.hasNewMarkerError = true
-        return
-      }
+      // if(!values.id || !values.coordinates) {
+      //   this.hasNewMarkerError = true
+      //   return
+      // }
       // TODO: activate when fix userLoacation
       // const coordinates = this.userLocation
       const marker: Marker = {

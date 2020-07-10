@@ -22,6 +22,7 @@
           row="1"
           :isVisible="isVisible"
           :isMarkerMenuShowing="isMarkerMenuShowing"
+          @enabled-fab="onEnabledFab"
         />
         <!-- </Frame> -->
         <BottomAppBar 
@@ -33,6 +34,7 @@
           row="2"
           class="add-marker"
           rippleColor="white"
+          :isEnabled="isEnabledFab"
           :elevation="elevationFAB"
           src="res://ic_person_pin_white_24dp"
           @tap="showMarkerMenu"
@@ -68,6 +70,7 @@ export default Vue.extend({
     return {
       isVisible: false,
       isMarkerMenuShowing: false,
+      isEnabledFab: true,
       elevationFAB: Elevation.FAB_RESTING
     }
   },
@@ -78,6 +81,11 @@ export default Vue.extend({
     clearBackEvent(this.backEvent)
   },
   methods: {
+    onEnabledFab(bool) {
+      this.isEnabledFab = bool
+      console.log(`isEnabledFab: ${this.isEnabledFab}`)
+    },
+    
     backEvent() {
       console.log('Has presionado el boton de volver de Android!!')
       application.android.foregroundActivity.finish();
