@@ -26,7 +26,7 @@
         backgroundColor="white"
         :hasError="hasNewMarkerError"
         @on-marker-cancel="hideBottomSheet()"
-        @on-marker-done="addMarker"
+        @on-marker-done="newMarker"
         @on-radius-change="onRadiusChange"
       />
     </Frame>
@@ -50,7 +50,7 @@ import Vue from 'vue'
 
 import { mapToken } from '@/setup/map'
 
-import { addSource, 
+import {  addSource, 
           setCenter, 
           addMarker, 
           updateMarker, 
@@ -198,8 +198,8 @@ export default Vue.extend({
     },
 
     /***** markers *****/
-    addMarker(values) {
-      console.log(`addMarker()`)
+    newMarker(values) {
+      console.log(`newMarker()`)
       if(!values.id || !values.coordinates) {
         this.hasNewMarkerError = true
         return
@@ -234,7 +234,7 @@ export default Vue.extend({
     },
     showMarkers() {
       this.activeUser = 'user'
-      this.addMarker(this.activeUser)
+      this.newMarker(this.activeUser)
       console.log('showMarkers')
       console.dir(JSON.stringify(this.markers))
     },
