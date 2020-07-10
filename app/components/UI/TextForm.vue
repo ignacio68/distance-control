@@ -1,29 +1,31 @@
 <template>
   <GridLayout
-    class="textForm"
+    class="TextForm"
     rows="*"
     columns="auto, auto"
   >
     <Label
+      class="TextForm_label"
       col="0"
-      class="textForm_label"
       :width="labelWidth"
       verticalAlignment="center"
-      :text="textFormLabel"
+      :text="labelText"
     />
-    <MDTextField
+    <TextField
+      v-model="value"
+      class="TextForm_editable p-l-0 m-r-16"
       col="1"
-      class="textForm_editable"
-      placeholderColor="gray"
       :width="textFieldWidth"
       verticalAlignment="center"
-      isEnabled="true"
-      editable="true"
-      :maxLength="maxLength"
-      keyboardType="keyboardType"
+      borderColor="white"
+      :isEnabled="isEnabled"
+      :editable="isEditable"
+      :keyboardType="keyboardType"
       :returnKeyType="returnKeyType"
+      :maxLength="maxLengthText"
       :text="value"
-      @textChange="$emit('on-text-change', value)"
+      @returnPress="onReturnPress"
+      @textChange="onTextChange"
     />
   </GridLayout>
 </template>
@@ -37,9 +39,21 @@ export default Vue.extend({
       type: [String, Number],
       default: 80
     },
+    labelText: {
+      type: String,
+      default: ''
+    },
     textFieldWidth: {
       type: [String, Number],
       default: "100%"   
+    },
+    isEnabled: {
+      type: Boolean,
+      default: true
+    },
+    isEditable: {
+      type: Boolean,
+      default: true
     },
     keyboardType: {
       type: String,
@@ -59,33 +73,41 @@ export default Vue.extend({
         return ['done', 'go', 'next', 'search', 'send'].indexOf(value) !== -1
       }
     },
-    textFormLabel: {
-      type: String,
-      default: "Pepe"
-    },
-    maxLength: {
+    maxLengthText: {
       type: Number,
-      default: 16
-    },
-    value: {
-      // type: [String, Number],
-      validator: prop => typeof prop === 'string' || prop === 'number' || prop === null,
-      required: true
+      default: 0
     },
   },
+  data(){
+   return{
+     value:''
+   }
+  },
+  methods: {
+    onReturnPress(e) {
+      this.$emit('on-return-press', e)
+    },
+    onTextChange() {
+      console.log(`value: ${this.value}`)
+      this.$emit('on-text-change', this.value)
+    }
+  }
 })
 </script>
 <style lang="scss" scoped>
-  .textForm {
-    margin: {
-      top: 0;
-      bottom: 0;
-    }
-  }
-  .textForm_label {
+@import '../../app-variables';
 
+.TextForm_label {
+  color: $primary-dark;
+}
+.TextForm_editable {
+  border-radius: 4;
+  background-color: rgba($primary, .08);
+  &[text] {
+    padding-left: 8;
+    color: $primary-variant;
+    vertical-align: center;
+    font-size: $font-sz-l;
   }
-  .textForm_editable {
-
-  }
+}
 </style>
