@@ -3,7 +3,7 @@ export default {
     title: "Áreas de Seguridad"
   },
   newMarker: {
-    title: "Nuevo Marcador",
+    title: "Nueva Localización",
     name: "Nombre:",
     error: "Faltan el nombre y/o las coordenadas",
     group: "Grupo: ",
@@ -15,6 +15,6 @@ export default {
     opacity: "Opacity"
   },
   colorSelector: {
-    text: "selecciona el color del icono"
+    text: "Color:"
   }
 }
