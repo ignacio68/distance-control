@@ -7,56 +7,53 @@
         height="32"
         borderColor="#00251e"
       />
-      <!-- <GridLayout
-        class="new-marker-menu"
-        rows="48, auto, 48, 48, 64"
-        columns="*"
-      >  -->
       <GridLayout
         class="new-marker-menu"
-        rows="48, 48, auto, 48, 48, 64"
+        rows="100, auto, 48, auto, 48, auto, 64"
         columns="*"
       > 
         <GroupsList
+          class="group-list"
           row="0"
           :labelWidth="64"
           :labelText="$t('lang.components.newMarker.group')"
+          :listWidth="120"
+          @selected-group="setGroup"
         />
-        <!-- <TextForm
-          row="0"
-          class="new-marker-menu_group"
-          :labelWidth="64"
-          :labelText="$t('lang.components.newMarker.group')"
-          returnKeyType="done"
-          :maxLengthText="24"
-          @on-text-change="setGroup"
-        /> -->
-        <TextForm
+        <Label 
+          v-if="hasGroupError"
           row="1"
-          class="new-marker-menu__name"
+          class="new-marker-menu_error"
+          :text="$t('lang.components.newMarker.groupError')"
+        />
+        <TextForm
+          row="2"
+          class="new-marker-menu__id"
           :labelWidth="64"
-          :labelText="$t('lang.components.newMarker.name')"
+          :labelText="$t('lang.components.newMarker.id')"
           returnKeyType="done"
           :maxLengthText="24"
           @on-text-change="setId"
         />
         <Label 
-          v-if="hasError"
-          row="2"
-          class="new-marker-menu__name-error"
-          :text="$t('lang.components.newMarker.error')"
+          v-if="hasIdError"
+          row="3"
+          class="new-marker-menu_error"
+          :text="$t('lang.components.newMarker.idError')"
         />
         <ColorSelector 
-          row="3"
-          :labelWidth="64"
-          @on-selected-color="onSelectedColor"
-        />
-        <!-- <NewArea 
-          row="4" 
-          @on-radius-change="onRadiusChange"
-        />-->
-        <StackLayout
           row="4"
+          :labelWidth="64"
+          @on-selected-color="setColor"
+        />
+        <Label 
+          v-if="hasColorError"
+          row="5"
+          class="new-marker-menu_error"
+          :text="$t('lang.components.newMarker.colorError')"
+        />
+        <StackLayout
+          row="6"
           class="new-marker-menu_buttons p-r-16"
           orientation="horizontal"
           horizontalAlignment="right"
@@ -98,23 +95,23 @@ export default Vue.extend({
     NewArea,
   },
   props: {
-    hasError: {
-      type: Boolean,
-      default: false
-    }
+    // hasError: {
+    //   type: Boolean,
+    //   default: false
+    // }
   },
   data() {
     return {
       markerValue: '',
       markerColor: null,
       marker: {
-        id: '',
+        id: null,
         coordinates: {
           lat: '40.456074',
           lng: '-3.6806088',
         },
-        group: '',
-        color: '',
+        group: null,
+        color: null,
       },
       area: {
         id: '',
@@ -126,34 +123,57 @@ export default Vue.extend({
         color: '',
         opacity: .5,
         group: '',
-      }
+      },
+      hasGroupError: false,
+      hasIdError: false,
+      hasColorError: false
     }
   },
+  watch: {
+
+  },
   methods: {
-    setId(value){
-      this.marker.id = value
+    setId(id){
+      console.log(`id: ${id}`)
+      this.marker.id = id
+      this.hasIdError = null
+      
     },
-    setGroup(value){
-      this.marker.group = value
+    setGroup(group){
+      console.log(`group: ${group}`)
+      this.marker.group = group
+      this.hasGroupError = null
     },
-    onSelectedColor(color) {
+    setColor(color) {
+      console.log(`color: ${color.name}`)
+      // TODO: remove for production
       this.markerColor = color
       this.marker.color = color.color
+      this.hasColorError = null
     },
-    onRadiusChange(value) {
+    isValid() {
+      console.log('isValid()')
+      const isValid = Promise.resolve(
+        this.marker.group === null ? this.hasGroupError = true :
+          this.marker.id === null || undefined ? this.hasIdError = true :
+            this.marker.color === null ? this.hasColorError = true : console.log('There are nort errors')
+      )
+      return isValid
+    },
+    onRadiusChange(radius) {
       console.log('onRadiusChange()')
-      this.$emit('on-radius-change', value)
+      this.$emit('on-radius-change', radius)
     },
     onCancel() {
       console.log('onCancel()')
       this.$emit('on-marker-cancel')
     },
-    onAdd() {
+    async onAdd() {
       console.log('onAdd()')
-      console.log(this.marker.id)
-      console.log(this.marker.group)
-      console.log(this.markerColor.name)
-      this.$emit('on-marker-done', this.marker)
+      await this.isValid().then(() => {
+        if (this.hasError === null) this.$emit('on-marker-done', this.marker)
+        else return
+      })      
     },
   },
 })
@@ -169,7 +189,9 @@ export default Vue.extend({
  opacity: .8;
  border-bottom: 1, solid, rgba($primary, .1);
 }
-.new-marker-menu__name-error {
+.group-list {
+}
+.new-marker-menu_error {
   color: red;
 }
 .new-marker-menu_button_add {
