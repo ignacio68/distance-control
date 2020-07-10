@@ -13,7 +13,7 @@
       />
     </Frame>
     <Frame
-      id="bottomSheet-page"
+      id="bottomSheet"
       ref="bottomSheet"
       borderTopLeftRadius="16"
       borderTopRightRadius="16"
@@ -22,7 +22,7 @@
       @loaded="loadBottomSheet"
     >
       <NewMarker
-        class="newMarker"
+        class="newMarker m-16"
         backgroundColor="white"
         :hasError="hasNewMarkerError"
         @on-marker-cancel="hideBottomSheet()"
@@ -50,18 +50,28 @@ import Vue from 'vue'
 
 import { mapToken } from '@/setup/map'
 
-import { addSource, setCenter, addMarker, updateMarker, setSecurityArea, showSecurityArea, removeSecurityArea } from '@/api/map'
+import { addSource, 
+          setCenter, 
+          addMarker, 
+          updateMarker, 
+          setSecurityArea, 
+          showSecurityArea, 
+          removeSecurityArea 
+        } from '@/api/map'
 // import * as map from '@/api/map'
-import { getCurrentUserLocation } from '@/services/serviceGeolocation'
+
 import { setStorage } from '@/api/storage'
 import { Color } from '@nativescript/core/color'
 import { screen } from '@nativescript/core/platform'
 import { CubicBezierAnimationCurve } from  '@nativescript/core/ui/animation'
 
-import { Coordinates, Marker, PolygonOptions } from '@/utils/types'
+import { Marker, PolygonOptions } from '@/utils/types'
 
 import { getMap as map } from '@/store/map'
-import userLocation from '@/store/userLocation'
+import { 
+          getOriginLocation as initialLocation, 
+          getCurrentUserLocation as userLocation 
+        } from '@/store/userLocation'
 import securityArea from '@/store/securityArea'
 
 import MapComponent from '@/components/Map/MapComponent.vue'
@@ -74,44 +84,41 @@ export default Vue.extend({
     MapComponent,
     NewMarker
   },
+
   props:{
     isVisible: {
       type: Boolean,
       default: true
+    },
+    isMarkerMenuShowing: {
+      type: Boolean,
+      default: false
     }
   },
-
-  // setup(props) {
-  //   watchEffect(() => {
-  //     function isVisible (props.isVisible) {
-  //     console.log(`is visible: ${props.isVisible}`)
-  //     this.showSecurityArea('user', props.isVisible)
-  //   }
-  //   })
-  //   return {}
-  // },
 
   data() {
     return {
       accessToken: mapToken,
-      initialLocation: {
-        lat: '0',
-        lng: '0',
-      },
+      // initialLocation: {
+      //   lat: '0',
+      //   lng: '0',
+      // },
       // map: void 0,
-      radius: 10,
-      fillColor: 'green',
+      radius: 1,
       fillOpacity: 5,
-      activeUser: void 0,
+      activeUser: null,
       newMarkerMenu: false,
-      hasNewMarkerError: false
+      hasNewMarkerError: false,
     }
   },
 
   computed: {
     map,
-    currentUserLocation(): Coordinates {
-      return userLocation.getCurrentUserLocation()
+    initialLocation,
+    // FIXME: the current coordinates are '0'
+    userLocation,
+    bottomSheet() {
+      return this.$refs.bottomSheet.nativeView
     },
     getRadius: {
       get: function() { return this.radius },
@@ -129,36 +136,36 @@ export default Vue.extend({
 
   watch: {
     isVisible: function(newValue) {
-      console.log(`is visible: ${this.isVisible}`)
       this.showSecurityArea('user', newValue)
+    },
+    isMarkerMenuShowing(newValue){
+      newValue === true ? this.showBottomSheet() : this.hideBottomSheet()
     }
   },
 
   mounted() {
     console.log('mounted()')
-    // this.setInitialUserLocation()
-    this.$root.$on('set-new-marker', () =>  this.showBottomSheet())
     this.$root.$on('remove-security-area', value => this.removeSecurityArea(value.name))
   },
 
   methods: {
-      onRadiusChange(value) {
+    onRadiusChange(value) {
        this.getRadius = value
     },
 
     /***** BOTTOM SHEET *****/
     loadBottomSheet() {
       console.log('loadBottomSheet()')
-      const bottomSheet = this.$refs.bottomSheet.nativeView
+      // const bottomSheet = this.$refs.bottomSheet.nativeView
       this.hasNewMarkerError = false
-      bottomSheet.translateY = screen.mainScreen.heightDIPs
+      this.bottomSheet.translateY = screen.mainScreen.heightDIPs
     },
     showBottomSheet() {
       console.log('showBottomSheet()')
-      const bottomSheet = this.$refs.bottomSheet.nativeView
+      // const bottomSheet = this.$refs.bottomSheet.nativeView
       this.hasNewMarkerError = false
 
-      bottomSheet.animate({
+      this.bottomSheet.animate({
         duration: 1000,
         translate: { x: 0, y: screen.mainScreen.heightDIPs - 500 },
         curve: new CubicBezierAnimationCurve(.44, .63, 0, 1)
@@ -166,10 +173,10 @@ export default Vue.extend({
     },
     hideBottomSheet() {
       console.log('hideBottomSheet()')
-      const bottomSheet = this.$refs.bottomSheet.nativeView
+      // const bottomSheet = this.$refs.bottomSheet.nativeView
       this.hasNewMarkerError = false
 
-      bottomSheet.animate({
+      this.bottomSheet.animate({
         duration: 1000,
         translate: { x: 0, y: screen.mainScreen.heightDIPs },
         curve: new CubicBezierAnimationCurve(.44, .63, 0, 1)
@@ -177,14 +184,6 @@ export default Vue.extend({
     },
    
     /***** MAP *****/
-
-    setInitialUserLocation() {
-      console.log('setInitialCoordinates()')
-      getCurrentUserLocation().then((coordinates) => {
-        this.initialLocation.lat = String(coordinates.lat)
-        this.initialLocation.lng = String(coordinates.lng)
-      })
-    },
 
     onMapReady() {
       console.log('onMapReady()')
@@ -205,23 +204,26 @@ export default Vue.extend({
         this.hasNewMarkerError = true
         return
       }
-      const coordinates = this.currentUserLocation
+      // TODO: activate when fix userLoacation
+      // const coordinates = this.userLocation
       const marker: Marker = {
         id: values.id,
         group: values.group,
-        lat: coordinates.lat,
-        lng: coordinates.lng,
+        lat: values.coordinates.lat,
+        lng: values.coordinates.lng,
         title: values.id,
         selected: true,
-        onTap: () => this.newSecurityArea(values.id),
+        onTap: () => this.newSecurityArea(values.id, values.color),
       }
+      // TODO: sustituir por el codigo de abajo
+      addMarker(this.map, marker)
       this.hideBottomSheet()
-      setStorage(marker.id, marker).then(success => {
-        console.log(`setStorage? ${success}`)
-        if(success){
-          addMarker(this.map, marker)
-        }
-      })
+      // setStorage(marker.id, marker).then(success => {
+      //   console.log(`setStorage? ${success}`)
+      //   if(success){
+      //     addMarker(this.map, marker)
+      //   }
+      // })
      
     },
     updateMarker(id: string) {
@@ -239,7 +241,7 @@ export default Vue.extend({
 
     /***** SECURITY AREA ******/
 
-    newSecurityArea(id: string) {
+    newSecurityArea(id: string, color: any) {
       if (securityArea.getSecurityArea(id)) {
         console.log(`${id} exist, choose another name`)
         return
@@ -247,7 +249,7 @@ export default Vue.extend({
       const polygonOptions: PolygonOptions = {
         id: id,
         radius: this.radius,
-        fillColor: new Color(this.fillColor),
+        fillColor: new Color(color),
         fillOpacity: this.fillOpacity / 10,
         isVisible: true
       } 
@@ -266,11 +268,9 @@ export default Vue.extend({
 })
 </script>
 <style lang="scss" scoped>
+@import '../../app-variables';
+
 .newMarker {
-  margin-top: 16;
-  padding{
-    left: 16;
-    right: 16;
-  }
+  color: $primary-dark;
 }
 </style>
