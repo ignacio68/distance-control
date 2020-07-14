@@ -25,21 +25,21 @@ import './plugins/Components'
 // import { getUser as user } from './store/user'
 import { getUser as user } from './store/user'
 
-import { isAndroid, isIOS } from 'tns-core-modules/platform'
+// import { isAndroid, isIOS } from 'tns-core-modules/platform'
 
 import VueDevtools from 'nativescript-vue-devtools'
 
 import AppNavigator from './views/AppNavigator.vue'
 import Welcome from './views/Welcome/Welcome.vue'
-import { userLogin } from './api'
+// import { userLogin } from './api'
 // import FakePage from './fake/FakePage.vue'
 // FIXME: initial view
-const navigation = () => user.isLogged ? AppNavigator : Welcome
+const loggedIn = user.isLogged
+const navigation = loggedIn ? AppNavigator : Welcome
 
 const v = <any>Vue
+
 declare const TNS_ENV: any
-
-
 if(TNS_ENV !== 'production') {
   // v.use(VueDevtools, { host: '192.168.1.101'}) //mobile
   v.use(VueDevtools) //mobile
@@ -60,7 +60,7 @@ new v({
 
     setLanguage()
   },
-  // render: h => h('frame', [h(navigation)])
-  render: h => h('frame', [h(AppNavigator)])
+  render: h => h('frame', [h(navigation)])
+  // render: h => h('frame', [h(AppNavigator)])
   // render: h => h('frame', [h(Welcome)])
 }).$start()

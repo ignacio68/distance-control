@@ -1,9 +1,9 @@
 const firebase = require("nativescript-plugin-firebase")
-const firebaseWebApi = require("nativescript-plugin-firebase/app")
+// const firebaseWebApi = require("nativescript-plugin-firebase/app")
 
 import { User } from 'nativescript-plugin-firebase'
 
-import { firebaseConst } from '@/setup/firebase'
+// import { firebaseConst } from '@/setup/firebase'
 
 const FAKE_PHONE_NUMBER = "+34786720676"
 const myAppVerifier = "Por favor, introduce el código de verificación que te hemos enviado por SMS"

@@ -1,7 +1,7 @@
 import { doLogin, onError } from '@/services/serviceFirebase'
-import { setStorage, getStorage } from '@/services/serviceStorage'
+import { setStorage} from '@/services/serviceStorage'
 import { User } from '@/utils/types'
-import { userInfo } from 'os'
+// import { userInfo } from 'os'
 
 export const userLogin = async(phoneNumber: string) => {
   await doLogin(phoneNumber).then(async (userData) => {

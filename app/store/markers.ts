@@ -11,6 +11,7 @@ export const setNewMarker = (marker) => state.markers.push(marker)
 export const deleteMarker = (id: string) => {
     // TODO: deploy the code
     const marker = find(id)
+    return marker
 }
 
 // export default {
