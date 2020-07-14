@@ -1,6 +1,9 @@
+![GitHub last commit](https://img.shields.io/github/last-commit/ignacio68/distance-control)
+[![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/ignacio68/distance-control.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/ignacio68/distance-control/context:javascript)
+
 # Distance Control
 
-> This application serves to control the distance travel by the user from his home
+> You can control the distance traveled from your location or set a security area.
 
 ## Usage
 
