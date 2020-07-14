@@ -1,4 +1,5 @@
 ![GitHub last commit](https://img.shields.io/github/last-commit/ignacio68/distance-control)
+[![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/ignacio68/distance-control.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/ignacio68/distance-control/context:javascript)
 
 # Distance Control
 
