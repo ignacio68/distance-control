@@ -1,6 +1,6 @@
 # Distance Control
 
-> You can to control the distance travelled by the user from home.
+> You can control the distance traveled from your location or set a security area.
 
 ## Usage
 
