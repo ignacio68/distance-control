@@ -1,6 +1,6 @@
 # Distance Control
 
-> This application serves to control the distance travel by the user from his home
+> You can to control the distance travelled by the user from home.
 
 ## Usage
 
