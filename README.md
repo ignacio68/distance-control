@@ -1,3 +1,5 @@
+![GitHub last commit](https://img.shields.io/github/last-commit/ignacio68/distance-control)
+
 # Distance Control
 
 > You can control the distance traveled from your location or set a security area.
