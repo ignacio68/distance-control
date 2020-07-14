@@ -22,7 +22,8 @@
     "dev": "tns debug android",
     "devan": "tns debug android --no-hmr",
     "devin": "tns debug ios --no-hmr",
-    "un": "adb uninstall com.domain.yourapp"
+    "un": "adb uninstall com.domain.yourapp",
+    "ci.tslint": "npm i && tslint '**/*.ts' --config '../tslint.json' --exclude '**/node_modules/**'"
   },
   "dependencies": {
     "@nativescript/theme": "^2.2.1",
