@@ -22,8 +22,9 @@
     "dev": "tns debug android",
     "devan": "tns debug android --no-hmr",
     "devin": "tns debug ios --no-hmr",
-    "tslint": "npm i && tslint 'app/**/*.ts'",
     "un": "adb uninstall com.distancecontrol.app",
+    "tslint": "tslint 'app/**/*.ts'",
+    "ci.tslint": "npm i && tslint 'app/**/*.ts'",
     "ci.android.build": "tns build android"
   },
   "dependencies": {
