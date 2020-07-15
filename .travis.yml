@@ -1,11 +1,38 @@
-env:
-  global:
-  - DATE=$(date +%Y-%m-%d)
-language: node_js
-node_js:
-  - "node"
+matrix:
+  include: 
+  - stage: "Lint"
+      language: node_js
+      os: linux
+      node_js: "13"
+      script: npm run ci.tslint
+
+  # - stage: "Build"
+  #   env: 
+  #     - BuildAndroid="26"
+  #   language: android
+  #   os: linux
+  #   jdk: openjdk8
+  #   before_install: nvm install 6.10.3
+  #   script: npm run ci.android.build
+  # - os: osx
+    # env: 
+    #   - BuildiOS="11"
+    #   - Xcode="9.1"
+    # osx_image: xcode9.1
+    # language: node_js 
+    # node_js: "10"
+    # jdk: openjdk8
+    # script: npm run ci.ios.build
+
 install:
-  - npm install
-script:
-  - npm run build
-  - npm run test
+  - npm install -g nativescript
+  - tns usage-reporting disabled
+  - tns error-reporting disable
+
+android:
+  components:
+    - tools
+    - platform-tools
+    - build-tools-26.0.1
+    - android-26
+    - extra-android-m2repository

@@ -23,10 +23,6 @@
           false,
           "double"
       ],
-      "semicolon": [
-          true,
-          "always"
-      ],
       "triple-equals": [
           true,
           "allow-null-check"
@@ -53,5 +49,9 @@
           "check-separator",
           "check-type"
       ]
-  }
+  },
+  "exclude": [
+    "**/node_modules/**",
+    "**/platforms/**"
+    ]
 }
