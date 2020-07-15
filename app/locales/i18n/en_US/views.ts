@@ -5,7 +5,7 @@ export default {
     presentation: "We need your phone number to sign up you and you can connect with your family and friends and storage your preferences too",
     skip: "Skip",
     toSignUp: "To Sign Up",
-    toLogIn:"I have a count"
+    toLogIn: "I have a count"
   },
   signup: {
     text: "Please, write your phone number",

@@ -90,9 +90,9 @@ export const doLogout = () => {
       const userPhoneNumber = null
       return userPhoneNumber
     }
-    ,errorMessage => {
-      console.log(`Error doLogout: ${errorMessage}`)
-      return errorMessage
+    , errorMessage => {
+        console.log(`Error doLogout: ${errorMessage}`)
+        return errorMessage
     })
 }
 

@@ -5,7 +5,7 @@ interface Props {
   countriesList?: Array<any>
   country?: string
   filePath?: string
-  flagsIndices?:any
+  flagsIndices?: any
 }
 
 const loadFlag = (props: Props) => {

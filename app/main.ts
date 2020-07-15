@@ -12,14 +12,14 @@ import Vue from 'nativescript-vue'
 // Internationalization
 import { i18n, setLanguage } from '@/locales'
 
-// //----- Plugins -----// 
+// //----- Plugins -----//
 import './plugins/Composition'
 import './plugins/Mapbox'
 
 // //----- Components -----//
 import './plugins/Components'
 
-// composable 
+// composable
 // import { reactive, computed } from '@vue/composition-api'
 // import  { useUser } from './composables/useUser'
 // import { getUser as user } from './store/user'
@@ -40,14 +40,14 @@ const navigation = loggedIn ? AppNavigator : Welcome
 const v = <any>Vue
 
 declare const TNS_ENV: any
-if(TNS_ENV !== 'production') {
+if (TNS_ENV !== 'production') {
   // v.use(VueDevtools, { host: '192.168.1.101'}) //mobile
-  v.use(VueDevtools) //mobile
+  v.use(VueDevtools) // mobile
 }
 
 // Prints Vue logs when --env.production is *NOT* set while building
 v.config.silent = (TNS_ENV === 'production')
- 
+
 new v({
   i18n,
   data() {

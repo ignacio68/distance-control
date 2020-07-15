@@ -5,7 +5,7 @@ const range = (start: number, stop: number, step: number) => Array.from({ length
 
 const degreesToRadians = (degrees: number) => degrees * toRadians
 const radiansToDegrees = (radians: number) => radians * toDegrees
- 
+
 export {
     range,
     degreesToRadians,

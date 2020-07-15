@@ -75,7 +75,7 @@ export interface CircleLayer extends Layer {
   circleStrokeWidth?: number
 }
 
-export interface User{
+export interface User {
   id: string
   location?: Coordinates
   phoneNumber: string

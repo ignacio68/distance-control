@@ -10,7 +10,7 @@ export const coordinates: Coordinates = userLocation.getCurrentUserLocation()
 
 export const getSecurityAreaPoints = (radius: number) => {
   console.log('getSecurityAreaPoints')
-  
+
   const points = getCurrentUserLocation().then( center => {
     const circlePolygonProps: Circle = {
     center: center,
@@ -19,5 +19,5 @@ export const getSecurityAreaPoints = (radius: number) => {
   }
     return getCirclePointsCoordinates(circlePolygonProps)
   })
-  return points 
+  return points
 }

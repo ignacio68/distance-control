@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import BottomSheetPlugin from 'nativescript-material-bottomsheet/vue' 
+import BottomSheetPlugin from 'nativescript-material-bottomsheet/vue'
 import ButtonPlugin from 'nativescript-material-button/vue'
 import SliderPlugin from 'nativescript-material-slider/vue'
 import TextFieldPlugin from 'nativescript-material-textfield/vue'

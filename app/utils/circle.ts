@@ -10,15 +10,15 @@ const PI = Math.PI
 const EARTH_RADIUS = 6378 // km
 
 const getPointCoordinates = ({ theta, radius, center }: Azimuth) => {
-   
+
   const dy = Math.sin(radians(theta)) * radius
   const dx = Math.cos(radians(theta)) * radius
   // const dx = radius / (111.320 * Math.cos(radians(center.lat)))
   // const dy = radius / 110.574
-  const newLatitude = center.lat + degrees(dy / EARTH_RADIUS) 
+  const newLatitude = center.lat + degrees(dy / EARTH_RADIUS)
   const newLongitude =
     center.lng + (degrees(dx / EARTH_RADIUS)) / Math.cos(radians((center.lat * PI) / 180))
-  
+
   const coordinates: Coordinates = { lat: newLatitude, lng: newLongitude }
 
   return coordinates
@@ -33,11 +33,11 @@ const getCirclePointsCoordinates = ({ center, radius, numberOfPoints }: Circle) 
     return getPointCoordinates({ theta, radius, center })
   })
 
-  return allPointsCoordinates  
+  return allPointsCoordinates
 }
 
   /**
-  * Is the current location within the given circle? 
+  * Is the current location within the given circle?
   *
   * @param lng{number} longitude to check
   * @param lat{number} latitude to check
@@ -56,7 +56,7 @@ const isLocationInCircle = ({ lng, lat, circleLng, circleLat, circleRadius }: Lo
   const dx = Math.abs( circleLng - lng ) * kx
   const dy = Math.abs( circleLat - lat ) * ky
 
-  const distance = Math.sqrt(dx * dx + dy * dy) 
+  const distance = Math.sqrt(dx * dx + dy * dy)
 
   // return (distance < circleRadius / 1000) ? true : false
   return distance < circleRadius / 1000

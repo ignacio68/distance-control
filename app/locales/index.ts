@@ -57,4 +57,3 @@ export const setLanguage = () => {
       console.log("No se encuentra el idioma del navegador")
     }
 }
-    

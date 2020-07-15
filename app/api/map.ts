@@ -43,7 +43,7 @@ export const setSecurityArea = (map: any, polygonOptions: PolygonOptions) => {
   console.log("setSecurityArea()")
   getSecurityAreaPoints(polygonOptions.radius).then((points) => {
     polygonOptions.points = points
-    
+
     map.addPolygon(polygonOptions).then(() => {
       securityArea.setNewSecurityArea(polygonOptions)
     })
@@ -61,7 +61,7 @@ export const showSecurityArea = (map: any, id: string, value: boolean) => {
     console.log('The security visibility is the same!')
     return
   }
-  
+
   changeSecurityAreaVisibility(map, currentSecurityArea, value)
 }
 
@@ -77,11 +77,11 @@ const changeSecurityAreaVisibility = (map: any, securityArea: PolygonOptions, va
   } else {
     securityArea.oldFillOpacity = securityArea.fillOpacity
     securityArea.fillOpacity = 0
-    
+
     console.log(`Opacity ${ securityArea.id}? ${ securityArea.fillOpacity}`)
   }
   updateSecurityArea(map, securityArea)
- 
+
 }
 
 export const updateSecurityArea = (map: any, securityArea: PolygonOptions) => {

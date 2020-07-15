@@ -22,7 +22,7 @@ export const useCountry = () => {
   const setFlag = value => flag.value = value
   const setCountries = value => countries.value.push(value)
   const setCountryCode = value => countryCode.value = value
-  
+
   const loadCountries = async (countriesList, filePath: string, flagsIndices) => {
     console.log('loadCountries')
     countriesList.map((country: Country) => {
@@ -64,7 +64,7 @@ export const useCountry = () => {
   // watch (flag, (first, second) => console.log(`flag are changed`))
 
 
-  return { 
+  return {
     // prefix: computed(() => state.prefix),
     // flag: computed(() => state.flag),
     getCountries: computed(() => countries.value),
