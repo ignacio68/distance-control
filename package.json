@@ -25,7 +25,6 @@
     "un": "adb uninstall com.distancecontrol.app",
     "tslint": "tslint 'app/**/*.ts'",
     "ci.tslint": "npm i && tslint 'app/**/*.ts'",
-    "ci.android.build": "tns build android"
   },
   "dependencies": {
     "@nativescript/theme": "^2.2.1",
