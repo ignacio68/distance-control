@@ -49,17 +49,17 @@ import Vue from 'vue'
 
 import { mapToken } from '@/setup/map'
 
-import {  addSource, 
-          setCenter, 
-          addMarker, 
-          updateMarker, 
-          setSecurityArea, 
-          showSecurityArea, 
-          removeSecurityArea 
+import {  addSource,
+          setCenter,
+          addMarker,
+          updateMarker,
+          setSecurityArea,
+          showSecurityArea,
+          removeSecurityArea
         } from '@/api/map'
 // import * as map from '@/api/map'
 
-import { setStorage } from '@/api/storage'
+// import { setStorage } from '@/api/storage'
 import { Color } from '@nativescript/core/color'
 import { screen } from '@nativescript/core/platform'
 import { CubicBezierAnimationCurve } from  '@nativescript/core/ui/animation'
@@ -67,9 +67,9 @@ import { CubicBezierAnimationCurve } from  '@nativescript/core/ui/animation'
 import { Marker, PolygonOptions } from '@/utils/types'
 
 import { getMap as map } from '@/store/map'
-import { 
-          getOriginLocation as initialLocation, 
-          getCurrentUserLocation as userLocation 
+import {
+          getOriginLocation as initialLocation,
+          getCurrentUserLocation as userLocation
         } from '@/store/userLocation'
 import securityArea from '@/store/securityArea'
 
@@ -173,7 +173,7 @@ export default Vue.extend({
         curve: new CubicBezierAnimationCurve(.44, .63, 0, 1)
       })
     },
-   
+
     /***** MAP *****/
 
     onMapReady() {
@@ -215,7 +215,7 @@ export default Vue.extend({
       //     addMarker(this.map, marker)
       //   }
       // })
-     
+
     },
     updateMarker(id: string) {
       updateMarker(this.map, id)
@@ -243,12 +243,12 @@ export default Vue.extend({
         fillColor: new Color(color),
         fillOpacity: this.fillOpacity / 10,
         isVisible: true
-      } 
-      setSecurityArea(this.map, polygonOptions) 
+      }
+      setSecurityArea(this.map, polygonOptions)
     },
 
     showSecurityArea(id: string, value:boolean) {
-      showSecurityArea(this.map, id, value)  
+      showSecurityArea(this.map, id, value)
     },
 
     removeSecurityArea(id: string) {
