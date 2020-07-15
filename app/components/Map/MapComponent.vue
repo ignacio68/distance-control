@@ -1,10 +1,10 @@
 <template>
-  <Page 
-    actionBarHidden="true" 
+  <Page
+    actionBarHidden="true"
     backgroundSpanUnderStatusBar="false"
   >
-    <GridLayout 
-      rows="auto, *" 
+    <GridLayout
+      rows="auto, *"
       class="map"
     >
       <MapBox
@@ -81,7 +81,6 @@ export default Vue.extend({
   },
   data() {
     return {
-      // mapStyle: '../../assets/maps/styles/dark_green/style.json',
       // mapStyle: null,
       customMapStyle: 'mapbox://styles/ignacio68/ckay3bxbr11qt1hquzxx1ohot',
       satelliteMapStyle:'satellite_streets',
@@ -98,7 +97,7 @@ export default Vue.extend({
     }
   },
   mounted() {
-      // this.mapStyle = this.customMapStyle | 
+      // this.mapStyle = this.customMapStyle |
     },
   methods: {
      onMapReady(e) {
