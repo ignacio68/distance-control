@@ -8,6 +8,15 @@
     "type": "git",
     "url": "https://github.com/ignacio68/distance-control.git"
   },
+  "keywords": [
+    "NativeScript",
+    "JavaScript",
+    "Vue",
+    "Scss",
+    "Android",
+    "iOS",
+    "geolocation"
+  ],
   "nativescript": {
     "id": "com.distancecontrol.app",
     "templateVersion": "v2",
@@ -25,7 +34,7 @@
     "un": "adb uninstall com.distancecontrol.app",
     "tslint": "tslint 'app/**/*.ts'",
     "ci.tslint": "npm i && tslint 'app/**/*.ts'",
-    "test": "echo \"No test specified\""
+    "test": "tns test android"
   },
   "dependencies": {
     "@nativescript/theme": "^2.2.1",

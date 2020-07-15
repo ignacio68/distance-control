@@ -1,10 +1,10 @@
-/* eslint-disable no-undef */
+// eslint-disable no-undef
 import * as geolocation from 'nativescript-geolocation'
 import {
   isLocationServicesEnabled,
   enableLocationRequest,
   // getUserCurrentLocation,
-} from '@/services/geolocation'
+} from '@/services/serviceGeolocation'
 
 // getUserCurrentLocation mock
 const getUserCurrentLocation = () => {
@@ -13,7 +13,7 @@ const getUserCurrentLocation = () => {
       .getCurrentLocation({ desiredAccuracy: Accuracy.high })
 		.then((result) => {
 			console.log(`user coords are: ${JSON.dir(result)}`)
-			userCoords = {
+			const userCoords = {
 				latitude: '5',
 				longitude: '5'
 				}
@@ -22,8 +22,8 @@ const getUserCurrentLocation = () => {
       .catch((error) =>
         console.log(`getUserCurrentLocation error: ${error.message || error}`)
       )
-} 
-	
+}
+
 const { test, only, skip } = QUnit
 
 test('Enable location request', t => {

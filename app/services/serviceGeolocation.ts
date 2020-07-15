@@ -3,12 +3,12 @@ import { Coordinates} from '@/utils/types'
 import { Accuracy } from 'tns-core-modules/ui/enums'
 import userLocation from '@/store/userLocation'
 
-const enableLocationRequest = (option: boolean) =>
+export const enableLocationRequest = (option: boolean) =>
   geolocation.enableLocationRequest(option).then(() => {
     console.log('enableLocationRequest()')
   })
 
-const isLocationServicesEnabled = () =>
+export const isLocationServicesEnabled = () =>
   geolocation.isEnabled().then((isEnabled) => {
     if (!isEnabled) {
       console.log('The location service is not enabled')
