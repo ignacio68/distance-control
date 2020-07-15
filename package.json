@@ -23,7 +23,7 @@
     "devan": "tns debug android --no-hmr",
     "devin": "tns debug ios --no-hmr",
     "un": "adb uninstall com.domain.yourapp",
-    "lint:src": "tslint --project ./tsconfig.json -c ./tslint.json 'src/**/*.ts'"
+    "lint:src": "tslint --project ./tsconfig.json -c ./tslint.json 'app/**/*.ts'"
   },
   "dependencies": {
     "@nativescript/theme": "^2.2.1",
