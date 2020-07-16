@@ -5,14 +5,14 @@ module.exports = function (config) {
     basePath: '',
 
     // plugins: ['karma-qunit'],
-    
+
     // frameworks to use
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
     frameworks: ['qunit'],
 
 
     // list of files / patterns to load in the browser
-    files: ['app/tests/**/*.js'],
+    files: ['app/tests/**/*.test.js'],
 
 
     // list of files to exclude
