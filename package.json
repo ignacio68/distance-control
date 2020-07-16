@@ -34,7 +34,7 @@
     "un": "adb uninstall com.distancecontrol.app",
     "tslint": "tslint 'app/**/*.ts'",
     "ci.tslint": "npm i && tslint 'app/**/*.ts'",
-    "test": "tns test android"
+    "test": "karma start --single-run"
   },
   "dependencies": {
     "@nativescript/theme": "^2.2.1",
