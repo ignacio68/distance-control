@@ -1,10 +1,13 @@
-matrix:
-  include:
-  - stage: "Lint"
-      language: node_js
-      os: linux
-      node_js: "13"
-      script: npm run ci.tslint
+language: node_js
+node_js:
+  - "node"
+# matrix:
+#   include:
+#   - stage: "Lint"
+#       language: node_js
+#       os: linux
+#       node_js: "13"
+#       script: npm run ci.tslint
 
   # - stage: "Build"
   #   env:
@@ -24,15 +27,15 @@ matrix:
     # jdk: openjdk8
     # script: npm run ci.ios.build
 
-install:
-  - npm install -g nativescript
-  - tns usage-reporting disabled
-  - tns error-reporting disable
+# install:
+#   - npm install -g nativescript
+#   - tns usage-reporting disabled
+#   - tns error-reporting disable
 
-android:
-  components:
-    - tools
-    - platform-tools
-    - build-tools-26.0.1
-    - android-26
-    - extra-android-m2repository
+# android:
+#   components:
+#     - tools
+#     - platform-tools
+#     - build-tools-26.0.1
+#     - android-26
+#     - extra-android-m2repository
