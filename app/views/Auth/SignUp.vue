@@ -1,5 +1,5 @@
 <template>
-  <Page 
+  <Page
     actionBarHidden="true"
     androidStatusBarBackground="#00251e"
   >
@@ -14,7 +14,7 @@
         :buttonText="$t('lang.views.signup.button')"
         @do-login="doLogIn"
       />
-        
+
       <!-- TERMS OF SERVICE & PRIVACY POLICY -->
       <FlexboxLayout
         flexWrap="wrap"
@@ -29,7 +29,7 @@
           class="accept__link"
           :text="$t('lang.views.signup.privacy')"
           textWrap="true"
-          @tap="toPage(navigation.privacyPolicy)"
+          @tap="toPage('/privacy-policy', false)"
         />
         <Label
           class="accept__text"
@@ -40,7 +40,7 @@
           class="accept__link"
           :text="$t('lang.views.signup.service')"
           textWrap="true"
-          @tap="toPage(navigation.termsOfService)"
+          @tap="toPage('/terms-of-service', false)"
         />
       </flexboxlayout>
     </StackLayout>
@@ -77,10 +77,12 @@ export default Vue.extend({
     async doLogIn(fullPhoneNumber) {
       console.log('doLogin()')
       // await userLogin(fullPhoneNumber).then(() => this.toPage(this.navigation.appNavigator))
-      this.toPage(this.navigation.appNavigator)
+      // this.toPage(this.navigation.appNavigator)
+      this.toPage('/home', true)
     },
-    toPage(page) {
-      this.$navigateTo(page)
+    toPage(page, bool) {
+      // this.$navigateTo(page)
+      this.$navigator.navigate(page, { clearHistory: bool })
     },
     phoneOnFocus() {
       console.log(`phoneFocus()`)

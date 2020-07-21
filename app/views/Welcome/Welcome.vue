@@ -1,5 +1,5 @@
 <template>
-  <Page 
+  <Page
     actionBarHidden="true"
     androidStatusBarBackground="#00251e"
   >
@@ -24,26 +24,26 @@
         orientation="horizontal"
         class="m-x-32"
       >
-        <MDButton 
+        <MDButton
           class="skip--button m-l-0"
           width="154"
           :text="$t('lang.views.welcome.skip')"
           borderColor="#007a70"
           borderWidth="1"
-          @tap="toPage(navigation.appNavigator)"
+          @tap="toPage('/home')"
         />
-        <MDButton 
+        <MDButton
           class="-primary ok--button m-r-0"
           width="154"
           :text="$t('lang.views.welcome.toSignUp')"
-          @tap="toPage(navigation.signUp)"
+          @tap="toPage('/signup')"
         />
       </stacklayout>
       <Label
         class="tologin m-r-32 pull-right"
         :text="$t('lang.views.welcome.toLogIn')"
         textWrap="true"
-        @tap="toPage(navigation.logIn)"
+        @tap="toPage('/login')"
       />
     </StackLayout>
   </Page>
@@ -52,23 +52,26 @@
 <script lang="ts">
 import Vue from 'vue'
 
-import SignUp from '../Auth/SignUp.vue'
-import LogIn from '../Auth/LogIn.vue'
-import AppNavigator from '../AppNavigator.vue'
+import { RoutePath } from '@/routes/routes'
+
+// import SignUp from '../Auth/SignUp.vue'
+// import LogIn from '../Auth/LogIn.vue'
+// import AppNavigator from '../AppNavigator.vue'
 export default Vue.extend({
   name: 'Welcome',
   data () {
     return {
-      navigation: {
-        signUp: SignUp,
-        logIn: LogIn,
-        appNavigator: AppNavigator,
-      }
+      // navigation: {
+      //   signUp: SignUp,
+      //   logIn: LogIn,
+      //   appNavigator: AppNavigator,
+      // }
     }
   },
   methods: {
-    toPage(page) {
-      this.$navigateTo(page)
+    toPage(page: RoutePath) {
+      this.$navigator.navigate(page)
+      // this.$navigateTo(page)
     },
     phoneOnFocus() {
       console.log(`phoneFocus()`)

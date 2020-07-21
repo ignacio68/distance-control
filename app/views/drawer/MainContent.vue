@@ -6,7 +6,7 @@
         rows="56,*,56"
         columns="*"
       >
-        <ActionBar 
+        <ActionBar
           class="action-bar"
           row="0"
           width="100%"
@@ -25,9 +25,9 @@
           @enabled-fab="onEnabledFab"
         />
         <!-- </Frame> -->
-        <BottomAppBar 
+        <BottomAppBar
           class="BottomBar"
-          row="2" 
+          row="2"
         />
         <MDFloatingActionButton
           ref="add-marker"
@@ -54,7 +54,7 @@ import * as application from "@nativescript/core/application"
 import { onBackEvent, clearBackEvent } from '@/utils/backButton'
 
 import ActionBarContent from '@/components/UI/ActionBarContent.vue'
-import Map from '../main/Map.vue'
+import Map from '@/components/Map/Map.vue'
 import BottomAppBar from '@/components/UI/BottomAppBar.vue'
 import FloatingActionButtonPlugin from 'nativescript-material-floatingactionbutton/vue'
 Vue.use(FloatingActionButtonPlugin);
@@ -85,7 +85,7 @@ export default Vue.extend({
       this.isEnabledFab = bool
       console.log(`isEnabledFab: ${this.isEnabledFab}`)
     },
-    
+
     backEvent() {
       console.log('Has presionado el boton de volver de Android!!')
       application.android.foregroundActivity.finish();
