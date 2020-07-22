@@ -21,13 +21,24 @@
       verticalAlignment="top"
       @loaded="loadBottomSheet"
     >
-      <NewMarker
-        class="newMarker m-16"
-        backgroundColor="white"
-        @enabled-fab="isEnabledFAB"
-        @on-marker-cancel="hideBottomSheet()"
-        @on-marker-done="newMarker"
-      />
+      <StackLayout>
+        <NewMarker
+          v-if="isNewMarkerMenuShowing"
+          class="newMarker m-16"
+          backgroundColor="white"
+          @enabled-fab="isEnabledFAB"
+          @on-new-marker-cancel="hideBottomSheet()"
+          @on-new-marker-done="newMarker"
+        />
+        <NewArea
+          v-if="isNewAreaMenuShowing"
+          class="newArea m-16"
+          backgroundColor="white"
+          @enabled-fab="isEnabledFAB"
+          @on-new-area-cancel="hideBottomSheet()"
+          @on-new-area-done="newSecurityArea"
+        />
+      </StackLayout>
     </Frame>
   </GridLayout>
   <!-- <Label>
@@ -76,13 +87,15 @@ import securityArea from '@/store/securityArea'
 
 import MapComponent from '@/components/Map/MapComponent.vue'
 import NewMarker from '@/components/Map/NewMarker.vue'
+import NewArea from '@/components/Map/NewArea.vue'
 
 export default Vue.extend({
   name: 'Map',
 
   components: {
     MapComponent,
-    NewMarker
+    NewMarker,
+    NewArea
   },
 
   props:{
@@ -90,7 +103,11 @@ export default Vue.extend({
       type: Boolean,
       default: true
     },
-    isMarkerMenuShowing: {
+    isNewMarkerMenuShowing: {
+      type: Boolean,
+      default: false
+    },
+    isNewAreaMenuShowing: {
       type: Boolean,
       default: false
     }
@@ -108,7 +125,6 @@ export default Vue.extend({
       radius: 1,
       fillOpacity: 5,
       activeUser: null,
-      newMarkerMenu: false
     }
   },
 
@@ -138,7 +154,10 @@ export default Vue.extend({
     isVisible: function(newValue) {
       this.showSecurityArea('user', newValue)
     },
-    isMarkerMenuShowing(newValue){
+    isNewMarkerMenuShowing(newValue){
+      newValue === true ? this.showBottomSheet() : this.hideBottomSheet()
+    },
+    isNewAreaMenuShowing(newValue){
       newValue === true ? this.showBottomSheet() : this.hideBottomSheet()
     }
   },
