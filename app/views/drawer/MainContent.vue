@@ -3,7 +3,7 @@
     <Page actionBarHidden="true">
       <GridLayout
         class="drawerContent"
-        rows="56,*,56"
+        rows="56,*, auto, 56"
         columns="*"
       >
         <ActionBar
@@ -19,23 +19,50 @@
         <Map
           class="Map"
           row="1"
+          rowSpan="2"
           :isVisible="isVisible"
-          :isMarkerMenuShowing="isMarkerMenuShowing"
-          @enabled-fab="onEnabledFab"
+          :isNewMarkerMenuShowing="isNewMarkerMenuShowing"
+          :isNewAreaMenuShowing="isNewAreaMenuShowing"
+          @enabled-fab="onEnabledFAB"
         />
+        <GridLayout
+          v-if="isFABMEnuShowing"
+          class="FAB-menu m-b-0"
+          row="2"
+          columns="56, *, 56"
+        >
+          <MDFloatingActionButton
+            ref="add-new-marker"
+            col="0"
+            class="add-new-marker m-t-0"
+            rippleColor="white"
+            :elevation="elevationFAB"
+            src="res://ic_person_pin_white_24dp"
+            @tap="showNewMarkerMenu"
+          />
+          <MDFloatingActionButton
+            ref="add-new-area"
+            col="2"
+            class="add-new-area m-t-0"
+            rippleColor="white"
+            :elevation="elevationFAB"
+            src="res://ic_person_pin_white_24dp"
+            @tap="showNewAreaMenu"
+          />
+        </GridLayout>
         <BottomAppBar
           class="BottomBar"
-          row="2"
+          row="3"
         />
         <MDFloatingActionButton
-          ref="add-marker"
-          row="2"
-          class="add-marker"
+          ref="show-FAB"
+          row="3"
+          class="show-FAB"
           rippleColor="white"
           :isEnabled="isEnabledFAB"
           :elevation="elevationFAB"
           src="res://ic_person_pin_white_24dp"
-          @tap="showMarkerMenu"
+          @tap="showFABMenu"
         />
       </GridLayout>
     </Page>
@@ -67,7 +94,9 @@ export default Vue.extend({
   data() {
     return {
       isVisible: false,
-      isMarkerMenuShowing: false,
+      isFABMEnuShowing: false,
+      isNewMarkerMenuShowing: false,
+      isNewAreaMenuShowing: false,
       isEnabledFAB: true,
       elevationFAB: Elevation.FAB_RESTING
     }
@@ -79,7 +108,7 @@ export default Vue.extend({
     clearBackEvent(this.backEvent)
   },
   methods: {
-    onEnabledFab(bool) {
+    onEnabledFAB(bool) {
       this.isEnabledFAB = bool
       console.log(`isEnabledFAB: ${this.isEnabledFAB}`)
     },
@@ -101,10 +130,28 @@ export default Vue.extend({
     onTapOverflowMenu() {
       console.log("Tap on extended menu")
     },
-    showMarkerMenu() {
-      console.log(`showMarkerMenu()`)
-      this.isMarkerMenuShowing = !this.isMarkerMenuShowing
-      console.log(`isMarkerMenuShowing: ${this.isMarkerMenuShowing}`)
+    showFABMenu() {
+      if(!this.isNewMarkerMenuShowing && !this.isNewAreaMenuShowing && !this.isFABMEnuShowing) {
+        this.isFABMEnuShowing = true
+      } else if ((!this.isNewMarkerMenuShowing || !this.isNewAreaMenuShowing) && this.isFABMEnuShowing) {
+        this.isFABMEnuShowing = false
+      } else {
+        this.isNewMarkerMenuShowing = false
+        this.isNewAreaMenuShowing = false
+        this.isFABMEnuShowing = false
+      }
+    },
+    showNewMarkerMenu() {
+      this.isFABMEnuShowing = false
+      this.isNewAreaMenuShowing = false
+      this.isNewMarkerMenuShowing = true
+      console.log(`isNewMarkerMenuShowing: ${this.isNewMarkerMenuShowing}`)
+    },
+    showNewAreaMenu() {
+      this.isFABMEnuShowing = false
+      this.isNewMarkerMenuShowing = false
+      this.isNewAreaMenuShowing = true
+      console.log(`isNewAreaMenuShowing: ${this.isNewAreaMenuShowing}`)
     },
   }
 })
@@ -113,10 +160,27 @@ export default Vue.extend({
 <style lang="scss" scoped>
 @import '../../app-variables';
 
-.add-marker {
+.show-FAB {
   margin-bottom: 64;
   height: 56;
   width: 56;
   color: $onPrimary;
+}
+.FAB-menu {
+  height: 120;
+  width: 180;
+  background-color: transparent;
+}
+.add-new-marker {
+  height: 56;
+  width: 56;
+  color: $onPrimary;
+  background-color: #195f6b;
+}
+.add-new-area {
+  height: 56;
+  width: 56;
+  color: $onPrimary;
+  background-color: #644113;
 }
 </style>
