@@ -30,7 +30,8 @@
   "scripts": {
     "dev": "tns debug android",
     "devan": "tns debug android --no-hmr --env.snapshot --env.uglify",
-    "devin": "tns debug ios --no-hmr",
+    "devin": "tns debug ios --no-hmr --env.uglify",
+    "runan": "tns run android --no-hmr --env.snapshot --env.uglify",
     "un": "adb uninstall com.distancecontrol.app",
     "tslint": "tslint 'app/**/*.ts'",
     "ci.tslint": "npm i && tslint 'app/**/*.ts'",
