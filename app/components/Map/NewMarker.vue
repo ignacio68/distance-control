@@ -9,9 +9,9 @@
       />
       <GridLayout
         class="new-marker-menu"
-        rows="100, auto, 48, auto, 48, auto, 64"
+        rows="64, auto, 48, auto, 48, auto, 64"
         columns="*"
-      > 
+      >
         <GroupsList
           class="group-list"
           row="0"
@@ -20,7 +20,7 @@
           :listWidth="120"
           @selected-group="setGroup"
         />
-        <Label 
+        <Label
           v-if="hasGroupError"
           row="1"
           class="new-marker-menu_error"
@@ -36,18 +36,18 @@
           @on-text-change="setId"
           @on-return-press="enabledFab"
         />
-        <Label 
+        <Label
           v-if="hasIdError"
           row="3"
           class="new-marker-menu_error"
           :text="$t('lang.components.newMarker.idError')"
         />
-        <ColorSelector 
+        <ColorSelector
           row="4"
           :labelWidth="64"
           @on-selected-color="setColor"
         />
-        <Label 
+        <Label
           v-if="hasColorError"
           row="5"
           class="new-marker-menu_error"
@@ -55,7 +55,8 @@
         />
         <StackLayout
           row="6"
-          class="new-marker-menu_buttons p-r-16"
+          class="new-marker-menu_buttons"
+          width="100%"
           orientation="horizontal"
           horizontalAlignment="right"
         >
@@ -66,9 +67,9 @@
             verticalAlignment="center"
             @tap="onCancel"
           /> -->
-          <MDButton 
-            class="new-marker-menu_button_cancel m-l-0"
-            width="96"
+          <MDButton
+            class="new-marker-menu_button_cancel"
+            width="144"
             :text="$t('lang.components.newMarker.cancelButton')"
             borderColor="#007a70"
             borderWidth="1"
@@ -76,11 +77,11 @@
           />
           <MDButton
             class="new-marker-menu_button_add m-r-0"
-            width="96"
+            width="144"
             :text="$t('lang.components.newMarker.addButton')"
             @tap="onAdd"
           />
-        </StackLayout> 
+        </StackLayout>
       </GridLayout>
     </StackLayout>
   </Page>
@@ -94,7 +95,6 @@ import { setNewMarker, getMarker } from '@/store/markers'
 import GroupsList from '@/components/Markers/GroupsList.vue'
 import TextForm from '@/components/UI/TextForm.vue'
 import ColorSelector from '@/components/UI/ColorSelector.vue'
-import NewArea from '@/components/Map/NewArea.vue'
 
 export default Vue.extend({
   name: 'NewMarker',
@@ -102,7 +102,6 @@ export default Vue.extend({
     GroupsList,
     TextForm,
     ColorSelector,
-    NewArea,
   },
   props: {
     isCanceled: {
@@ -184,6 +183,7 @@ export default Vue.extend({
     },
     onCancel() {
       console.log('onCancel()')
+      this.reset()
       this.$emit('on-marker-cancel')
     },
     async onAdd() {
@@ -191,7 +191,7 @@ export default Vue.extend({
       await this.isValid().then(() => {
         if (this.hasError === null) this.$emit('on-marker-done', this.marker)
         else return
-      })      
+      })
     },
   },
 })
@@ -213,6 +213,7 @@ export default Vue.extend({
 .new-marker-menu_button_cancel {
   color: $primary;
   background-color: white;
+  text-align: center;
 }
 .new-marker-menu_button_add {
 
