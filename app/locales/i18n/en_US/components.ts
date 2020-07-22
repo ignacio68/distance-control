@@ -7,14 +7,16 @@ export default {
     id: "Name:",
     groupError: "The marker needs a group",
     idError: "Missing the name",
-    colorError: "Please, choose a color",
     group: "Group: ",
     cancelButton: "Cancel",
     addButton: "Add"
   },
   newArea: {
+    title: "New Area",
     distance: "Distance",
-    opacity: "Opacity"
+    opacity: "Opacity",
+    cancelButton: "Cancel",
+    addButton: "Add"
   },
   colorSelector: {
     text: "Color:"

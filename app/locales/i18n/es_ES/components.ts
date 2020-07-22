@@ -7,14 +7,16 @@ export default {
     id: "Nombre:",
     groupError: "El marcador necesita un grupo",
     idError: "Hace falta un nombre",
-    colorError: "Por favor, elige un color",
     group: "Grupo: ",
     cancelButton: "Cancelar",
     addButton: "Añadir"
   },
   newArea: {
-    distance: "Distance",
-    opacity: "Opacity"
+    title: "Nuevo Area",
+    distance: "Distancia",
+    opacity: "Opacidad",
+    cancelButton: "Cancelar",
+    addButton: "Añadir"
   },
   colorSelector: {
     text: "Color:"
