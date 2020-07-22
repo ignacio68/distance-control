@@ -24,7 +24,7 @@
       <NewMarker
         class="newMarker m-16"
         backgroundColor="white"
-        @enabled-fab="onEnabledFab"
+        @enabled-fab="isEnabledFAB"
         @on-marker-cancel="hideBottomSheet()"
         @on-marker-done="newMarker"
       />
@@ -62,6 +62,7 @@ import {  addSource,
 // import { setStorage } from '@/api/storage'
 import { Color } from '@nativescript/core/color'
 import { screen } from '@nativescript/core/platform'
+
 import { CubicBezierAnimationCurve } from  '@nativescript/core/ui/animation'
 
 import { Marker, PolygonOptions } from '@/utils/types'
@@ -103,6 +104,7 @@ export default Vue.extend({
       //   lng: '0',
       // },
       // map: void 0,
+      screenHeight: screen.mainScreen.heightDIPs,
       radius: 1,
       fillOpacity: 5,
       activeUser: null,
@@ -147,8 +149,8 @@ export default Vue.extend({
   },
 
   methods: {
-    onEnabledFab(bool) {
-      console.log(`onEnabledFab(): ${bool}`)
+    isEnabledFAB(bool) {
+      console.log(`isEnabledFAB(): ${bool}`)
       this.$emit('enabled-fab', bool)
     },
     // onRadiusChange(value) {
@@ -157,19 +159,18 @@ export default Vue.extend({
 
     /***** BOTTOM SHEET *****/
     loadBottomSheet() {
-      this.bottomSheet.translateY = screen.mainScreen.heightDIPs
+      this.bottomSheet.translateY = this.screenHeight
     },
     showBottomSheet() {
-      this.bottomSheet.animate({
-        duration: 1000,
-        translate: { x: 0, y: screen.mainScreen.heightDIPs - 500 },
-        curve: new CubicBezierAnimationCurve(.44, .63, 0, 1)
-      })
+      this.animationBottomSheet(600)
     },
     hideBottomSheet() {
+      this.animationBottomSheet(0)
+    },
+    animationBottomSheet(height: number) {
       this.bottomSheet.animate({
         duration: 1000,
-        translate: { x: 0, y: screen.mainScreen.heightDIPs },
+        translate: { x: 0, y: this.screenHeight - height },
         curve: new CubicBezierAnimationCurve(.44, .63, 0, 1)
       })
     },
