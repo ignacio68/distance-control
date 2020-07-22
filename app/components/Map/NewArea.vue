@@ -3,7 +3,7 @@
     <StackLayout orientation="vertical">
       <Label
         class="menu_title"
-        :text="$t('lang.components.newMarker.title')"
+        :text="$t('lang.components.newArea.title')"
         height="32"
         borderColor="#00251e"
       />
@@ -15,7 +15,7 @@
         <CustomSlider
           class="radius-slider"
           row="0"
-          sliderName="$t('lang.components.newArea.distance')"
+          :sliderName="$t('lang.components.newArea.distance')"
           :minValue="0"
           :maxValue="100"
           :value="radius"
@@ -43,9 +43,9 @@
           horizontalAlignment="right"
         >
           <MDButton
-            class="new-ares-menu_button_cancel"
+            class="new-area-menu_button_cancel"
             width="144"
-            :text="$t('lang.components.newMarker.cancelButton')"
+            :text="$t('lang.components.newArea.cancelButton')"
             borderColor="#007a70"
             borderWidth="1"
             @tap="onCancel"
@@ -53,7 +53,7 @@
           <MDButton
             class="new-area-menu_button_add m-r-0"
             width="144"
-            :text="$t('lang.components.newMarker.addButton')"
+            :text="$t('lang.components.newArea.addButton')"
             @tap="onAdd"
           />
         </StackLayout>
