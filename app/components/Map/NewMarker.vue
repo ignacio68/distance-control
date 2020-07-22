@@ -9,7 +9,7 @@
       />
       <GridLayout
         class="new-marker-menu"
-        rows="64, auto, 48, auto, 48, auto, 64"
+        rows="64, auto, 48, auto, 64"
         columns="*"
       >
         <GroupsList
@@ -42,31 +42,13 @@
           class="new-marker-menu_error"
           :text="$t('lang.components.newMarker.idError')"
         />
-        <ColorSelector
-          row="4"
-          :labelWidth="64"
-          @on-selected-color="setColor"
-        />
-        <Label
-          v-if="hasColorError"
-          row="5"
-          class="new-marker-menu_error"
-          :text="$t('lang.components.newMarker.colorError')"
-        />
         <StackLayout
-          row="6"
+          row="4"
           class="new-marker-menu_buttons"
           width="100%"
           orientation="horizontal"
           horizontalAlignment="right"
         >
-          <!-- <Label
-            class="new-marker-menu_button_cancel"
-            :text="$t('lang.components.newMarker.cancelButton')"
-            width="100"
-            verticalAlignment="center"
-            @tap="onCancel"
-          /> -->
           <MDButton
             class="new-marker-menu_button_cancel"
             width="144"
@@ -94,14 +76,12 @@ import { setNewMarker, getMarker } from '@/store/markers'
 
 import GroupsList from '@/components/Markers/GroupsList.vue'
 import TextForm from '@/components/UI/TextForm.vue'
-import ColorSelector from '@/components/UI/ColorSelector.vue'
 
 export default Vue.extend({
   name: 'NewMarker',
   components: {
     GroupsList,
     TextForm,
-    ColorSelector,
   },
   props: {
     isCanceled: {
@@ -112,7 +92,7 @@ export default Vue.extend({
   data() {
     return {
       markerValue: '',
-      markerColor: null,
+
       marker: {
         id: null,
         coordinates: {
@@ -122,20 +102,9 @@ export default Vue.extend({
         group: null,
         color: null,
       },
-      area: {
-        id: '',
-        center: {
-          lat: '',
-          lng: '',
-        },
-        radius: 1,
-        color: '',
-        opacity: .5,
-        group: '',
-      },
       hasGroupError: false,
       hasIdError: false,
-      hasColorError: false
+
     }
   },
   watch: {
@@ -144,8 +113,7 @@ export default Vue.extend({
   methods: {
     reset() {
       this.marker.id = null,
-      this.group = null,
-      this.color = null
+      this.group = null
     },
     enabledFab() {
       this.$emit('enabled-fab', true)
@@ -153,27 +121,19 @@ export default Vue.extend({
     setId(id) {
       console.log(`id: ${id}`)
       this.marker.id = id
-      this.hasIdError = null
+      this.hasIdError = false
       this.$emit('enabled-fab', false)
     },
     setGroup(group) {
       console.log(`group: ${group}`)
       this.marker.group = group
-      this.hasGroupError = null
-    },
-    setColor(color) {
-      console.log(`color: ${color.name}`)
-      // TODO: remove for production
-      this.markerColor = color
-      this.marker.color = color.color
-      this.hasColorError = null
+      this.hasGroupError = false
     },
     isValid() {
       console.log('isValid()')
       const isValid = Promise.resolve(
-        this.marker.group === null ? this.hasGroupError = true :
-          this.marker.id === null || undefined ? this.hasIdError = true :
-            this.marker.color === null ? this.hasColorError = true : console.log('There are nort errors')
+        !this.marker.group ? this.hasGroupError = true :
+          !this.marker.id || undefined ? this.hasIdError = true : console.log('There are nort errors')
       )
       return isValid
     },
@@ -184,12 +144,12 @@ export default Vue.extend({
     onCancel() {
       console.log('onCancel()')
       this.reset()
-      this.$emit('on-marker-cancel')
+      this.$emit('on-new-marker-cancel')
     },
     async onAdd() {
       console.log('onAdd()')
       await this.isValid().then(() => {
-        if (this.hasError === null) this.$emit('on-marker-done', this.marker)
+        if (this.hasError === null) this.$emit('on-new-marker-done', this.marker)
         else return
       })
     },
@@ -215,8 +175,4 @@ export default Vue.extend({
   background-color: white;
   text-align: center;
 }
-.new-marker-menu_button_add {
-
-}
-
 </style>
