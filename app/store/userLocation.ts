@@ -8,17 +8,17 @@ const state = Vue.observable({
     }
 })
 
-export const getOriginLocation = (): InitialCoordinates => {
+export const getOriginLocation = () => {
     const originLocation: InitialCoordinates = {
         lat: String(state.currentUserLocation.lat),
         lng: String(state.currentUserLocation.lng)
     }
     return originLocation
 }
+
 export const getCurrentUserLocation = () => state.currentUserLocation
 
 export const setCurrentUserLocation = (coordinates: Coordinates) => {
-    // state.currentUserLocation = coordinates
     state.currentUserLocation.lat = coordinates.lat
     state.currentUserLocation.lng = coordinates.lng
 }

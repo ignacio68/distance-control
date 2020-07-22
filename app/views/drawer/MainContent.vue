@@ -16,7 +16,6 @@
           @tap-search="onTapSearch"
           @tap-overflow-menu="onTapOverflowMenu"
         />
-        <!-- <Frame row="0"> -->
         <Map
           class="Map"
           row="1"
@@ -24,7 +23,6 @@
           :isMarkerMenuShowing="isMarkerMenuShowing"
           @enabled-fab="onEnabledFab"
         />
-        <!-- </Frame> -->
         <BottomAppBar
           class="BottomBar"
           row="2"
@@ -34,7 +32,7 @@
           row="2"
           class="add-marker"
           rippleColor="white"
-          :isEnabled="isEnabledFab"
+          :isEnabled="isEnabledFAB"
           :elevation="elevationFAB"
           src="res://ic_person_pin_white_24dp"
           @tap="showMarkerMenu"
@@ -70,7 +68,7 @@ export default Vue.extend({
     return {
       isVisible: false,
       isMarkerMenuShowing: false,
-      isEnabledFab: true,
+      isEnabledFAB: true,
       elevationFAB: Elevation.FAB_RESTING
     }
   },
@@ -82,8 +80,8 @@ export default Vue.extend({
   },
   methods: {
     onEnabledFab(bool) {
-      this.isEnabledFab = bool
-      console.log(`isEnabledFab: ${this.isEnabledFab}`)
+      this.isEnabledFAB = bool
+      console.log(`isEnabledFAB: ${this.isEnabledFAB}`)
     },
 
     backEvent() {
