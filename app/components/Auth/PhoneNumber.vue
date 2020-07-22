@@ -9,18 +9,18 @@
       class="flags-list-result"
       columns="*, auto"
       rows="*"
-      col="0" 
+      col="0"
       row="0"
       orientation="horizontal"
       @tap="onTapPrefix"
     >
       <Image
         class="flags-list-result__flag m-l-16"
-        verticalAlignment="center" 
+        verticalAlignment="center"
         row="0"
         col="0"
-        :src="flag" 
-        stretch="none" 
+        :src="flag"
+        stretch="none"
       />
       <Label
         v-model="prefix"
@@ -37,7 +37,7 @@
       class="phone-number m-x-0"
       col="1"
       row="0"
-      keyboardType="number"
+      keyboardType="phone"
       borderBottomRightRadius="16"
       borderTopRightRadius="16"
       borderColor="#d1dbdd"
@@ -134,7 +134,7 @@ export default Vue.extend({
       // const fullPhoneNumber = this.prefix + this.phoneNumber
       console.log(`nº de teléfono: ${this.fullPhoneNumber}`)
       // setPhoneNumber(fullPhoneNumber.value)
-      this.$emit('do-login', this.fullPhoneNumber)   
+      this.$emit('do-login', this.fullPhoneNumber)
     },
     onFocus() {
       console.log('onFocus()')
@@ -147,7 +147,7 @@ export default Vue.extend({
     /***** ANIMATION *****/
     showFlagslist(){
       const range: AnimationRange = {
-          from: 0, 
+          from: 0,
           to: 280
         }
         this.animationList(range)
@@ -155,11 +155,11 @@ export default Vue.extend({
     hideFlagslist() {
       // TODO: Reverse the animation curve
        const range: AnimationRange = {
-          from: 280,           
+          from: 280,
           to: 0
         }
         this.animationList(range)
-    },    
+    },
     animationList(range: AnimationRange) {
       const flagsListView = this.$refs.flagsList.nativeView
 
@@ -169,7 +169,7 @@ export default Vue.extend({
         },
         curve: d3.easeCubicInOut,
         step: v => flagsListView.height = v
-          
+
       }
       animate(500, [def1]).then(() => {
         if( range.to <= 0) this.isFlagsListVisible = false
@@ -196,7 +196,7 @@ export default Vue.extend({
 .flags-list-result {
   background-color: $surface;
   border-radius: $border-radius, 0, 0, $border-radius;
- 
+
 }
 .flags-list-result__prefix {
   font-weight: bold;
@@ -214,7 +214,7 @@ export default Vue.extend({
   font-size: $font-sz-m;
   background-color: $surface;
   height: 100%;
-  
+
   &[text] {
     padding-left: 8;
     color: $primary-variant;
