@@ -4,12 +4,12 @@
     backgroundSpanUnderStatusBar="false"
   >
     <GridLayout
-      rows="auto, *"
+      rows="*"
       class="map"
     >
       <MapBox
         ref="map"
-        row="1"
+        row="0"
         left="0"
         top="0"
         width="100%"
@@ -27,9 +27,9 @@
         @mapReady="onMapReady"
       />
       <MDFloatingActionButton
-        ref="fab"
-        row="1"
-        class="fab m-16"
+        ref="locationFAB"
+        row="0"
+        class="location_fab m-16"
         rippleColor="white"
         :elevation="elevationFAB"
         src="res://ic_my_location_white_24dp"
@@ -38,7 +38,7 @@
       <MDFloatingActionButton
         ref="mapStyle"
         row="1"
-        class="map-style m-r-16 m-b-64"
+        class="map-style_fab m-r-16 p-b-64"
         rippleColor="white"
         :elevation="elevationFAB"
         src="res://ic_map_black_24dp"
@@ -107,7 +107,7 @@ export default Vue.extend({
       this.$emit('on-map-ready', e)
     },
     setCenter(e) {
-      this.$refs.fab.nativeView.elevation = Elevation.FAB_PRESSED
+      this.$refs.locationFAB.nativeView.elevation = Elevation.FAB_PRESSED
       this.$emit('set-center', e)
     },
     changeMapStyle() {
@@ -123,13 +123,13 @@ export default Vue.extend({
 <style lang="scss" scoped>
   @import '../../app-variables';
 
-  .fab {
+  .location_fab {
     background-color: $background;
     color:$secondary;
     horizontal-align:  right;
     vertical-align: top;
   }
-  .map-style{
+  .map-style_fab{
     background-color: $background;
     color: $secondary;
     horizontal-align:  right;
