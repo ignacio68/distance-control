@@ -4,12 +4,15 @@
     backgroundSpanUnderStatusBar="false"
   >
     <GridLayout
+      columns="*, auto"
       rows="*"
       class="map"
     >
       <MapBox
         ref="map"
         row="0"
+        col="0"
+        colSpan="2"
         left="0"
         top="0"
         width="100%"
@@ -26,24 +29,32 @@
         :showUserLocation="true"
         @mapReady="onMapReady"
       />
-      <MDFloatingActionButton
-        ref="locationFAB"
+      <GridLayout
+        class="right-menu"
+        rows="auto, auto"
+        columns="auto"
         row="0"
-        class="location_fab m-16"
-        rippleColor="white"
-        :elevation="elevationFAB"
-        src="res://ic_my_location_white_24dp"
-        @tap="setCenter"
-      />
-      <MDFloatingActionButton
-        ref="mapStyle"
-        row="1"
-        class="map-style_fab m-r-16 p-b-64"
-        rippleColor="white"
-        :elevation="elevationFAB"
-        src="res://ic_map_black_24dp"
-        @tap="changeMapStyle"
-      />
+        col="1"
+      >
+        <MDFloatingActionButton
+          ref="locationFAB"
+          row="0"
+          class="location_fab m-t-48 m-r-16"
+          rippleColor="white"
+          :elevation="elevationFAB"
+          src="res://ic_my_location_white_24dp"
+          @tap="setCenter"
+        />
+        <MDFloatingActionButton
+          ref="mapStyle"
+          row="1"
+          class="map-style_fab m-r-16 m-t-64"
+          rippleColor="white"
+          :elevation="elevationFAB"
+          src="res://ic_map_black_24dp"
+          @tap="changeMapStyle"
+        />
+      </GridLayout>
     </GridLayout>
   </Page>
 </template>
@@ -123,6 +134,9 @@ export default Vue.extend({
 <style lang="scss" scoped>
   @import '../../app-variables';
 
+  .right-menu {
+    background-color: transparent;
+  }
   .location_fab {
     background-color: $background;
     color:$secondary;
