@@ -46,7 +46,7 @@
             class="add-new-area m-t-0"
             rippleColor="white"
             :elevation="elevationFAB"
-            src="res://ic_person_pin_white_24dp"
+            src="res://ic_adjust_white_24dp"
             @tap="showNewAreaMenu"
           />
         </GridLayout>
@@ -61,7 +61,7 @@
           rippleColor="white"
           :isEnabled="isEnabledFAB"
           :elevation="elevationFAB"
-          src="res://ic_person_pin_white_24dp"
+          src="res://ic_add_circle_white_24dp"
           @tap="showFABMenu"
         />
       </GridLayout>
@@ -181,6 +181,6 @@ export default Vue.extend({
   height: 56;
   width: 56;
   color: $onPrimary;
-  background-color: #644113;
+  background-color: #a53c36;
 }
 </style>
