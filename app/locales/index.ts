@@ -46,10 +46,16 @@ export const i18n = new VueI18n({
   numberFormats
 })
 
-// Set app language
-export const setLanguage = () => {
+// Get device language
+export const getLanguage = (): string => {
   const val = device.language
-    const lang = val.slice(0, 2)
+  const lang = val.slice(0, 2)
+  return lang
+}
+
+// Set app language
+export const setLanguage = (): void => {
+    const lang = getLanguage()
     if (lang) {
       i18n.locale = lang
       console.log("El idioma del navegador es: " + val)
