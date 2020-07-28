@@ -23,3 +23,9 @@ v.registerElement(
   'RadSideDrawer',
   () => require('nativescript-ui-sidedrawer').RadSideDrawer
 )
+
+// Autocomplete
+v.registerElement(
+  'RadAutoComplete',
+  () => require('nativescript-ui-autocomplete').RadAutoComplete
+)
