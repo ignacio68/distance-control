@@ -58,7 +58,7 @@ export const setLanguage = (): void => {
     const lang = getLanguage()
     if (lang) {
       i18n.locale = lang
-      console.log("El idioma del navegador es: " + val)
+      console.log("El idioma del navegador es: " + lang)
     } else {
       console.log("No se encuentra el idioma del navegador")
     }

@@ -31,15 +31,33 @@
       />
       <GridLayout
         class="right-menu"
-        rows="auto, auto"
+        rows="auto, auto, auto"
         columns="auto"
         row="0"
         col="1"
       >
+        <GeocoderFake
+          class="search-location_bar m-16"
+          row="0"
+          :hint="$t('lang.components.geocoder.hint')"
+           :textFieldWidth="200"
+          :maxLengthText="360"
+          @on-location-search="locationSearchResult"
+        />
+        <!-- <Geocoder
+          class="search-location_bar m-16"
+          row="0"
+          :minimumCharactersToSearch="3"
+          :hint="$t('lang.components.geocoder.hint')"
+          :noResultsText="$t('lang.components.geocoder.noResultsText')"
+          :textFieldWidth="200"
+          :maxLengthText="360"
+          @on-location-search="locationSearchResult"
+        /> -->
         <MDFloatingActionButton
           ref="locationFAB"
-          row="0"
-          class="location_fab m-t-48 m-r-16"
+          row="1"
+          class="location_fab m-t-64 m-r-16"
           rippleColor="white"
           :elevation="elevationFAB"
           src="res://ic_my_location_white_24dp"
@@ -47,7 +65,7 @@
         />
         <MDFloatingActionButton
           ref="mapStyle"
-          row="1"
+          row="2"
           class="map-style_fab m-r-16 m-t-64"
           rippleColor="white"
           :elevation="elevationFAB"
@@ -62,6 +80,9 @@
 <script lang="ts">
 import Vue from 'vue'
 
+import Geocoder from '@/components/Map/Geocoder.vue'
+import GeocoderFake from '@/components/Map/GeocoderFake.vue'
+
 import { setMap, getMap as map } from '@/store/map'
 import { Elevation } from '@/utils/elevations'
 
@@ -72,6 +93,10 @@ Vue.use(FloatingActionButtonPlugin);
 
 export default Vue.extend({
   name: 'MapComponent',
+  components: {
+    // Geocoder,
+    GeocoderFake,
+  },
   props: {
     accessToken: {
       type: String,
@@ -108,7 +133,7 @@ export default Vue.extend({
     }
   },
   mounted() {
-      // this.mapStyle = this.customMapStyle |
+    // this.map.setMapStyle(this.customMapStyle) || this.map.setMapStyle(this.defaultMapStyle)
     },
   methods: {
      onMapReady(e) {
@@ -116,6 +141,9 @@ export default Vue.extend({
       const map = e.map
       setMap(map)
       this.$emit('on-map-ready', e)
+    },
+    locationSearchResult(result){
+      console.log(`locationSearchResult: ${JSON.stringify(result)}`)
     },
     setCenter(e) {
       this.$refs.locationFAB.nativeView.elevation = Elevation.FAB_PRESSED
@@ -136,6 +164,9 @@ export default Vue.extend({
 
   .right-menu {
     background-color: transparent;
+  }
+  .search-location_bar{
+    border-radius: 16;
   }
   .location_fab {
     background-color: $background;

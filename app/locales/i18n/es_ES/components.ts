@@ -20,5 +20,9 @@ export default {
   },
   colorSelector: {
     text: "Color:"
-  }
+  },
+  geocoder: {
+    hint: "Buscar...",
+    noResultsText: "No se han encontrado resultados"
+  },
 }

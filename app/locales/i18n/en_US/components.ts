@@ -20,5 +20,9 @@ export default {
   },
   colorSelector: {
     text: "Color:"
-  }
+  },
+  geocoder: {
+    hint: "Search...",
+    noResultsText: "No match results"
+  },
 }

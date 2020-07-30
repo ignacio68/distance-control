@@ -74,7 +74,7 @@ module.exports = (env) => {
   alias['~'] = appFullPath
   alias['@'] = appFullPath
   alias['vue'] = 'nativescript-vue'
-  
+
   alias['@store'] = resolve(appFullPath, '/store')
 
   if (hasRootLevelScopedModules) {
@@ -179,6 +179,10 @@ module.exports = (env) => {
       setImmediate: false,
       fs: 'empty',
       __dirname: false,
+      // Added for mapbox-sdk running
+      tls: 'empty',
+      net: 'empty',
+      dns: 'empty',
     },
     devtool: hiddenSourceMap
       ? 'hidden-source-map'
