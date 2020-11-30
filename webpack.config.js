@@ -183,6 +183,8 @@ module.exports = (env) => {
       tls: 'empty',
       net: 'empty',
       dns: 'empty',
+      // http2: 'empty',
+      // process: 'empty',
     },
     devtool: hiddenSourceMap
       ? 'hidden-source-map'
