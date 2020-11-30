@@ -1,12 +1,12 @@
 <template>
-  <Page 
+  <Page
     actionBarHidden="true"
     androidStatusBarBackground="#00251e"
   >
     <RadSideDrawer ref="drawer">
       <DrawerContent ~drawerContent />
       <MainContent
-        ~mainContent 
+        ~mainContent
         @on-tap-drawer-menu="$refs.drawer.nativeView.showDrawer()"
       />
     </RadSideDrawer>
@@ -16,8 +16,8 @@
 <script lang="ts">
 import { ref, defineComponent } from '@vue/composition-api'
 
-import MainContent from './drawer/MainContent.vue'
-import DrawerContent from './drawer/DrawerContent.vue'
+import MainContent from './Drawer/MainContent.vue'
+import DrawerContent from './Drawer/DrawerContent.vue'
 
 export default defineComponent({
   name: 'AppNavigator',
