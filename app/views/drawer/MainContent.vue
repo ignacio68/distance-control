@@ -26,7 +26,7 @@
           @enabled-fab="onEnabledFAB"
         />
         <GridLayout
-          v-if="isFABMEnuShowing"
+          v-if="isFABMenuShowing"
           class="FAB-menu m-b-0"
           row="2"
           columns="56, *, 56"
@@ -94,7 +94,7 @@ export default Vue.extend({
   data() {
     return {
       isVisible: false,
-      isFABMEnuShowing: false,
+      isFABShowing: false,
       isNewMarkerMenuShowing: false,
       isNewAreaMenuShowing: false,
       isEnabledFAB: true,
@@ -114,7 +114,7 @@ export default Vue.extend({
     },
 
     backEvent() {
-      console.log('Has presionado el boton de volver de Android!!')
+      console.log('Has presionado el botón de volver de Android!!')
       application.android.foregroundActivity.finish();
     },
     onTapVisibility() {
