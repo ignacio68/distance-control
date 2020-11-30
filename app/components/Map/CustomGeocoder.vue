@@ -45,7 +45,7 @@ import { geocoder } from '@/services/geocoderService'
 import { mapToken } from '@/setup/map'
 
 export default Vue.extend({
-  name: "GeocoderFake",
+  name: "CustomGeocoder",
   props: {
     textFieldWidth: {
       type: Number,

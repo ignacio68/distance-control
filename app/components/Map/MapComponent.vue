@@ -36,11 +36,11 @@
         row="0"
         col="1"
       >
-        <GeocoderFake
+        <CustomGeocoder
           class="search-location_bar m-16"
           row="0"
           :hint="$t('lang.components.geocoder.hint')"
-           :textFieldWidth="200"
+          :textFieldWidth="200"
           :maxLengthText="360"
           @on-location-search="locationSearchResult"
         />
@@ -81,7 +81,7 @@
 import Vue from 'vue'
 
 import Geocoder from '@/components/Map/Geocoder.vue'
-import GeocoderFake from '@/components/Map/GeocoderFake.vue'
+import CustomGeocoder from '@/components/Map/CustomGeocoder.vue'
 
 import { setMap, getMap as map } from '@/store/map'
 import { Elevation } from '@/utils/elevations'
@@ -95,7 +95,7 @@ export default Vue.extend({
   name: 'MapComponent',
   components: {
     // Geocoder,
-    GeocoderFake,
+    CustomGeocoder,
   },
   props: {
     accessToken: {
