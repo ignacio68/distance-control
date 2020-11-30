@@ -1,8 +1,18 @@
 {
   "files.exclude": {
-    "**/.classpath": true,
-    "**/.project": true,
-    "**/.settings": true,
-    "**/.factorypath": true
-  }
+    "schema": true
+  },
+  "NativescriptExtend.fileAssociations": [
+    {
+      "systemId": "c:\\Users\\Ignacio\\Documents\\Code\\distance-control\\schema\\tns.xsd",
+      "pattern": "**/**/*.xml"
+    },
+    {
+      "systemId": "http://www.w3.org/2001/XMLSchema.xsd",
+      "pattern": "c:\\Users\\Ignacio\\Documents\\Code\\distance-control\\schema\\tns.xsd"
+    }
+  ],
+  "NativescriptExtend.format.enabled": true,
+  "NativescriptExtend.validation.enabled": true,
+  "prettier.vueIndentScriptAndStyle": true
 }
