@@ -1,20 +1,8 @@
 <template>
-  <GridLayout
-    class="customSlider"
-    columns="100,*"
-    color="black"
-  >
-    <Label
-      col="0"
-      class="customSlider_name"
-      :text="sliderName"
-    />
-    <GridLayout
-      col="1"
-      rows="24, 24"
-      columns="100, *, 100"
-    >
-      <MDSlider 
+  <GridLayout class="customSlider" columns="100,*" color="black">
+    <Label col="0" class="customSlider_name" :text="sliderName" />
+    <GridLayout col="1" rows="24, 24" columns="100, *, 100">
+      <MDSlider
         v-model="value"
         col="0"
         row="0"
@@ -76,20 +64,20 @@ export default Vue.extend({
 </script>
 
 <style lang="scss" scoped>
-  .customSlider_name {
-    padding {
-      right: 8;
-    }
-    font-size: 16;
+.customSlider_name {
+  padding {
+    right: 8;
   }
-  .customSlider_minValue {
-    padding {
-      left: 24;
-    }
+  font-size: 16;
+}
+.customSlider_minValue {
+  padding {
+    left: 24;
   }
-  .customSlider_maxValue {
-    paddinf {
-      right: 24;
-    }
+}
+.customSlider_maxValue {
+  padding {
+    right: 24;
   }
+}
 </style>
